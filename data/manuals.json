@@ -1,0 +1,29 @@
+[
+  {
+    "document_id": "c9300_iosxe26_vlan_cg",
+    "title": "VLAN Configuration Guide",
+    "filename": "c9300_iosxe26_vlan_cg.pdf",
+    "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg.pdf",
+    "sha256": "ffc89af9bed9ed1532577febe5b8c5b0a6f31a6256304fb12927d9f1c0b397d3",
+    "size_bytes": 3390762,
+    "downloaded_at": "2026-09-07T10:35:23.519139+00:00"
+  },
+  {
+    "document_id": "c9300_iosxe26_int_hw_cg",
+    "title": "Interface and Hardware Components Configuration Guide",
+    "filename": "c9300_iosxe26_int_hw_cg.pdf",
+    "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg.pdf",
+    "sha256": "bdc68218eabd83078a7baf283f9b7c5b2d1d7364a041b2b6d7ec88e792e6f771",
+    "size_bytes": 3440338,
+    "downloaded_at": "2026-09-07T10:35:24.135710+00:00"
+  },
+  {
+    "document_id": "c9300_iosxe26_sys_mgmt_cg",
+    "title": "System Management Configuration Guide",
+    "filename": "c9300_iosxe26_sys_mgmt_cg.pdf",
+    "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/sys_mgmt/b_26x_sys_mgmt_9300_cg.pdf",
+    "sha256": "75e956eea3e0565c9fd46c1f931c5b36e12e107b3d2517d2ab7fb61e04e12ce1",
+    "size_bytes": 4686354,
+    "downloaded_at": "2026-09-07T10:35:24.958707+00:00"
+  }
+]

@@ -1,0 +1,11 @@
+.venv/
+.uv-cache/
+__pycache__/
+.pytest_cache/
+.env
+*.py[cod]
+
+# Local documents and generated indexes
+data/raw/
+data/processed/
+*.pdf
