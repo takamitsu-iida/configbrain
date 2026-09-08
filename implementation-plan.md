@@ -204,13 +204,25 @@ HTMLのレイアウトノイズを除去し、生成AIへ渡す候補ブロッ�
 
 別環境でこれを実行する
 
-```
+```bash
 cd /home/iida/git/configbrain
 uv sync
 uv run python -m playwright install chromium
-uv run python -m pytest tests/test_rendered_html_loader.py -q
-uv run python scripts/index_html_manuals.py
+uv run pytest -q tests/test_rendered_html_loader.py
+uv run python scripts/index_html_manuals.py --all --rendered --dry-run
 ```
+
+以下が生成されていることを確認する
+
+```bash
+find data -maxdepth 4 -type f | sort
+```
+
+- data/raw/html/
+- data/raw/rendered_html/
+- data/raw/html_fetches.jsonl
+- data/processed/html_blocks.jsonl
+- data/processed/html_llm_candidates.jsonl
 
 できたdataディレクトリ以下をコピーする。
 
