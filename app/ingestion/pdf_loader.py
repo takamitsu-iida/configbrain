@@ -31,7 +31,7 @@ class PdfLoader:
         with pymupdf.open(self.path) as document:
             previous_section: str | None = None
             for page_index, page in enumerate(document, start=1):
-                text = page.get_text("text").strip()
+                text = _clean_page_text(page.get_text("text"))
                 headings = tuple(_find_headings(text))
                 section_title = headings[0] if headings else previous_section
                 if section_title:
@@ -54,6 +54,24 @@ def _find_headings(text: str) -> list[str]:
         if _looks_like_heading(candidate, is_indented=line[:1].isspace()):
             headings.append(candidate)
     return headings
+
+
+def _clean_page_text(text: str) -> str:
+    lines = []
+    for line in text.splitlines():
+        normalized = " ".join(line.split())
+        if not normalized or _is_noise_line(normalized):
+            continue
+        lines.append(line.rstrip())
+    return "\n".join(lines).strip()
+
+
+def _is_noise_line(line: str) -> bool:
+    if "Configuration Guide, Cisco IOS XE" in line:
+        return True
+    if re.search(r"\.{2,}\s*\d+\s*$", line):
+        return True
+    return line.casefold() in {"contents", "table of contents"}
 
 
 def _looks_like_heading(line: str, *, is_indented: bool = False) -> bool:

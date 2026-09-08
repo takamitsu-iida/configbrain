@@ -98,7 +98,7 @@ class QdrantIndexer:
 
 
 def _chunk_ids(chunks: Sequence[Chunk]) -> list[str]:
-    occurrences: Counter[tuple[str, int, str, str, str]] = Counter()
+    occurrences: Counter[tuple[str, int | None, str, str, str, str]] = Counter()
     point_ids: list[str] = []
     for chunk in chunks:
         digest = hashlib.sha256(chunk.text.encode("utf-8")).hexdigest()
@@ -108,6 +108,7 @@ def _chunk_ids(chunks: Sequence[Chunk]) -> list[str]:
             chunk.section_title or "",
             chunk.content_type,
             digest,
+            chunk.section_url or "",
         )
         occurrence = occurrences[key]
         occurrences[key] += 1
@@ -119,12 +120,12 @@ def _chunk_id(chunk: Chunk, digest: str, occurrence: int) -> str:
     return str(
         uuid5(
             UUID("7f5c6a91-2eb1-4ebc-a4c4-6a47d4f6c2b5"),
-            f"{chunk.document_id}:{chunk.page_number}:{chunk.section_title or ''}:{chunk.content_type}:{occurrence}:{digest}",
+            f"{chunk.document_id}:{chunk.page_number}:{chunk.section_title or ''}:{chunk.content_type}:{chunk.section_url or ''}:{occurrence}:{digest}",
         )
     )
 
 
-def _payload(chunk: Chunk, metadata: DocumentMetadata) -> dict[str, str | int]:
+def _payload(chunk: Chunk, metadata: DocumentMetadata) -> dict[str, str | int | None]:
     return {
         "document_id": chunk.document_id,
         "vendor": metadata.vendor,
@@ -135,6 +136,7 @@ def _payload(chunk: Chunk, metadata: DocumentMetadata) -> dict[str, str | int]:
         "document_version": metadata.document_version,
         "section_title": chunk.section_title or "",
         "page_number": chunk.page_number,
+        "section_url": chunk.section_url or "",
         "source_url": metadata.source_url,
         "content_type": chunk.content_type,
         "ingested_at": datetime.now(timezone.utc).isoformat(),

@@ -53,3 +53,27 @@ def test_pdf_loader_extracts_headings_code_and_tables(tmp_path: Path) -> None:
     assert page_record.tables == (
         (("Command", "Purpose"), ("no shutdown", "Enable port")),
     )
+
+
+def test_pdf_loader_removes_header_and_table_of_contents_lines(tmp_path: Path) -> None:
+    pdf_path = tmp_path / "noisy-manual.pdf"
+    document = pymupdf.open()
+    page = document.new_page()
+    page.insert_text(
+        (72, 72),
+        "VLAN Configuration Guide, Cisco IOS XE 26.x.x\n"
+        "(Catalyst 9300 Switches)\n"
+        "Contents\n"
+        "Creating or Modifying an Ethernet VLAN ........ 42\n"
+        "Configuring VLANs\n"
+        "Use the vlan command to create a VLAN.",
+    )
+    document.save(pdf_path)
+    document.close()
+
+    page_record = PdfLoader(pdf_path, "test_document").load()[0]
+
+    assert "Configuration Guide" not in page_record.text
+    assert "Contents" not in page_record.text
+    assert "........ 42" not in page_record.text
+    assert "Use the vlan command" in page_record.text

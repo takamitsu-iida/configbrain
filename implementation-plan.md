@@ -2,188 +2,297 @@
 
 ## 1. 目的
 
-ネットワーク機器の公式マニュアルを検索し、機種・OS・バージョンに適合した設定コマンドを、根拠付きで生成するRAGシステムを構築する。
+Cisco公式マニュアルを根拠として、機種・OS・バージョンに適合したネットワーク設定コマンドを検索・生成するRAGシステムを構築する。
 
-この計画では、検索精度と回答の信頼性を先に検証できるよう、対象を限定したMVPから段階的に拡張する。
+最初の対象はCisco Catalyst 9300 / IOS XE 26.xとし、VLAN、インターフェース、System Management設定に限定する。検索品質を先に検証し、根拠が不足する場合は推測で補完しない。
 
-## 2. MVPの対象範囲
+## 2. 基本方針
+
+### 2.1 HTMLを一次入力とする
+
+- Cisco公式HTMLマニュアルを検索用の一次資料とする。
+- PDFは補助的な照合資料として保持する。
+- HTML本文は取得元URL、節URL、取得日時、ハッシュと紐付ける。
+- Cisco公式ドメイン、対象バージョン、許可したマニュアル配下だけを取得する。
+
+### 2.2 RAG用中間JSONを中心にする
+
+HTMLを直接Embeddingするのではなく、次の段階を経由する。
+
+```text
+公式HTML
+  -> 原文保存・DOM正規化
+  -> ルールベース抽出
+  -> 手順・節単位の候補ブロック
+  -> 難しいブロックだけ生成AIで構造化
+  -> 機械検証済みRAG中間JSON
+  -> 親子チャンク生成
+  -> BM25/全文検索 + Embedding検索
+  -> 軽量リランキング
+  -> Qdrant
+```
+
+中間JSONは、原文の代替ではなく、原文と構造化情報を同時に保持する。生成AIは文書の編集者ではなく、構造化アノテーターとして利用する。
+
+CLIコマンドやVLAN番号の完全一致にはBM25/全文検索を使い、自然言語の意味検索にはベクトル検索を使う。両方の結果を統合し、必要に応じて軽量なリランキングを行う。
+
+### 2.3 生成AIの利用範囲
+
+生成AIに許可する処理:
+
+- 候補ブロックの種別分類
+- 節タイトル、前提条件、操作、確認手順の構造化
+- 説明文とコマンドの同一手順へのグルーピング
+- 検索用キーワードの抽出
+- 構造化処理の信頼度と検証状態の提案
+
+生成AIに許可しない処理:
+
+- 原文にないコマンドやパラメータの生成
+- コマンドの修正・正規化による意味変更
+- URL、節、製品、バージョン、ページの推測
+- 原文を破棄した要約だけのEmbedding
+
+LLM出力はJSON Schemaで検証し、原文内に存在しないコマンド・引用情報を不採用にする。
+
+## 3. 対象範囲
 
 ### 対象
 
-- [ ] Cisco Catalyst 9300
-- [x] IOS XE 26.xを対象バージョンとする
-- [x] VLAN、インターフェース、System Management設定を初期評価カテゴリとする
+- [x] Cisco Catalyst 9300
+- [x] Cisco IOS XE 26.x
+- [x] VLAN
+- [x] インターフェース
+- [x] System Management
 - [x] Cisco公式マニュアル3冊
-- [ ] PDF入力
-- [ ] 自然言語からの設定コマンド生成
-- [ ] 根拠文書、ページ、節の表示
-- [ ] 機種・OS・バージョンによる検索フィルタリング
+- [x] 代表質問15件（`evaluation-questions.md`）
+- [ ] RAG用中間JSON
+- [ ] 親子チャンクとコマンド構造化
+- [ ] BM25/全文検索とベクトル検索の併用
+- [ ] 根拠付き設定コマンド生成
+- [ ] HTML節URLによる引用表示
 
-### MVPでは扱わないもの
+### 対象外
 
-- [ ] 実機へのSSH接続・設定投入
-- [ ] 複数ベンダーへの対応
-- [ ] 完全な構成検証
-- [ ] ユーザー認証・組織管理
-- [ ] 自動Web巡回の全面導入
+- 実機へのSSH接続・設定投入
+- 複数ベンダー対応
+- 完全な構成検証
+- ユーザー認証・組織管理
+- 未承認のWeb全体巡回
 
-## 3. 採用予定技術
+## 4. 公式資料
 
-| 領域 | 技術 | 採用理由・用途 |
-| --- | --- | --- |
-| 言語 | Python 3.12 | AI・文書処理ライブラリとの親和性 |
-| API | FastAPI | 型付きのHTTP APIと自動ドキュメント |
-| RAG | LlamaIndex | 文書取り込み・検索・LLM連携 |
-| ベクトルDB | Qdrant | ローカル検証から運用まで拡張しやすい |
-| Embedding | 比較候補。英語マニュアル、CLIコマンド、日本語質問で検索品質を評価して選定 | 文書検索用の埋め込み。モデルを差し替え可能にする |
-| PDF処理 | 比較候補。Docling、PyMuPDFなど | ページ、見出し、表、コードブロックの保持を評価 |
-| 生成LLM | 比較候補。利用可能なモデルを品質・コスト・応答時間で評価 | Phase 0の検索検証では使用せず、Phase 2で選定 |
-| 初期UI | Streamlit | 検索品質を早期検証するため |
-| テスト | pytest | 単体テスト・評価テスト |
-| 環境管理 | uv | 依存関係と実行環境の再現性 |
-
-## 4. 進捗ステータス
-
-ステータスは次の記号で管理する。
-
-- `[ ]` 未着手
-- `[-]` 作業中
-- `[x]` 完了
-- `[!]` ブロック中、または判断が必要
-
-現在のフェーズ: **Phase 0（技術検証）**
-
-## 5. Phase 0: 方針確定と技術検証
-
-### 目的
-
-対象文書から、代表的な質問に対する正しい検索結果と引用情報を取得できることを確認する。
-
-### Phase 0で確定する方針
-
-Phase 0では、検索品質を比較できる最小の固定条件を次のとおり採用する。
-
-| 項目 | 決定内容 |
+| 文書 | HTML入口 |
 | --- | --- |
-| 対象機種 | Cisco Catalyst 9300 |
-| OS | Cisco IOS XE 26.x。取得したPDFの版数・取得日を記録する |
-| 最初の評価カテゴリ | VLAN、インターフェース、System Management設定 |
-| 一次資料 | Cisco公式のCatalyst 9300 / IOS XE 26.x Configuration Guide 3冊 |
-| 入力形式 | ローカルに取得したPDF。自動Web巡回はPhase 5まで行わない |
-| 検索基盤 | QdrantをDocker Composeでローカル起動し、コレクション名と設定を固定する |
-| 検索実装 | LlamaIndexのベクトル検索を最初の比較基準とし、re-rankingは後続検証に分離する |
-| Embedding | Phase 0では候補モデルを比較し、英語マニュアル・CLIコマンド・日本語質問の検索品質で選定する |
-| 生成 | Phase 0では生成LLMを使わず、検索と引用メタデータを検証する |
-| PDF処理 | Docling、PyMuPDFなどを比較し、ページ・見出し・表・コードブロックの保持結果で選定する |
-| 判定単位 | 文書・ページ・節の引用が質問の期待する設定要素を裏付けるかで判定する |
+| VLAN Configuration Guide | <https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg.html> |
+| Interface and Hardware Components Configuration Guide | <https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg.html> |
+| System Management Configuration Guide | <https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/sys_mgmt/b_26x_sys_mgmt_9300_cg.html> |
 
-文書の利用、ローカル保存、プロジェクト内での再配布に問題はないものとして扱う。ただし、PDFはリポジトリへコミットせず、取得元URL、版数、ハッシュ、取得日だけを記録する。
+取得時に次の情報を記録する。
 
-使用するマニュアルの取得元URLは次のとおりとする。
+- `document_id`
+- 文書タイトル、製品、OS、バージョン
+- HTML入口URLと節URL
+- HTTP取得日時
+- HTML本文のSHA-256
+- 保存ファイル: `data/raw/html/{document_id}/{sha256}.html`
+- 取得結果、失敗URL、再試行回数
 
-| 文書 | URL |
-| --- | --- |
-| VLAN Configuration Guide | <https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg.pdf> |
-| Interface and Hardware Components Configuration Guide | <https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg.pdf> |
-| System Management Configuration Guide | <https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/sys_mgmt/b_26x_sys_mgmt_9300_cg.pdf> |
+## 5. RAG中間JSON仕様
 
-### 作業項目
-
-- [x] 対象のIOS XEバージョンを26.xに固定する
-- [x] 最初に扱う設定カテゴリをVLAN、インターフェース、System Management設定に固定する
-- [x] 使用する公式マニュアル3冊と取得元URLを選定する
-- [x] 文書の利用・保存・再配布に問題がないことを確認済みとして扱う
-- [x] 代表質問を15件作成する（`evaluation-questions.md`）
-- [x] QdrantはDocker Composeでローカル起動する方針に固定する
-- [x] 最初の比較基準をLlamaIndexのベクトル検索に固定する
-- [ ] Embedding候補を比較し、採用モデルを決定する
-- [ ] PDF処理候補を比較し、採用ライブラリを決定する
-- [ ] 検索結果に文書ID、ページ、節が含まれることを確認する
-
-#### 検索結果メタデータの確認方法
-
-検索結果の各チャンクは、本文とは別に次のメタデータを必須で返す。
-
-| フィールド | 内容 | 例 |
-| --- | --- | --- |
-| `document_id` | 3冊を一意に識別する固定ID | `c9300_iosxe26_vlan_cg` |
-| `page_number` | 取り込んだPDF上の物理ページ番号 | `42` |
-| `section_title` | PDFから抽出した直近の見出し | `Configuring VLANs` |
-
-検索APIまたは検証スクリプトは、少なくとも次の形式で結果を返す。
+### 5.1 文書ブロック
 
 ```json
 {
-	"question_id": "VLAN-001",
-	"results": [
-		{
-			"score": 0.84,
-			"text": "...retrieved chunk text...",
-			"metadata": {
-				"document_id": "c9300_iosxe26_vlan_cg",
-				"page_number": 42,
-				"section_title": "Configuring VLANs",
-				"product": "catalyst9300",
-				"os_version": "26.x",
-				"source_url": "https://www.cisco.com/..."
-			}
-		}
-	]
+  "block_id": "c9300_iosxe26_vlan_cg:configuring_vlans:creating_ethernet_vlan:001",
+  "document_id": "c9300_iosxe26_vlan_cg",
+  "source_url": "https://www.cisco.com/.../b_26x_vlan_9300_cg.html",
+  "section_url": "https://www.cisco.com/.../configuring_vlans.html#creating-ethernet-vlan",
+  "section_title": "Creating or Modifying an Ethernet VLAN",
+  "content_type": "configuration_example",
+  "product": "catalyst9300",
+  "os": "IOS XE",
+  "os_version": "26.x",
+  "source_text": "原HTMLから抽出した本文・表・コードの原文",
+  "parent_block_id": "c9300_iosxe26_vlan_cg:configuring_vlans:001",
+  "chunk_level": "child",
+  "prerequisites": ["原文に存在する前提条件"],
+  "commands": [
+    {"text": "Device(config)# vlan 100", "role": "enter_vlan"},
+    {"text": "Device(config-vlan)# name USERS", "role": "set_name"}
+  ],
+  "verification_commands": [],
+  "keywords": ["VLAN", "normal-range VLAN", "vlan command"],
+  "annotation_status": "verified",
+  "annotation_confidence": 0.96,
+  "validation_errors": [],
+  "llm_annotation": {
+    "model": "使用モデル",
+    "prompt_version": "プロンプト版",
+    "created_at": "取得日時"
+  }
 }
 ```
 
-確認手順は次のとおりとする。
+### 5.2 必須ルール
 
-1. 3冊のPDFを取り込み、各チャンクに必須メタデータを付与する。
-2. `evaluation-questions.md` の15問を検索し、上位5件をJSONまたは表形式で保存する。
-3. 各結果について `document_id`、`page_number`、`section_title` が空でないことを検査する。
-4. `document_id` が期待資料と一致し、ページと節をPDF上で照合できることを確認する。
+- `source_text`は必須で、LLMの要約だけを保存しない。
+- `commands`の各要素は`source_text`の完全一致または許可した空白差分で検証する。
+- `commands`はコマンド本文と役割を持つ構造化オブジェクトとして保存する。
+- 親チャンクは節の説明・前提条件を保持し、子チャンクは個別の手順・コマンド・確認操作を保持する。
+- `annotation_status`は`verified`、`needs_review`、`rejected`のいずれかとする。
+- `annotation_confidence`が閾値未満、または`validation_errors`が空でないブロックは通常検索へ登録しない。
+- `section_url`と`section_title`はHTMLから機械的に取得する。
+- `content_type`は次のいずれかとする。
+  - `concept`
+  - `configuration_example`
+  - `command_reference`
+  - `warning`
+  - `parameter_reference`
+- 検証に失敗したLLM出力はQdrantへ登録しない。
 
-この項目の完了条件は、15問の上位5件、つまり最大75件の検索結果で必須3フィールドの欠落が0件であり、各質問の期待資料について少なくとも1件のページ・節をPDFと照合できることとする。これは検索順位の正しさを判定するRecall@5とは分けて、引用メタデータの完全性を検証する項目である。
-
-### 完了条件
-
-- 代表質問の大半で、正しい文書または節が上位検索される
-- Embedding候補ごとのRecall@5とMRRを比較できる
-- 機種・OS・バージョンを検索条件として利用できる
-- PDF由来のコマンドブロックの改行・インデントが許容範囲で保持される
-- 検索結果のメタデータ欠落率が0%である
-- 引用元のページ・節が検索チャンクの内容を裏付けている
-- 検索品質を評価する質問セットがリポジトリに保存される
-- VLAN、インターフェース、System Management設定の代表質問を10〜20件、期待する文書・節・設定要素付きで評価できる
-- Recall@5を計測でき、合格基準は80%以上とする。MRRも併記する
-- 根拠が見つからない質問では、推測した設定コマンドを正解扱いにしない
-
-### 成果物
-
-- [ ] 対象範囲を決めた設計メモ
-- [x] 最初の評価質問セット（`evaluation-questions.md`）
-- [ ] 最小検索プロトタイプ
-- [ ] 技術検証結果
-
-## 6. Phase 1: プロジェクト基盤とドキュメント登録
+## 6. Phase 0: 評価条件の固定
 
 ### 目的
 
-PDFを取り込み、構造とメタデータを保った検索可能なインデックスへ変換する。
+HTMLから作成した中間JSONが、15問の検索評価に必要な情報を保持できることを定義する。
 
 ### 作業項目
 
-- [x] Pythonプロジェクトを初期化する
-- [x] 依存関係と開発用コマンドを定義する
-- [x] `.env.example`を作成する
-- [x] QdrantをDocker Composeで起動できるようにする（`docker-compose.yml`。Docker環境での起動確認は未実施）
-- [x] アプリケーション設定を環境変数から読み込む
-- [x] PDF処理候補としてPyMuPDFを使うページ単位PDFローダーを実装する（ライブラリ最終選定は比較後に確定）
-- [x] PyMuPDFで見出し、コードブロック、表を抽出する（ライブラリ最終選定は比較後に確定）
-- [x] 見出し・段落・コードブロック・表の境界を優先する意味単位のチャンク分割を実装する
-- [x] コマンドブロックを単一チャンクとして保持し、可能な限り分割しないようにする
-- [x] 設定可能なEmbeddingプロバイダーでベクトルを生成し、Qdrantへ登録する（初期候補: OpenAI `text-embedding-3-large`）
-- [x] 文書・ページ・節・種別・本文ハッシュ・同一内容の出現番号から決定的IDを生成し、再実行時にupsertする仕組みを追加する
+- [x] Catalyst 9300 / IOS XE 26.xを固定する
+- [x] 評価カテゴリと15問を固定する
+- [x] 公式HTML入口を固定する
+- [x] Qdrantのローカル永続環境を用意する
+- [ ] 中間JSON Schemaを確定する
+- [ ] LLMアノテーションのプロンプトとバージョン管理方法を確定する
+- [ ] 原文照合・コマンド照合の検証規則を確定する
 
-### 必須メタデータ
+### 完了条件
+
+- 15問の期待資料、節、設定要素が定義されている。
+- 中間JSONの必須フィールドと不採用条件が定義されている。
+- 同じHTMLから同じ入力ブロックを再生成できる。
+
+## 7. Phase 1: HTML取得とDOM正規化
+
+### 目的
+
+HTMLのレイアウトノイズを除去し、生成AIへ渡す候補ブロックを機械的に作る。
+
+### 作業項目
+
+- [x] 許可範囲内のHTML節を取得する
+- [x] 見出しアンカー、本文、コード、表を抽出する
+- [ ] `article`、`section`、手順表、`pre`を構造単位として保存する
+- [ ] ヘッダー、フッター、目次、ナビゲーション、Cookie表示を除外する
+- [ ] 取得HTMLを`data/raw/html/`へ保存する
+- [ ] 取得メタデータと失敗ログを保存する
+- [ ] DOM正規化結果をJSONLで保存する
+- [ ] 明確な`pre`、手順表、コマンド表はルールベースで抽出する
+- [ ] 構造が曖昧なブロックだけをLLMアノテーション対象にする
+
+### 成果物
+
+- `app/ingestion/html_loader.py`
+- `app/ingestion/html_normalizer.py`
+- `data/raw/html/`（Git管理外）
+- `data/processed/html_blocks.jsonl`（Git管理外）
+- `tests/test_html_normalizer.py`
+
+### 完了条件
+
+- 許可範囲外のURLが取得されない。
+- 各候補ブロックに節URLと節タイトルがある。
+- 1ブロックに複数の独立手順が混在しない。
+- 明確なブロックをLLMなしで再現可能に抽出できる。
+- 曖昧なブロックだけをLLM対象として列挙できる。
+- HTML取得を再実行できる。
+
+## 8. Phase 2: 生成AIによるRAG構造化
+
+### 目的
+
+DOM正規化済みの候補ブロックを、原文を保持したRAG中間JSONへ変換する。
+
+### 作業項目
+
+- [ ] PydanticモデルまたはJSON Schemaを定義する
+- [ ] 構造化アノテーション用プロンプトを作成する
+- [ ] 難しいブロックだけを対象にOpenAI API呼び出しをバッチ化する
+- [ ] JSON Schema検証を実装する
+- [ ] コマンドが原文に存在するか検証する
+- [ ] 節URL・製品・OS・バージョンをLLM出力から受け取らず、機械値を優先する
+- [ ] 失敗ブロックを隔離し、理由とLLMレスポンスを記録する
+- [ ] プロンプト、モデル名、レスポンスハッシュを記録する
+- [ ] 同じ入力を再処理しないキャッシュを追加する
+- [ ] 信頼度、検証状態、検証エラーを保存する
+
+### LLM出力の安全境界
+
+LLMは次の項目だけを提案する。
+
+- `content_type`
+- `prerequisites`
+- `commands`
+- `verification_commands`
+- `keywords`
+- `annotation_confidence`
+
+アプリケーションが次の項目を原文・取得記録から設定する。
+
+- `block_id`
+- `document_id`
+- `source_url`
+- `section_url`
+- `section_title`
+- `product`
+- `os`
+- `os_version`
+- `source_text`
+
+### 完了条件
+
+- 構造化JSONの検証失敗率を計測できる。
+- コマンドの原文一致率が100%である。
+- 失敗時に推測コマンドがQdrantへ入らない。
+- 同じ入力から再現可能な出力を作成できる。
+- ルール抽出だけで処理できるブロックのLLM呼び出しが0回である。
+- `verified`以外のブロックが通常検索へ混入しない。
+
+## 9. Phase 3: Embeddingと検索インデックス
+
+### 目的
+
+検証済み中間JSONだけをEmbeddingし、引用情報を失わない検索インデックスを作る。
+
+### 方針
+
+- Embedding対象は`source_text`、コマンド、前提条件を検索用に連結したテキストとする。
+- 生成AIが作った要約だけをEmbeddingしない。
+- コマンド本文、VLAN番号、インターフェース名は全文検索用フィールドとして別管理する。
+- 親チャンクと子チャンクを別々に検索でき、子チャンクから親チャンクへ辿れるようにする。
+- PDF用コレクションとHTML用コレクションを分離する。
+- QdrantはDockerなしのローカル永続モードを既定にする。
+
+### 作業項目
+
+- [x] Qdrantローカル環境を用意する
+- [x] EmbeddingとQdrant登録の基本経路を実装する
+- [ ] 中間JSON専用のインデックス作成CLIを実装する
+- [ ] `block_id`を決定的IDとしてupsertする
+- [ ] 必須メタデータをpayloadへ保存する
+- [ ] インデックス作成前のスキーマ検証を必須にする
+- [ ] HTML構造化用コレクションを再構築する
+- [ ] BM25または同等の全文検索インデックスを追加する
+- [ ] ベクトル検索と全文検索の結果を統合する
+- [ ] 親子チャンクの参照関係をpayloadへ保存する
+
+### 必須payload
 
 ```text
+block_id
+parent_block_id
+chunk_level
 document_id
 vendor
 product
@@ -192,213 +301,119 @@ os_version
 document_title
 document_version
 section_title
-page_number
+section_url
 source_url
 content_type
+source_text
+commands
+verification_commands
+annotation_status
+annotation_confidence
+validation_errors
 ingested_at
 ```
 
-`content_type` は、少なくとも次の値を扱う。
-
-- `configuration_example`
-- `command_reference`
-- `concept`
-- `warning`
-- `parameter_reference`
-
-### 完了条件
-
-- PDFからインデックスを再現可能に作成できる
-- 各チャンクに必須メタデータが付与される
-- 同じ文書を再登録しても不要な重複が発生しない
-- 取り込み処理とチャンク分割のテストがある
-
-### 成果物
-
-- [x] 文書取り込みモジュール（PDFページローダー）
-- [x] チャンク分割モジュール
-- [x] インデックス作成CLI（`scripts/index_manuals.py`）
-- [ ] Qdrantのローカル環境
-- [ ] 取り込みテスト
-
-## 7. Phase 2: 検索・回答生成API
+## 10. Phase 4: 検索品質評価
 
 ### 目的
 
-ユーザー要求から条件を抽出し、適合する文書を検索して、引用付きの回答を返す。
+生成AIによる構造化前後で、検索品質と引用の正確性を比較する。
+
+### 評価方法
+
+- `evaluation-questions.md`の15問を使用する。
+- 各質問で上位5件をJSON保存する。
+- Recall@5、MRR、文書一致率、節一致率を計測する。
+- `document_id`、`section_url`、`section_title`、`content_type`の欠落率を計測する。
+- 期待する設定要素とコマンドが、引用元の`source_text`に存在するか確認する。
+- PDFベース検索、現行HTMLチャンク検索、中間JSON検索を比較する。
+- ベクトル検索のみ、全文検索のみ、ハイブリッド検索を比較する。
+- 親チャンクを表示しながら子チャンクを検索できることを確認する。
+- コマンド本文とVLAN番号の完全一致が順位へ反映されることを確認する。
+
+### 完了条件
+
+- 中間JSON検索のRecall@5が80%以上。
+- MRRを出力できる。
+- メタデータ欠落率が0%。
+- VLAN-001で通常VLANの作成手順が上位5件に入る。
+- PVLAN、SVI、extended-range VLANなど対象外手順の誤上位を記録・評価できる。
+- 根拠が不足する質問では回答生成へ進まない。
+- ハイブリッド検索がベクトル検索単独以上のRecall@5を示す。
+
+## 11. Phase 5: 回答生成API
+
+### 目的
+
+検索済みの検証済み原文だけを根拠として、設定コマンドと注意事項を返す。
+
+### 回答生成ルール
+
+- LLMへ渡す根拠は検索結果の`source_text`とメタデータだけに限定する。
+- 引用にないコマンドを生成しない。
+- 前提条件、設定コマンド、確認コマンド、注意事項、引用URLを分けて返す。
+- 根拠不足時は「確認できない」と返し、推測で補完しない。
 
 ### API
 
 ```text
 GET  /health
-GET  /documents
-POST /documents
-POST /documents/{document_id}/index
 POST /query
 ```
 
-### 作業項目
+## 12. Phase 6: UIと運用準備
 
-- [ ] APIのPydantic入出力モデルを定義する
-- [ ] ドキュメント登録APIを実装する
-- [ ] 機種・OS・バージョンの条件抽出を実装する
-- [ ] メタデータフィルタ付き検索を実装する
-- [ ] 上位検索結果のre-rankingを検証する
-- [ ] 引用情報をレスポンスへ含める
-- [ ] 不足情報がある場合に確認事項を返す
-- [ ] 文書に根拠がない場合に推測回答しない
-- [ ] APIエラー形式とログ方針を定義する
+- [ ] 検索結果と構造化中間JSONを確認する管理用CLIまたは画面
+- [ ] 親チャンクと子チャンクの関係を確認できる表示
+- [ ] 質問、回答、引用URL、使用モデル、プロンプト版のログ
+- [ ] 取得失敗・LLM検証失敗・Embedding失敗の再実行
+- [ ] APIキーと文書キャッシュの保護
+- [ ] 監査ログとキャッシュ削除方針
+- [ ] 実機への自動投入を行わないことの確認
 
-### 回答形式
+## 13. 現在の実装資産
 
-回答は次の項目を持つ。
+以下は再利用候補であり、新しい中間JSON設計に合わない部分は作り直してよい。
 
-- 前提条件
-- 設定コマンド
-- 確認コマンド
-- 注意事項
-- 根拠文書とページ・節
-- 未確定条件
+- `app/ingestion/html_loader.py`
+- `app/ingestion/chunker.py`
+- `app/retrieval/indexer.py`
+- `app/retrieval/searcher.py`
+- `scripts/index_html_manuals.py`
+- `scripts/search_manuals.py`
+- `tests/`
+- ローカルQdrant環境
+- `evaluation-questions.md`
 
-### 完了条件
+## 14. セキュリティと運用上の確認
 
-- 代表質問に対して、条件に適合した回答を返せる
-- 回答に根拠文書、ページ、節が含まれる
-- OSや機種が不一致の場合に警告できる
-- 情報不足時にコマンドを断定せず、追加情報を要求できる
-- APIの主要処理にテストがある
-
-## 8. Phase 3: 評価基盤と品質改善
-
-### 目的
-
-検索と生成の品質を、人手の印象だけでなく同じ基準で比較できるようにする。
-
-### 評価データの項目
-
-- 質問
-- 期待する機種・OS・バージョン
-- 期待する参照文書
-- 期待する設定要素
-- 許容される差分
-- 危険な誤り
-
-### 作業項目
-
-- [ ] 評価データセットを作成する
-- [ ] Recall@KとMRRを計測する
-- [ ] Embedding候補を同一質問セットで比較する
-- [ ] 生成LLM候補を品質・コスト・応答時間で比較する
-- [ ] PDF処理候補をページ・見出し・表・コードブロックの保持率で比較する
-- [ ] 引用内容が回答を裏付けているか評価する
-- [ ] 機種・OS・バージョンの一致率を計測する
-- [ ] コマンドの構文・順序・必須パラメータを評価する
-- [ ] 情報不足時に保留できる割合を評価する
-- [ ] 応答時間とAPIコストを計測する
-- [ ] 失敗例を回帰テストへ追加する
-
-### 完了条件
-
-- 評価を同じ入力で再実行できる
-- 検索、引用、バージョン適合性、コマンド品質を個別に評価できる
-- 重大な誤回答を再発防止するテストがある
-- 改善前後の結果を比較できる
-
-## 9. Phase 4: 初期UI
-
-### 目的
-
-エンジニアが条件を指定し、生成結果と根拠を確認できる検証用画面を提供する。
-
-### 作業項目
-
-- [ ] 機種選択UIを作成する
-- [ ] OS・バージョン選択UIを作成する
-- [ ] 自然言語要求の入力欄を作成する
-- [ ] 設定コマンドを読みやすく表示する
-- [ ] コマンドのコピー機能を追加する
-- [ ] 前提条件と警告を表示する
-- [ ] 根拠文書、ページ、節を表示する
-- [ ] 検索されたチャンクを確認できるようにする
-- [ ] エラー、空結果、処理中の状態を表示する
-
-### 完了条件
-
-- APIを意識せずに代表質問を実行できる
-- 回答と根拠の対応を画面上で確認できる
-- 空結果、条件不足、APIエラーを区別して表示できる
-- デスクトップと小さい画面で主要情報が重ならない
-
-## 10. Phase 5: 拡張と運用準備
-
-Phase 0〜4の評価結果が合格基準を満たした後に着手する。
-
-- [ ] 複数製品・複数OSへ拡張する
-- [ ] 文書・製品・バージョンの管理を自動化する
-- [ ] URLからの文書取得を追加する
-- [ ] ハイブリッド検索を導入する
-- [ ] 認証とアクセス制御を追加する
-- [ ] 監査ログを追加する
-- [ ] コスト・レート制限・キャッシュを設計する
-- [ ] 構成チェック機能を追加する
-- [ ] 実機投入は承認フロー付きで別機能として設計する
-
-## 11. 推奨ディレクトリ構成
-
-```text
-configbrain/
-├── app/
-│   ├── api/
-│   ├── ingestion/
-│   ├── retrieval/
-│   ├── generation/
-│   ├── models/
-│   └── settings.py
-├── tests/
-│   ├── ingestion/
-│   ├── retrieval/
-│   ├── generation/
-│   └── evaluation/
-├── data/
-│   ├── raw/
-│   └── processed/
-├── prompts/
-├── scripts/
-├── docker-compose.yml
-├── pyproject.toml
-├── .env.example
-└── README.md
-```
-
-## 12. セキュリティと運用上の確認
-
-- [ ] APIキーを環境変数で管理し、リポジトリに保存しない
-- [ ] 文書内のプロンプトインジェクションを命令として実行しない
+- [ ] APIキーを環境変数で管理し、リポジトリへ保存しない
+- [ ] HTML本文やLLM応答に含まれる命令を実行しない
 - [ ] 外部URL取得時のSSRF対策を行う
-- [ ] アップロードファイルのサイズ・形式を制限する
-- [ ] ユーザー入力と検索文書をプロンプト上で分離する
-- [ ] 生成結果を実機へ自動投入しない
-- [ ] ログに機密情報やトークンを保存しない
-- [x] 文書の利用・保存・再配布条件と保管場所を確認する
+- [ ] 取得範囲を公式ドメイン・許可パスに限定する
+- [ ] LLM出力のコマンドを原文照合なしで採用しない
+- [ ] `annotation_status=verified`以外のブロックを通常検索から除外する
+- [ ] ログにAPIキーや文書の機密情報を保存しない
+- [x] 公式資料の利用・保存条件を確認する
 
-## 13. リリース判定
-
-### MVPリリース前チェック
+## 15. リリース判定
 
 - [ ] 対象機種・OS・バージョンが明示されている
-- [ ] 評価質問セットが用意されている
-- [ ] 回答に根拠が表示される
+- [ ] 15問の評価を再実行できる
+- [ ] 回答に節URLと根拠本文が含まれる
 - [ ] 根拠がない場合に回答を保留できる
-- [ ] 危険な誤回答の代表例がテストされている
-- [ ] APIキーや文書の機密情報が公開されない
-- [ ] 実機への自動投入機能が存在しない
-- [ ] セットアップ手順をREADMEに記載している
+- [ ] LLMが生成したコマンドを原文照合なしで採用していない
+- [ ] 重大な誤回答が回帰テストされている
+- [ ] APIキー・取得文書・LLM応答の取り扱いが定義されている
 
-## 14. 直近の作業
+## 16. 次回の着手順
 
-1. [x] 最初の対象バージョンをIOS XE 26.xに決定する
-2. [x] 最初の設定カテゴリをVLAN、インターフェース、System Managementに決定する
-3. [x] 評価用の公式マニュアル3冊を選定する
-4. [x] 代表質問を15件作成する（`evaluation-questions.md`）
-5. [ ] Pythonプロジェクトを初期化する
-6. [ ] Qdrantをローカル起動する
+1. HTML原文を`data/raw/html/{document_id}/{sha256}.html`へ保存する処理を追加する。
+2. DOM正規化結果を保存する`html_normalizer.py`とテストを作成する。
+3. RAG中間JSONのPydanticモデルとJSON Schemaを作成する。
+4. 1つのVLAN手順だけを対象に、ルール抽出と生成AI構造化を比較する。
+5. 原文一致検証、信頼度判定、失敗隔離を実装する。
+6. 親子チャンクと構造化コマンドを中間JSONへ保存する。
+7. BM25/全文検索とベクトル検索を統合する。
+8. 中間JSONからQdrantへ登録するCLIを作成する。
+9. VLAN-001で現行HTML検索と比較する。

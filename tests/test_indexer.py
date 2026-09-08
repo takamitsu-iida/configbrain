@@ -1,5 +1,4 @@
 from collections.abc import Sequence
-
 from qdrant_client import QdrantClient
 
 from app.ingestion.chunker import Chunk

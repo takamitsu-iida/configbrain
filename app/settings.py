@@ -7,8 +7,10 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     app_name: str = "ConfigBrain"
     environment: str = "development"
-    qdrant_url: str = "http://localhost:6333"
+    qdrant_url: str | None = None
+    qdrant_path: str = "data/qdrant"
     qdrant_collection: str = "configbrain_documents"
+    html_qdrant_collection: str = "configbrain_html_documents"
     openai_api_key: str | None = Field(default=None, repr=False)
     embedding_model: str = "text-embedding-3-large"
 

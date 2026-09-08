@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run python
 from __future__ import annotations
 
 import argparse
@@ -38,12 +38,14 @@ def index_manuals(
     root: Path,
     records: list[dict[str, object]],
     *,
-    qdrant_url: str,
+    qdrant_url: str | None,
+    qdrant_path: Path,
     collection: str,
     embedding_model: str,
     api_key: str | None,
     batch_size: int,
     dry_run: bool,
+    recreate: bool,
 ) -> int:
     prepared: list[tuple[dict[str, object], list]] = []
     chunker = SemanticChunker()
@@ -59,10 +61,12 @@ def index_manuals(
     total = sum(len(chunks) for _, chunks in prepared)
     if dry_run:
         return total
-    if not api_key:
-        raise RuntimeError("OPENAI_API_KEY is required unless --dry-run is used")
 
-    client = QdrantClient(url=qdrant_url)
+    client = QdrantClient(url=qdrant_url) if qdrant_url else QdrantClient(path=str(qdrant_path))
+    if not api_key:
+        raise RuntimeError("OPENAI_API_KEY is required")
+    if recreate and client.collection_exists(collection):
+        client.delete_collection(collection)
     provider = OpenAIEmbeddingProvider(api_key=api_key, model=embedding_model)
     indexer = QdrantIndexer(client, collection, provider)
     for record, chunks in prepared:
@@ -80,11 +84,24 @@ def main() -> int:
     parser.add_argument("--pdf", type=Path, help="Index one PDF listed in data/manuals.json")
     parser.add_argument("--all", action="store_true", help="Index all downloaded manuals")
     parser.add_argument("--root", type=Path, default=Path.cwd())
-    parser.add_argument("--qdrant-url")
+    parser.add_argument(
+        "--qdrant-url",
+        help="Use a Qdrant server instead of the local persistent store",
+    )
+    parser.add_argument(
+        "--qdrant-path",
+        type=Path,
+        help="Local persistent Qdrant path (default: data/qdrant)",
+    )
     parser.add_argument("--collection")
     parser.add_argument("--embedding-model")
     parser.add_argument("--batch-size", type=int, default=64)
     parser.add_argument("--dry-run", action="store_true", help="Parse and chunk without external services")
+    parser.add_argument(
+        "--recreate",
+        action="store_true",
+        help="Delete the existing collection before indexing",
+    )
     args = parser.parse_args()
     if len(sys.argv) == 1:
         parser.print_help()
@@ -99,11 +116,13 @@ def main() -> int:
         root,
         records,
         qdrant_url=args.qdrant_url or settings.qdrant_url,
+        qdrant_path=(args.qdrant_path or root / settings.qdrant_path).resolve(),
         collection=args.collection or settings.qdrant_collection,
         embedding_model=args.embedding_model or settings.embedding_model,
         api_key=settings.openai_api_key,
         batch_size=args.batch_size,
         dry_run=args.dry_run,
+        recreate=args.recreate,
     )
     print(f"Completed: chunks={total}")
     return 0
