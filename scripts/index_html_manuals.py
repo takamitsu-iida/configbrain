@@ -7,6 +7,7 @@ from pathlib import Path
 
 from qdrant_client import QdrantClient
 
+from app.ingestion.html_blocks import write_html_blocks, write_llm_candidates
 from app.ingestion.chunker import HtmlChunker
 from app.ingestion.html_loader import HtmlLoader
 from app.retrieval.indexer import DocumentMetadata, OpenAIEmbeddingProvider, QdrantIndexer
@@ -35,12 +36,31 @@ def index_html_manuals(
     api_key: str | None,
     recreate: bool,
     dry_run: bool,
+    rendered: bool,
 ) -> int:
     prepared: list[tuple[dict[str, object], list]] = []
+    all_sections = []
     chunker = HtmlChunker()
     for record in records:
         entry_url = html_entry_url(record)
-        sections = HtmlLoader(entry_url, str(record["document_id"])).load()
+        loader = (
+            HtmlLoader.rendered(
+                entry_url,
+                str(record["document_id"]),
+                storage_dir=root / "data" / "raw" / "html",
+                rendered_storage_dir=root / "data" / "raw" / "rendered_html",
+                metadata_path=root / "data" / "raw" / "html_fetches.jsonl",
+            )
+            if rendered
+            else HtmlLoader(
+                entry_url,
+                str(record["document_id"]),
+                storage_dir=root / "data" / "raw" / "html",
+                metadata_path=root / "data" / "raw" / "html_fetches.jsonl",
+            )
+        )
+        sections = loader.load()
+        all_sections.extend(sections)
         chunks = chunker.chunk_sections(sections)
         prepared.append((record, chunks))
         print(
@@ -48,6 +68,12 @@ def index_html_manuals(
         )
 
     total = sum(len(chunks) for _, chunks in prepared)
+    block_path = root / "data" / "processed" / "html_blocks.jsonl"
+    write_html_blocks(block_path, all_sections)
+    write_llm_candidates(
+        root / "data" / "processed" / "html_llm_candidates.jsonl",
+        all_sections,
+    )
     if dry_run:
         return total
     if not api_key:
@@ -79,6 +105,7 @@ def main() -> int:
     parser.add_argument("--embedding-model")
     parser.add_argument("--recreate", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--rendered", action="store_true", help="Use headless Playwright DOM retrieval")
     args = parser.parse_args()
     if not args.all:
         parser.error("Specify --all")
@@ -95,6 +122,7 @@ def main() -> int:
         api_key=settings.openai_api_key,
         recreate=args.recreate,
         dry_run=args.dry_run,
+        rendered=args.rendered,
     )
     print(f"Completed: chunks={total}")
     return 0

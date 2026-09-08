@@ -8,12 +8,14 @@ Requirements:
 
 - Python 3.12 or newer
 - `uv`
+- Playwright Chromium browser
 
 Create the environment and install dependencies:
 
 ```bash
 uv sync
 cp .env.example .env
+uv run playwright install chromium
 ```
 
 Run the initial test suite:

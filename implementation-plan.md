@@ -14,6 +14,9 @@ Cisco公式マニュアルを根拠として、機種・OS・バージョンに�
 - PDFは補助的な照合資料として保持する。
 - HTML本文は取得元URL、節URL、取得日時、ハッシュと紐付ける。
 - Cisco公式ドメイン、対象バージョン、許可したマニュアル配下だけを取得する。
+- raw HTMLとレンダリング後DOMを両方保存し、検索構造はレンダリング後DOMを優先する。
+- レンダリングに失敗した場合はraw HTMLの静的解析へフォールバックする。
+- `body`全体ではなく、`#pageContentDiv`または`main[role="main"]`など本文領域だけを解析する。
 
 ### 2.2 RAG用中間JSONを中心にする
 
@@ -21,7 +24,10 @@ HTMLを直接Embeddingするのではなく、次の段階を経由する。
 
 ```text
 公式HTML
-  -> 原文保存・DOM正規化
+  -> raw HTML保存
+  -> ブラウザでレンダリング
+  -> 表示可能な本文DOMを取得
+  -> DOM正規化
   -> ルールベース抽出
   -> 手順・節単位の候補ブロック
   -> 難しいブロックだけ生成AIで構造化
@@ -66,7 +72,7 @@ LLM出力はJSON Schemaで検証し、原文内に存在しないコマンド・
 - [x] System Management
 - [x] Cisco公式マニュアル3冊
 - [x] 代表質問15件（`evaluation-questions.md`）
-- [ ] RAG用中間JSON
+- [x] RAG用中間JSON Schemaの最小実装（`app/models/rag_document.py`）
 - [ ] 親子チャンクとコマンド構造化
 - [ ] BM25/全文検索とベクトル検索の併用
 - [ ] 根拠付き設定コマンド生成
@@ -163,9 +169,9 @@ HTMLから作成した中間JSONが、15問の検索評価に必要な情報を�
 - [x] 評価カテゴリと15問を固定する
 - [x] 公式HTML入口を固定する
 - [x] Qdrantのローカル永続環境を用意する
-- [ ] 中間JSON Schemaを確定する
-- [ ] LLMアノテーションのプロンプトとバージョン管理方法を確定する
-- [ ] 原文照合・コマンド照合の検証規則を確定する
+- [x] 中間JSON Schemaを確定する
+- [x] LLMアノテーションのプロンプトとバージョン管理方法を確定する（`app/llm/annotation_prompt.py`）
+- [x] 原文照合・コマンド照合の検証規則を確定する（空白差分のみ許可、未出典のコマンド・前提条件・確認コマンドを拒否）
 
 ### 完了条件
 
@@ -182,21 +188,42 @@ HTMLのレイアウトノイズを除去し、生成AIへ渡す候補ブロッ�
 ### 作業項目
 
 - [x] 許可範囲内のHTML節を取得する
+- [ ] WSL v1 / Ubuntu 環境では Chromium の実行に制約があるため、レンダリング後DOM取得は将来計画とし、現在は raw HTML の静的取得を検証済みとする
+- [x] 本文コンテナ（`#pageContentDiv`または`main[role="main"]`）だけを抽出する
 - [x] 見出しアンカー、本文、コード、表を抽出する
-- [ ] `article`、`section`、手順表、`pre`を構造単位として保存する
-- [ ] ヘッダー、フッター、目次、ナビゲーション、Cookie表示を除外する
-- [ ] 取得HTMLを`data/raw/html/`へ保存する
-- [ ] 取得メタデータと失敗ログを保存する
-- [ ] DOM正規化結果をJSONLで保存する
-- [ ] 明確な`pre`、手順表、コマンド表はルールベースで抽出する
-- [ ] 構造が曖昧なブロックだけをLLMアノテーション対象にする
+- [x] `article`、`section`、手順表、`pre`を構造単位として保存する（`HtmlStructuralUnit`）
+- [x] ヘッダー、フッター、目次、ナビゲーション、Cookie表示を除外する
+- [x] 取得HTMLを`data/raw/html/`へ保存する（`{document_id}/{sha256}.html`）
+- [ ] レンダリング後DOMを`data/raw/rendered_html/`へ保存する（将来計画; 現在の WSL v1 環境では未検証）
+- [x] 取得メタデータと失敗ログを保存する（`data/raw/html_fetches.jsonl`）
+- [ ] レンダリング方式、ブラウザ、フォールバック理由を取得メタデータへ記録する（将来計画; 現在の検証経路は raw HTML のみ）
+- [x] DOM正規化結果をJSONLで保存する（`data/processed/html_blocks.jsonl`）
+- [x] 明確な`pre`、手順表、コマンド表はルールベースで抽出する（`app/ingestion/rule_extractor.py`）
+- [x] 構造が曖昧なブロックだけをLLMアノテーション対象にする（`html_llm_candidates.jsonl`）
+
+
+別環境でこれを実行する
+
+```
+cd /home/iida/git/configbrain
+uv sync
+uv run python -m playwright install chromium
+uv run python -m pytest tests/test_rendered_html_loader.py -q
+uv run python scripts/index_html_manuals.py
+```
+
+できたdataディレクトリ以下をコピーする。
+
 
 ### 成果物
 
 - `app/ingestion/html_loader.py`
+- `app/ingestion/rendered_html_loader.py`
 - `app/ingestion/html_normalizer.py`
 - `data/raw/html/`（Git管理外）
+- `data/raw/rendered_html/`（Git管理外）
 - `data/processed/html_blocks.jsonl`（Git管理外）
+- `tests/test_rendered_html_loader.py`
 - `tests/test_html_normalizer.py`
 
 ### 完了条件
@@ -207,6 +234,9 @@ HTMLのレイアウトノイズを除去し、生成AIへ渡す候補ブロッ�
 - 明確なブロックをLLMなしで再現可能に抽出できる。
 - 曖昧なブロックだけをLLM対象として列挙できる。
 - HTML取得を再実行できる。
+- 現在の検証済み経路は raw HTML をベースとした静的正規化であり、レンダリング後DOMの利用は将来計画である。
+- レンダリング後DOMの利用は、Chromium 実行環境が整った別環境で実証する。
+- raw HTML で処理不能な場合にのみ、レンダリング後DOMまたはフォールバック戦略を有効化する。
 
 ## 8. Phase 2: 生成AIによるRAG構造化
 
@@ -408,12 +438,14 @@ POST /query
 
 ## 16. 次回の着手順
 
-1. HTML原文を`data/raw/html/{document_id}/{sha256}.html`へ保存する処理を追加する。
-2. DOM正規化結果を保存する`html_normalizer.py`とテストを作成する。
-3. RAG中間JSONのPydanticモデルとJSON Schemaを作成する。
-4. 1つのVLAN手順だけを対象に、ルール抽出と生成AI構造化を比較する。
-5. 原文一致検証、信頼度判定、失敗隔離を実装する。
-6. 親子チャンクと構造化コマンドを中間JSONへ保存する。
-7. BM25/全文検索とベクトル検索を統合する。
-8. 中間JSONからQdrantへ登録するCLIを作成する。
-9. VLAN-001で現行HTML検索と比較する。
+1. Playwright等で本文領域をレンダリング取得する。
+2. raw HTMLとレンダリング後DOMを保存し、取得メタデータへ方式を記録する。
+3. レンダリング失敗時のraw HTMLフォールバックをテストする。
+4. DOM正規化結果を保存する`html_normalizer.py`とテストを作成する。
+5. RAG中間JSONのPydanticモデルとJSON Schemaを作成する。
+6. 1つのVLAN手順だけを対象に、ルール抽出と生成AI構造化を比較する。
+7. 原文一致検証、信頼度判定、失敗隔離を実装する。
+8. 親子チャンクと構造化コマンドを中間JSONへ保存する。
+9. BM25/全文検索とベクトル検索を統合する。
+10. 中間JSONからQdrantへ登録するCLIを作成する。
+11. VLAN-001で現行HTML検索と比較する。
