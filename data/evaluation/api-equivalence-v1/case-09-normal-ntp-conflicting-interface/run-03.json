@@ -1,0 +1,165 @@
+{
+  "case_id": "normal-ntp-conflicting-access-trunk",
+  "case_directory": "case-09-normal-ntp-conflicting-interface",
+  "run": 3,
+  "baseline_sha256": "82aeec1f43e182cad3d854ea3455d6ae2692512c14b023359dd0be688fe2530f",
+  "evaluation_fingerprint": "6e9640c04c1dcccec4eab7aa2e6da047fbc5395016a185dc01a7c7d6393a6a3e",
+  "job_id": "9cc97df5-f0f8-4d76-8ef9-5eb8ef5bc9c6",
+  "request_id": "24b70321-4e1f-48b3-9292-a4ee5e55fe3b",
+  "duration_ms": 71578,
+  "evaluation": {
+    "retrieval_plan_pass": true,
+    "configuration_pass": true,
+    "citation_pass": true,
+    "product_isolation_pass": true,
+    "configuration_equivalent": true,
+    "decision_equivalent": true,
+    "inference_pass": true,
+    "all_pass": true,
+    "retrieval_checks": {
+      "ntp server": true,
+      "switchport mode access": true,
+      "switchport access vlan": true,
+      "switchport mode trunk": true,
+      "switchport trunk allowed vlan": true
+    },
+    "required_checks": {},
+    "forbidden_checks": {},
+    "normalized_configuration": ""
+  },
+  "generated": {
+    "requirement": "Catalyst 9300にNTPサーバー192.0.2.123を設定し、同時にGigabitEthernet1/0/20をVLAN 120のアクセスポートかつVLAN 120と130を通過させるトランクポートとして設定してください。",
+    "knowledge_policy": "disallow",
+    "configuration": "",
+    "explanation": "要求されたNTPサーバー設定については、認証キーやkey-idなどの必須情報が要件に含まれていません。\n根拠[catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f:section-0061]では、ntp serverコマンドにkey key-idオプションが含まれており、key-idはntp authentication-keyで定義されたキー番号を参照する必要がありますが、要件にはキー番号やパスワード種別・値が一切示されていないため、根拠に従った正しいntp server設定を生成できません。また、認証を使わないntp serverの構文は根拠に示されていないため、推測でコマンドを補完することもできません。\n\nインターフェースGigabitEthernet1/0/20については、「VLAN 120のアクセスポート」と「VLAN 120と130を通過させるトランクポート」という、同一インターフェースに対してaccessモードとtrunkモードを同時に要求する内容になっています。根拠[catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321:section-1188]および[catalyst9300-26-x-b-26x-nmgmt-9300-cg-3e060c1d1d52:section-0070]に示されるように、switchport mode accessとswitchport mode trunkは排他的なモードであり、同一インターフェースに同時適用することはできません。さらに、トランクポートで許可するVLANの設定は[catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc:section-0133]のswitchport trunk allowed vlan構文で示されていますが、accessモードとtrunkモードを同時に満たす設定は根拠上存在せず、矛盾する要件となります。\n\nこのため、主要機能（NTPサーバー設定およびインターフェースの同時access/trunk設定）を根拠に基づいて正しく実現することができないため、コンフィグレーションは空とし、要件をunsupported_requirementsおよびmissing_required_valuesに記載します。",
+    "citations": [
+      "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321:section-1188",
+      "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc:section-0133",
+      "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f:section-0061",
+      "catalyst9300-26-x-b-26x-nmgmt-9300-cg-3e060c1d1d52:section-0070"
+    ],
+    "warnings": [
+      "NTPサーバー192.0.2.123を設定するための認証キー番号やキー値が要件に含まれていないため、根拠[catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f:section-0061]に従ったntp serverコマンドを生成できません。",
+      "認証を使用しないntp server構文が根拠に示されていないため、非認証NTP設定を推測して生成することはできません。",
+      "GigabitEthernet1/0/20を同時にaccessポートとtrunkポートとして動作させる方法は、提供された根拠の構文からは確認できません。",
+      "主要要件を安全に実現できないため、部分設定を破棄しました: GigabitEthernet1/0/20をVLAN 120のアクセスポートかつVLAN 120と130を通過させるトランクポートとして同時に設定すること, 認証方式やキー情報が未指定の状態でNTPサーバー192.0.2.123を設定すること, gigabitethernet1/0/20へのaccessモードとtrunkモードの同時指定",
+      "主要機能に必要な値が不足しているため、部分設定を破棄しました: NTP認証キー番号(key-id), NTP認証キーのアルゴリズム種別(md5 / cmac-aes-128 / hmac-sha1 / hmac-sha2-256), NTP認証キーのパスワード文字列"
+    ],
+    "inferred_commands": [],
+    "unsupported_requirements": [
+      "GigabitEthernet1/0/20をVLAN 120のアクセスポートかつVLAN 120と130を通過させるトランクポートとして同時に設定すること",
+      "認証方式やキー情報が未指定の状態でNTPサーバー192.0.2.123を設定すること",
+      "gigabitethernet1/0/20へのaccessモードとtrunkモードの同時指定"
+    ],
+    "missing_required_values": [
+      "NTP認証キー番号(key-id)",
+      "NTP認証キーのアルゴリズム種別(md5 / cmac-aes-128 / hmac-sha1 / hmac-sha2-256)",
+      "NTP認証キーのパスワード文字列"
+    ],
+    "retrieval": [
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b:section-1018",
+        "score": 1.8648469809760133,
+        "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Configuring BGP PE to CE Routing Sessions",
+          "Configuring VRF-Aware Services",
+          "Configuring VRF-Aware Services for NTP on NTP Client",
+          "Configuring VRF-Aware Services for NTP on the NTP Server"
+        ]
+      },
+      {
+        "citation_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321:section-1188",
+        "score": 2.0,
+        "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Configure the VTEPs"
+        ]
+      },
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc:section-0133",
+        "score": 1.093073593073593,
+        "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Configuring an Ethernet Interface as a Trunk Port",
+          "Configuring a Trunk Port",
+          "Defining the Allowed VLANs on a Trunk"
+        ]
+      },
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f:section-0061",
+        "score": 2.2077625570776256,
+        "document_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Configuring NTP",
+          "Configuring NTP Authentication"
+        ]
+      },
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-nmgmt-9300-cg-3e060c1d1d52:section-0070",
+        "score": 1.6666666666666665,
+        "document_id": "catalyst9300-26-x-b-26x-nmgmt-9300-cg-3e060c1d1d52",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "How to Configure Interface Templates",
+          "Verifying Interface Templates",
+          "Example: Verifying all Builtin Templates"
+        ]
+      },
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc:section-0137",
+        "score": 1.0416881166881167,
+        "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Configuring an Ethernet Interface as a Trunk Port",
+          "Configuring a Trunk Port",
+          "Configuring the Native VLAN for Untagged Traffic"
+        ]
+      }
+    ],
+    "search_queries": [
+      "Catalyst 9300にNTPサーバー192.0.2.123を設定し、同時にGigabitEthernet1/0/20をVLAN 120のアクセスポートかつVLAN 120と130を通過させるトランクポートとして設定してください。",
+      "Cisco Catalyst 9300 IOS XE 26.x configure NTP server command ntp server best practices",
+      "Cisco IOS XE 26.x NTP configuration guide Catalyst 9300 ntp server authentication",
+      "Catalyst 9300 IOS XE 26.x how to configure NTP server and verify with show ntp associations",
+      "Cisco Catalyst 9300 IOS XE 26.x configure access port switchport mode access vlan 120",
+      "Catalyst 9300 IOS XE 26.x interface configuration guide access port switchport access vlan",
+      "Cisco IOS XE 26.x Catalyst 9300 verify access port configuration with show interfaces switchport",
+      "Cisco Catalyst 9300 IOS XE 26.x configure trunk port switchport mode trunk allowed vlan 120,130",
+      "Catalyst 9300 IOS XE 26.x trunk port configuration guide switchport trunk allowed vlan",
+      "Cisco IOS XE 26.x Catalyst 9300 verify trunk port with show interfaces trunk and show vlan brief"
+    ],
+    "cli_terms": [
+      "ntp server",
+      "ntp server ip-address",
+      "ntp authenticate",
+      "interface GigabitEthernet",
+      "switchport mode trunk",
+      "ntp trusted-key",
+      "ntp source",
+      "ntp update-calendar",
+      "no ntp server",
+      "switchport mode access",
+      "switchport access vlan",
+      "spanning-tree portfast",
+      "spanning-tree bpduguard enable",
+      "no switchport access vlan",
+      "switchport trunk allowed vlan",
+      "switchport trunk native vlan",
+      "switchport nonegotiate",
+      "no switchport trunk allowed vlan"
+    ]
+  },
+  "evaluator_schema_version": 2
+}

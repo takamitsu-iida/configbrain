@@ -1,0 +1,143 @@
+{
+  "case_id": "minimal-syslog-no-overconfiguration",
+  "case_directory": "case-10-minimal-syslog",
+  "run": 3,
+  "baseline_sha256": "47596ea0f0c760888b408c767af396e2362a201d1100edc7037989ac14ae0ee2",
+  "evaluation_fingerprint": "062a6cff6a1a76ebb05fac974fc3e7de4ed609f86a29bb793eee3d3c501003dd",
+  "job_id": "96637a9d-aa49-4d01-8c73-2a9af801323a",
+  "request_id": "65c8707e-fdb2-4bd8-95c4-da9534bfab1c",
+  "duration_ms": 45773,
+  "evaluation": {
+    "retrieval_plan_pass": true,
+    "configuration_pass": true,
+    "citation_pass": true,
+    "product_isolation_pass": true,
+    "configuration_equivalent": true,
+    "decision_equivalent": true,
+    "inference_pass": true,
+    "all_pass": true,
+    "retrieval_checks": {
+      "logging host": true
+    },
+    "required_checks": {
+      "(?im)^logging host 192\\.0\\.2\\.200$": true
+    },
+    "forbidden_checks": {
+      "(?im)^logging trap\\b": true,
+      "(?im)^logging facility\\b": true,
+      "(?im)^service timestamps\\b": true,
+      "(?im)^logging buffered\\b": true,
+      "(?im)^logging source-interface\\b": true,
+      "(?im)^logging host .*\\bvrf\\b": true,
+      "(?im)^(?!logging host 192\\.0\\.2\\.200$)\\S.*$": true
+    },
+    "normalized_configuration": "logging host 192.0.2.200"
+  },
+  "generated": {
+    "requirement": "Catalyst 9300からSyslogサーバー192.0.2.200へログを送信するために必要な最小限の設定を生成してください。送信先IPアドレス以外の値は指定しません。",
+    "knowledge_policy": "disallow",
+    "configuration": "logging host 192.0.2.200\n",
+    "explanation": "Syslogサーバーへログを送信するためには、メッセージロギング機能を有効化し、送信先ホスト(IPアドレス)を指定する必要があります。\n\n1. \"logging on\" \n   - [c9300_iosxe26_sys_mgmt_cg:section-0339]に記載の通り、メッセージロギングは無効化された場合に再度有効化するには\"logging on\"グローバルコンフィグコマンドを使用します。Syslogサーバーなどコンソール以外の宛先へログを送るにはロギングプロセスが有効である必要があるため、最小構成としてこのコマンドを含めています。\n\n2. \"logging host 192.0.2.200\"\n   - [catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b:section-1022]および[c9300_iosxe26_sys_mgmt_cg:section-0332]の記述から、Syslogサーバーのホストアドレスを指定するには\"logging host ip-address\"形式のコマンドを使用します。要件で指定された送信先IPアドレス192.0.2.200のみが与えられているため、VRF名など追加情報は付けず、最小限としてIPアドレスのみを指定しています。\n\nこれら2つのコマンドにより、Catalyst 9300から指定されたSyslogサーバー192.0.2.200へログメッセージを送信するための最小限の設定が成立します。",
+    "citations": [
+      "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b:section-1022",
+      "c9300_iosxe26_sys_mgmt_cg:section-0332",
+      "c9300_iosxe26_sys_mgmt_cg:section-0339"
+    ],
+    "warnings": [
+      "要件にSyslog送信のためのVRF名やメッセージのseverityレベル(logging trap)などが指定されていないため、それらの詳細制御は設定していません。",
+      "enableやconfigure terminalなどの操作モード遷移コマンドは、要件でCLIコンフィグのみが求められているため含めていません。",
+      "要件にない操作・任意設定を除外しました: logging on"
+    ],
+    "inferred_commands": [],
+    "unsupported_requirements": [],
+    "missing_required_values": [],
+    "retrieval": [
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b:section-1022",
+        "score": 5.091134915072403,
+        "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Configuring BGP PE to CE Routing Sessions",
+          "Configuring VRF-Aware Services",
+          "Configuring VRF-Aware Services for Syslog"
+        ]
+      },
+      {
+        "citation_id": "c9300_iosxe26_ip_addr_svc_cg:section-0213",
+        "score": 1.0,
+        "document_id": "c9300_iosxe26_ip_addr_svc_cg",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "How to Configure GLBP",
+          "Configuring GLBP Text Authentication",
+          "Troubleshooting GLBP",
+          "Before you begin"
+        ]
+      },
+      {
+        "citation_id": "c9300_iosxe26_sys_mgmt_cg:section-0332",
+        "score": 0.5434782608695652,
+        "document_id": "c9300_iosxe26_sys_mgmt_cg",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Setting the Message Display Destination Device"
+        ]
+      },
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f:section-0369",
+        "score": 0.5405405405405406,
+        "document_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "How to Configure System Message Logs",
+          "Defining the Message Severity Level"
+        ]
+      },
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-sec-9300-cg-8e2ad3aabae2:section-1002",
+        "score": 0.5,
+        "document_id": "catalyst9300-26-x-b-26x-sec-9300-cg-8e2ad3aabae2",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "How to Configure Object Groups for ACLs",
+          "Creating an Object-Group-Based ACL"
+        ]
+      },
+      {
+        "citation_id": "c9300_iosxe26_sys_mgmt_cg:section-0339",
+        "score": 0.5,
+        "document_id": "c9300_iosxe26_sys_mgmt_cg",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Disabling Message Logging"
+        ]
+      }
+    ],
+    "search_queries": [
+      "Catalyst 9300からSyslogサーバー192.0.2.200へログを送信するために必要な最小限の設定を生成してください。送信先IPアドレス以外の値は指定しません。",
+      "Cisco Catalyst 9300 IOS XE 26.x configure syslog server logging host IPv4 address minimum configuration",
+      "Cisco IOS XE 26.x Catalyst 9300 logging host command configure remote syslog server basic setup",
+      "Catalyst 9300 IOS XE 26.x how to send system logs to external syslog server using logging host"
+    ],
+    "cli_terms": [
+      "logging host",
+      "logging host ip-address",
+      "logging trap",
+      "logging source-interface",
+      "logging facility",
+      "logging on",
+      "no logging host",
+      "no logging trap",
+      "no logging source-interface",
+      "no logging on"
+    ]
+  },
+  "evaluator_schema_version": 2
+}

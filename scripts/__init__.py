@@ -1,0 +1,1 @@
+"""Command-line scripts for the document conversion pipeline."""

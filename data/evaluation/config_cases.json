@@ -1,0 +1,119 @@
+[
+  {
+    "id": "routed-port-ipv4",
+    "product": "catalyst9300",
+    "release": "26.x",
+    "requirement": "Catalyst 9300のGigabitEthernet1/0/1をルーテッドポートにし、IPv4アドレス192.0.2.1/24を設定してください。",
+    "retrieval_terms": ["no switchport", "ip address"],
+    "required_patterns": ["(?im)^interface\\s+GigabitEthernet1/0/1$", "(?im)^no switchport$", "(?im)^ip address 192\\.0\\.2\\.1 255\\.255\\.255\\.0$"],
+    "forbidden_patterns": ["(?im)^switchport mode access$"]
+  },
+  {
+    "id": "interface-description",
+    "product": "catalyst9300",
+    "release": "26.x",
+    "requirement": "GigabitEthernet1/0/10に Uplink-to-Core というdescriptionを設定してください。",
+    "retrieval_terms": ["description", "interface"],
+    "required_patterns": ["(?im)^interface\\s+GigabitEthernet1/0/10$", "(?im)^description Uplink-to-Core$"],
+    "forbidden_patterns": []
+  },
+  {
+    "id": "access-vlan",
+    "product": "catalyst9300",
+    "release": "26.x",
+    "requirement": "GigabitEthernet1/0/20をアクセスポートにしてVLAN 120へ所属させてください。",
+    "retrieval_terms": ["switchport mode access", "switchport access vlan"],
+    "required_patterns": ["(?im)^interface\\s+GigabitEthernet1/0/20$", "(?im)^switchport mode access$", "(?im)^switchport access vlan 120$"],
+    "forbidden_patterns": ["(?im)^no switchport$"]
+  },
+  {
+    "id": "dhcp-relay",
+    "product": "catalyst9300",
+    "release": "26.x",
+    "requirement": "Vlan100で受信するDHCP要求をDHCPサーバー192.0.2.50へ転送してください。",
+    "retrieval_terms": ["ip helper-address"],
+    "required_patterns": ["(?im)^interface\\s+(?:Vlan100|vlan\\s+100)$", "(?im)^ip helper-address 192\\.0\\.2\\.50$"],
+    "forbidden_patterns": []
+  },
+  {
+    "id": "dhcp-pool",
+    "product": "catalyst9300",
+    "release": "26.x",
+    "requirement": "10.10.20.0/24向けに名前 USERS のDHCPプールを作り、デフォルトゲートウェイを10.10.20.1にしてください。",
+    "retrieval_terms": ["ip dhcp pool", "default-router"],
+    "required_patterns": ["(?im)^ip dhcp pool USERS$", "(?im)^network 10\\.10\\.20\\.0 255\\.255\\.255\\.0$", "(?im)^default-router 10\\.10\\.20\\.1$"],
+    "forbidden_patterns": []
+  },
+  {
+    "id": "ipv6-interface",
+    "product": "catalyst9300",
+    "release": "26.x",
+    "requirement": "IPv6ルーティングを有効化し、Vlan200へ2001:db8:200::1/64を設定してください。",
+    "retrieval_terms": ["ipv6 unicast-routing", "ipv6 address"],
+    "required_patterns": ["(?im)^ipv6 unicast-routing$", "(?im)^interface\\s+(?:Vlan200|vlan\\s+200)$", "(?im)^ipv6 address 2001:db8:200::1/64$"],
+    "forbidden_patterns": []
+  },
+  {
+    "id": "ntp-server",
+    "product": "catalyst9300",
+    "release": "26.x",
+    "requirement": "NTPサーバー192.0.2.123を時刻同期先として設定してください。",
+    "retrieval_terms": ["ntp server"],
+    "required_patterns": ["(?im)^ntp server 192\\.0\\.2\\.123$"],
+    "forbidden_patterns": []
+  },
+  {
+    "id": "syslog-server",
+    "product": "catalyst9300",
+    "release": "26.x",
+    "requirement": "Syslogメッセージを192.0.2.200へ送信する設定を生成してください。",
+    "retrieval_terms": ["logging host"],
+    "required_patterns": ["(?im)^logging host 192\\.0\\.2\\.200$"],
+    "forbidden_patterns": []
+  },
+  {
+    "id": "snmp-community",
+    "product": "catalyst9300",
+    "release": "26.x",
+    "requirement": "SNMPv2cの読み取り専用コミュニティ名 MONITOR を設定してください。",
+    "retrieval_terms": ["snmp-server community", "ro"],
+    "required_patterns": ["(?im)^snmp-server community MONITOR ro$"],
+    "forbidden_patterns": ["(?im)^snmp-server community MONITOR rw$"]
+  },
+  {
+    "id": "interface-shutdown",
+    "product": "catalyst9300",
+    "release": "26.x",
+    "requirement": "GigabitEthernet1/0/48を管理的に停止してください。",
+    "retrieval_terms": ["shutdown", "interface"],
+    "required_patterns": ["(?im)^interface\\s+GigabitEthernet1/0/48$", "(?im)^shutdown$"],
+    "forbidden_patterns": ["(?im)^no shutdown$"]
+  },
+  {
+    "id": "minimal-interface-range",
+    "product": "catalyst9300",
+    "release": "26.x",
+    "requirement": "GigabitEthernet1/0/10と1/0/11と1/0/12をVLAN 100のアクセスポートにしてください。できるだけ短い設定でお願いします。",
+    "retrieval_terms": ["interface range", "switchport access vlan"],
+    "required_patterns": ["(?im)^interface\\s+range\\s+GigabitEthernet1/0/10\\s*-\\s*12$", "(?im)^switchport mode access$", "(?im)^switchport access vlan 100$"],
+    "forbidden_patterns": ["(?im)^define\\s+interface-range\\b", "(?im)^interface\\s+range\\s+macro\\b"]
+  },
+  {
+    "id": "vtp-transparent",
+    "product": "catalyst9300",
+    "release": "26.x",
+    "requirement": "VTPのデフォルト動作を確認して、デフォルトがtransparentでなければ、設定をtransparentに変更してください。",
+    "retrieval_terms": ["VTP server is the default mode", "vtp mode transparent"],
+    "required_patterns": ["(?im)^vtp mode transparent$"],
+    "forbidden_patterns": ["(?im)^show\\s+vtp\\b"]
+  },
+  {
+    "id": "vlan-name",
+    "product": "catalyst9300",
+    "release": "26.x",
+    "requirement": "VLAN 100を作成し、名前をUSERSに設定してください。",
+    "retrieval_terms": ["name vlan-name"],
+    "required_patterns": ["(?im)^vlan 100$", "(?im)^name USERS$"],
+    "forbidden_patterns": []
+  }
+]

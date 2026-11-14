@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "product": "catalyst9500",
+  "release": "26.x",
+  "seed_url": "https://www.cisco.com/c/en/us/support/switches/catalyst-9500-series-switches/products-installation-and-configuration-guides-list.html",
+  "discovered_at": "2026-11-12T02:13:20.208386+00:00",
+  "documents": [
+    {
+      "document_id": "catalyst9500-26-x-26x-bgp-evpn-vxlan-9500-cg-3965c8319600",
+      "title": "BGP EVPN VXLAN Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9500 Switches)",
+      "category": "Configuration Guides",
+      "filename": "26x-bgp-evpn-vxlan-9500-cg.pdf",
+      "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9500/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9500-cg.pdf"
+    },
+    {
+      "document_id": "catalyst9500-26-x-b-26x-bonjour-9500-cg-551b9acd5a41",
+      "title": "Cisco DNA Service for Bonjour Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9500 Switches)",
+      "category": "Configuration Guides",
+      "filename": "b_26x_bonjour_9500_cg.pdf",
+      "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9500/software/release/26-x/configuration_guide/bonjour/b_26x_bonjour_9500_cg.pdf"
+    },
+    {
+      "document_id": "catalyst9500-26-x-b-26x-cts-9500-cg-00cd05d0d01e",
+      "title": "Cisco TrustSec Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9500 Switches)",
+      "category": "Configuration Guides",
+      "filename": "b_26x_cts_9500_cg.pdf",
+      "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9500/software/release/26-x/configuration_guide/cts/b_26x_cts_9500_cg.pdf"
+    },
+    {
+      "document_id": "catalyst9500-26-x-b-26x-ha-9500-cg-cae50f564271",
+      "title": "High Availability Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9500 Switches)",
+      "category": "Configuration Guides",
+      "filename": "b_26x_ha_9500_cg.pdf",
+      "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9500/software/release/26-x/configuration_guide/ha/b_26x_ha_9500_cg.pdf"
+    },
+    {
+      "document_id": "catalyst9500-26-x-b-26x-int-and-hw-9500-cg-cb55fa160843",
+      "title": "Interface and Hardware Components Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9500 Switches)",
+      "category": "Configuration Guides",
+      "filename": "b_26x_int_and_hw_9500_cg.pdf",
+      "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9500/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9500_cg.pdf"
+    },
+    {
+      "document_id": "catalyst9500-26-x-b-26x-ip-9500-cg-51c9dc4dd233",
+      "title": "IP Addressing Services Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9500 Switches)",
+      "category": "Configuration Guides",
+      "filename": "b_26x_ip_9500_cg.pdf",
+      "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9500/software/release/26-x/configuration_guide/ip/b_26x_ip_9500_cg.pdf"
+    },
+    {
+      "document_id": "catalyst9500-26-x-b-26x-ip-mcast-rtng-9500-cg-6e40da73162c",
+      "title": "IP Multicast Routing Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9500 Switches)",
+      "category": "Configuration Guides",
+      "filename": "b_26x_ip_mcast_rtng_9500_cg.pdf",
+      "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9500/software/release/26-x/configuration_guide/ip_mcast_rtng/b_26x_ip_mcast_rtng_9500_cg.pdf"
+    },
+    {
+      "document_id": "catalyst9500-26-x-b-26x-lyr2-9500-cg-6e51a25437cb",
+      "title": "Layer 2 Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9500 Switches)",
+      "category": "Configuration Guides",
+      "filename": "b_26x_lyr2_9500_cg.pdf",
+      "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9500/software/release/26-x/configuration_guide/lyr2/b_26x_lyr2_9500_cg.pdf"
+    },
+    {
+      "document_id": "catalyst9500-26-x-b-26x-mpls-9500-cg-60de335405cd",
+      "title": "Multiprotocol Label Switching Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9500 Switches)",
+      "category": "Configuration Guides",
+      "filename": "b_26x_mpls_9500_cg.pdf",
+      "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9500/software/release/26-x/configuration_guide/mpls/b_26x_mpls_9500_cg.pdf"
+    },
+    {
+      "document_id": "catalyst9500-26-x-b-26x-nmgmt-9500-cg-cc4cbcfc289a",
+      "title": "Network Management Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9500 Switches)",
+      "category": "Configuration Guides",
+      "filename": "b_26x_nmgmt_9500_cg.pdf",
+      "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9500/software/release/26-x/configuration_guide/nmgmt/b_26x_nmgmt_9500_cg.pdf"
+    },
+    {
+      "document_id": "catalyst9500-26-x-b-26x-qos-9500-cg-3b0967b317cd",
+      "title": "Quality of Service Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9500 Switches)",
+      "category": "Configuration Guides",
+      "filename": "b_26x_qos_9500_cg.pdf",
+      "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9500/software/release/26-x/configuration_guide/qos/b_26x_qos_9500_cg.pdf"
+    },
+    {
+      "document_id": "catalyst9500-26-x-b-26x-rtng-9500-cg-55f9fce55bce",
+      "title": "IP Routing Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9500 Switches)",
+      "category": "Configuration Guides",
+      "filename": "b_26x_rtng_9500_cg.pdf",
+      "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9500/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9500_cg.pdf"
+    },
+    {
+      "document_id": "catalyst9500-26-x-b-26x-sec-9500-cg-48c852343bae",
+      "title": "Security Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9500 Switches)",
+      "category": "Configuration Guides",
+      "filename": "b_26x_sec_9500_cg.pdf",
+      "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9500/software/release/26-x/configuration_guide/sec/b_26x_sec_9500_cg.pdf"
+    },
+    {
+      "document_id": "catalyst9500-26-x-b-26x-sys-mgmt-9500-cg-6e328a2b0225",
+      "title": "System Management Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9500 Switches)",
+      "category": "Configuration Guides",
+      "filename": "b_26x_sys_mgmt_9500_cg.pdf",
+      "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9500/software/release/26-x/configuration_guide/sys_mgmt/b_26x_sys_mgmt_9500_cg.pdf"
+    },
+    {
+      "document_id": "catalyst9500-26-x-b-26x-vlan-9500-cg-55157674256b",
+      "title": "VLAN Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9500 Switches)",
+      "category": "Configuration Guides",
+      "filename": "b_26x_vlan_9500_cg.pdf",
+      "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9500/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9500_cg.pdf"
+    }
+  ],
+  "differences": {
+    "new": [
+      "catalyst9500-26-x-26x-bgp-evpn-vxlan-9500-cg-3965c8319600",
+      "catalyst9500-26-x-b-26x-bonjour-9500-cg-551b9acd5a41",
+      "catalyst9500-26-x-b-26x-cts-9500-cg-00cd05d0d01e",
+      "catalyst9500-26-x-b-26x-ha-9500-cg-cae50f564271",
+      "catalyst9500-26-x-b-26x-int-and-hw-9500-cg-cb55fa160843",
+      "catalyst9500-26-x-b-26x-ip-9500-cg-51c9dc4dd233",
+      "catalyst9500-26-x-b-26x-ip-mcast-rtng-9500-cg-6e40da73162c",
+      "catalyst9500-26-x-b-26x-lyr2-9500-cg-6e51a25437cb",
+      "catalyst9500-26-x-b-26x-mpls-9500-cg-60de335405cd",
+      "catalyst9500-26-x-b-26x-nmgmt-9500-cg-cc4cbcfc289a",
+      "catalyst9500-26-x-b-26x-qos-9500-cg-3b0967b317cd",
+      "catalyst9500-26-x-b-26x-rtng-9500-cg-55f9fce55bce",
+      "catalyst9500-26-x-b-26x-sec-9500-cg-48c852343bae",
+      "catalyst9500-26-x-b-26x-sys-mgmt-9500-cg-6e328a2b0225",
+      "catalyst9500-26-x-b-26x-vlan-9500-cg-55157674256b"
+    ],
+    "updated": [],
+    "removed": []
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "case_id": "vlan-access-dependency",
+  "case_directory": "case-07-vlan-access-dependency",
+  "run": 1,
+  "baseline_sha256": "b4a1b7ff634c06ffa323ea2d91020589694cddd683f093537e5b0995abe51099",
+  "evaluation_fingerprint": "d6f1d6c9e448cd15e166275a53f68ef073ab527a1fac944ea13fe204e0a28289",
+  "job_id": "43779cc9-be76-49c3-a951-fd03fc9b7c82",
+  "request_id": "513881fa-b89f-4195-aa55-f5a69d9140d8",
+  "duration_ms": 58186,
+  "evaluation": {
+    "retrieval_plan_pass": true,
+    "configuration_pass": true,
+    "citation_pass": true,
+    "product_isolation_pass": true,
+    "configuration_equivalent": true,
+    "decision_equivalent": true,
+    "inference_pass": true,
+    "all_pass": true,
+    "retrieval_checks": {
+      "vlan": true,
+      "switchport mode access": true,
+      "switchport access vlan": true
+    },
+    "required_checks": {
+      "(?ims)^vlan 120$.*^interface\\s+GigabitEthernet1/0/20$": true,
+      "(?im)^switchport mode access$": true,
+      "(?im)^switchport access vlan 120$": true
+    },
+    "forbidden_checks": {
+      "(?im)^switchport mode trunk$": true,
+      "(?im)^switchport trunk allowed vlan": true,
+      "(?im)^no switchport$": true
+    },
+    "normalized_configuration": "vlan 120\ninterface GigabitEthernet1/0/20\nswitchport access vlan 120\nswitchport mode access"
+  },
+  "generated": {
+    "requirement": "Catalyst 9300にVLAN 120を作成し、その後GigabitEthernet1/0/20をVLAN 120のアクセスポートとして設定してください。",
+    "knowledge_policy": "disallow",
+    "configuration": "vlan 120\ninterface GigabitEthernet1/0/20\n switchport access vlan 120\n switchport mode access\n",
+    "explanation": "要件は「VLAN 120の作成」と「GigabitEthernet1/0/20をVLAN 120のアクセスポートとして設定する」ことです。\n\nVLAN作成については、根拠E1で示されている `vlan vlan-id` 構文を用いて `vlan 120` を設定することで、VLAN 120を作成できます。\n\nアクセスポート設定については、根拠E4のインターフェース設定例で `interface GigabitEthernet1/0/11` に対して `switchport access vlan 101` と `switchport mode access` を指定しており、同様の構文でGigabitEthernet1/0/20をVLAN 120のアクセスポートとして設定できます。",
+    "citations": [
+      "catalyst9300-26-x-b-26x-nmgmt-9300-cg-3e060c1d1d52:section-0300",
+      "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321:section-1188"
+    ],
+    "warnings": [],
+    "inferred_commands": [],
+    "unsupported_requirements": [],
+    "missing_required_values": [],
+    "retrieval": [
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-nmgmt-9300-cg-3e060c1d1d52:section-0300",
+        "score": 1.0,
+        "document_id": "catalyst9300-26-x-b-26x-nmgmt-9300-cg-3e060c1d1d52",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Configuring a VLAN as an RSPAN VLAN"
+        ]
+      },
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-sec-9300-cg-8e2ad3aabae2:section-1576",
+        "score": 2.5,
+        "document_id": "catalyst9300-26-x-b-26x-sec-9300-cg-8e2ad3aabae2",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Feature History for CoA Support",
+          "Information About Interface Templates",
+          "Verifying an Interface Template",
+          "Verifying all Builtin Templates"
+        ]
+      },
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-qos-9300-cg-4e21dc6d1e2a:section-0274",
+        "score": 1.0,
+        "document_id": "catalyst9300-26-x-b-26x-qos-9300-cg-4e21dc6d1e2a",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "How to Configure Class, Policy, and Maps",
+          "Examples: Classification by Access Control Lists",
+          "Examples: VLAN ID Layer 2 Classification"
+        ]
+      },
+      {
+        "citation_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321:section-1188",
+        "score": 2.0,
+        "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Configure the VTEPs"
+        ]
+      },
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-nmgmt-9300-cg-3e060c1d1d52:section-0070",
+        "score": 1.1666666666666665,
+        "document_id": "catalyst9300-26-x-b-26x-nmgmt-9300-cg-3e060c1d1d52",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "How to Configure Interface Templates",
+          "Verifying Interface Templates",
+          "Example: Verifying all Builtin Templates"
+        ]
+      },
+      {
+        "citation_id": "c9300_iosxe26_int_hw_cg:section-0059",
+        "score": 1.0,
+        "document_id": "c9300_iosxe26_int_hw_cg",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Configuring Interface Characteristics",
+          "Configuring and Using Interface Range Macros",
+          "Configuring a Breakout Interface",
+          "Table 4: C9300-NM-2Q Module with two 4x10G Breakout Cables"
+        ]
+      }
+    ],
+    "search_queries": [
+      "Catalyst 9300にVLAN 120を作成し、その後GigabitEthernet1/0/20をVLAN 120のアクセスポートとして設定してください。",
+      "Cisco Catalyst 9300 IOS XE 26.x configuration guide create VLAN 120 access network vlan database",
+      "Cisco Catalyst 9300 IOS XE 26.x how to configure VLAN 120 using global configuration mode",
+      "Cisco Catalyst 9300 IOS XE 26.x VLAN configuration commands create new VLAN and assign name",
+      "Cisco Catalyst 9300 IOS XE 26.x configure GigabitEthernet access port for VLAN 120 switchport access vlan",
+      "Cisco Catalyst 9300 IOS XE 26.x interface configuration set access mode and assign VLAN 120",
+      "Cisco Catalyst 9300 IOS XE 26.x how to configure access port membership in VLAN 120"
+    ],
+    "cli_terms": [
+      "vlan",
+      "interface",
+      "vlan 120",
+      "vlan configuration mode",
+      "no vlan",
+      "name",
+      "vlan name",
+      "switchport access vlan",
+      "interface vlan",
+      "GigabitEthernet",
+      "interface configuration mode",
+      "switchport",
+      "switchport mode access",
+      "no switchport access vlan",
+      "no switchport mode access"
+    ]
+  },
+  "evaluator_schema_version": 2
+}

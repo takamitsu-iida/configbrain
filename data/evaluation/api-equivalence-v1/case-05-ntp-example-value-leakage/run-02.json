@@ -1,0 +1,132 @@
+{
+  "case_id": "ntp-example-value-leakage",
+  "case_directory": "case-05-ntp-example-value-leakage",
+  "run": 2,
+  "baseline_sha256": "d4cf39bcc2216585618cef53d6c9c66723934a4d104ae0be826c77854e6944dc",
+  "evaluation_fingerprint": "87e46ccc57cb7e8fa712a53d5916f171ba27ac5d01b1729a88fade5f6006656f",
+  "job_id": "de122ed5-3d37-4b6a-a36b-aa0c383418b5",
+  "request_id": "3e8150ec-b93a-44c4-a936-2958b64d5d0f",
+  "duration_ms": 43390,
+  "evaluation": {
+    "retrieval_plan_pass": true,
+    "configuration_pass": true,
+    "citation_pass": true,
+    "product_isolation_pass": true,
+    "configuration_equivalent": true,
+    "decision_equivalent": true,
+    "inference_pass": true,
+    "all_pass": true,
+    "retrieval_checks": {
+      "ntp server": true
+    },
+    "required_checks": {
+      "(?im)^ntp server 192\\.0\\.2\\.123$": true
+    },
+    "forbidden_checks": {
+      "(?im)^ntp server\\s+vrf\\b": true,
+      "(?im)^ntp server .*\\b(?:key|source|prefer|version)\\b": true,
+      "(?im)^ntp (?:authenticate|authentication-key|trusted-key)\\b": true
+    },
+    "normalized_configuration": "ntp server 192.0.2.123"
+  },
+  "generated": {
+    "requirement": "Catalyst 9300に認証を使用せず、NTPサーバー192.0.2.123だけを時刻同期先として設定してください。",
+    "knowledge_policy": "disallow",
+    "configuration": "ntp server 192.0.2.123\n",
+    "explanation": "要件は「認証を使用せず、NTPサーバー192.0.2.123だけを時刻同期先として設定」とあります。\n\n根拠E2のTable 3より、NTP認証はデフォルトで無効であり、認証キーも指定されていないため、追加で認証を無効化するコマンドは不要です（既に認証なしの状態）。\n\n根拠E3/E4のStep 5に示されている `[ no ] ntp server ip-address key key-id [ prefer ]` の構文から、`ntp server ip-address` でNTPサーバーを指定できることが分かります。要件では認証を使用しないため、`key` オプションは付けずに `ntp server 192.0.2.123` のみを設定しています。\n\nまた、要件は「そのサーバーだけを時刻同期先として」とありますが、他のNTPサーバーが既に設定されているかどうかは不明であり、既存設定削除用の `no ntp server` コマンドの具体的IPアドレスも要件に含まれていないため、根拠に基づいて安全に生成できるのは新規の `ntp server 192.0.2.123` のみです。",
+    "citations": [
+      "c9300_iosxe26_sys_mgmt_cg:section-0042",
+      "c9300_iosxe26_sys_mgmt_cg:section-0043",
+      "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f:section-0061"
+    ],
+    "warnings": [
+      "既存のNTPサーバー設定を削除する必要がある場合、そのIPアドレスが要件に含まれていないため `no ntp server <ip-address>` を生成できません。必要な削除対象IPアドレスを指定してください。"
+    ],
+    "inferred_commands": [],
+    "unsupported_requirements": [],
+    "missing_required_values": [],
+    "retrieval": [
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b:section-1016",
+        "score": 1.0869286510590859,
+        "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Configuring BGP PE to CE Routing Sessions",
+          "Configuring VRF-Aware Services",
+          "Configuring VRF-Aware Services for NTP on NTP Client"
+        ]
+      },
+      {
+        "citation_id": "c9300_iosxe26_sys_mgmt_cg:section-0042",
+        "score": 0.08714504946122593,
+        "document_id": "c9300_iosxe26_sys_mgmt_cg",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Default NTP Configuration",
+          "Table 3: Default NTP Configuration"
+        ]
+      },
+      {
+        "citation_id": "c9300_iosxe26_sys_mgmt_cg:section-0043",
+        "score": 1.0491803278688525,
+        "document_id": "c9300_iosxe26_sys_mgmt_cg",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Configuring NTP Authentication"
+        ]
+      },
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f:section-0061",
+        "score": 0.5483870967741935,
+        "document_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Configuring NTP",
+          "Configuring NTP Authentication"
+        ]
+      },
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b:section-1017",
+        "score": 0.5,
+        "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Configuring BGP PE to CE Routing Sessions",
+          "Configuring VRF-Aware Services",
+          "Configuring VRF-Aware Services for NTP on NTP Client",
+          "Configuring VRF-Aware Services for NTP on the NTP Server"
+        ]
+      },
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b:section-1018",
+        "score": 0.4124503968253968,
+        "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Configuring BGP PE to CE Routing Sessions",
+          "Configuring VRF-Aware Services",
+          "Configuring VRF-Aware Services for NTP on NTP Client",
+          "Configuring VRF-Aware Services for NTP on the NTP Server"
+        ]
+      }
+    ],
+    "search_queries": [
+      "Catalyst 9300に認証を使用せず、NTPサーバー192.0.2.123だけを時刻同期先として設定してください。",
+      "Cisco Catalyst 9300 IOS XE 16 configure NTP server without authentication single time source",
+      "Cisco IOS XE NTP configuration guide ntp server only one server no authentication",
+      "Catalyst 9300 ntp server configuration disable ntp authentication use single ntp server"
+    ],
+    "cli_terms": [
+      "ntp server",
+      "ntp server ip-address"
+    ]
+  },
+  "evaluator_schema_version": 2
+}

@@ -1,0 +1,149 @@
+{
+  "case_id": "supported-ntp-unsupported-stackwise-virtual",
+  "case_directory": "case-01-mixed-supported-unsupported",
+  "run": 2,
+  "baseline_sha256": "fdd6af81dd2deee91f2ea66c9149e70715895c2885ba616df49f5e4c8c88d1de",
+  "evaluation_fingerprint": "fd2818ea46cc1787ee7836e0c2dd387948f71a8fad74644174bd89ad49317a42",
+  "job_id": "8d288f35-b468-489c-a0a1-181c5efba51c",
+  "request_id": "c3d3812e-cfca-45e5-8916-7b6c754645b6",
+  "duration_ms": 60283,
+  "evaluation": {
+    "retrieval_plan_pass": true,
+    "configuration_pass": true,
+    "citation_pass": true,
+    "product_isolation_pass": true,
+    "configuration_equivalent": true,
+    "decision_equivalent": true,
+    "inference_pass": true,
+    "all_pass": true,
+    "retrieval_checks": {
+      "ntp server": true
+    },
+    "required_checks": {},
+    "forbidden_checks": {},
+    "normalized_configuration": ""
+  },
+  "generated": {
+    "requirement": "Catalyst 9300にNTPサーバー192.0.2.123を設定し、同時にGigabitEthernet1/0/3をStackWise VirtualのFast Hello Dual-Active-Detectionリンクとして設定してください。",
+    "knowledge_policy": "disallow",
+    "configuration": "",
+    "explanation": "NTPサーバー設定については、根拠E5およびE6から`ntp server ip-address ...`構文が確認できるため、本来であれば`ntp server 192.0.2.123`形式のCLIを生成可能です。しかし、要件には認証キーIDやVRF名、version指定などの必須ではないがオプションとなり得る値しか含まれておらず、IPアドレス自体は指定されています。通常であれば`ntp server 192.0.2.123`のみで要件を満たせますが、開発者指示により、主要機能を実現するCLIの根拠が不足する場合や、StackWise Virtual Fast Hello Dual-Active-Detectionリンクの設定構文が根拠に存在しない場合には、その要件をunsupported_requirementsへ記載し、configurationを完全に空にする必要があります。\n\nStackWise VirtualのFast Hello Dual-Active-Detectionリンクについては、提供された根拠E1〜E6のいずれにも関連するコマンド構文（例: stackwise-virtual dual-active-detection、fast-hello関連のインターフェース設定など）が示されていません。そのため、GigabitEthernet1/0/3をDual-Active-Detectionリンクとして設定するためのCLIを根拠から導出できず、LLMの事前知識による補完も禁止されているため、StackWise Virtual関連の設定は一切生成できません。\n\n要件は「NTPサーバー設定」と「StackWise Virtual Fast Hello Dual-Active-Detectionリンク設定」の2つを同時に求めていますが、そのうち後者の主要機能を実現するための根拠が欠落しているため、開発者指示に従い、全体のconfigurationを空とし、未サポート要件として扱います。",
+    "citations": [
+      "c9300_iosxe26_sys_mgmt_cg:section-0043",
+      "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f:section-0065"
+    ],
+    "warnings": [
+      "StackWise VirtualのFast Hello Dual-Active-Detectionリンクを設定するためのCLI構文が根拠に存在しないため、インターフェースGigabitEthernet1/0/3に対する設定は一切生成できません。",
+      "NTPサーバー192.0.2.123自体は`ntp server ip-address`構文で設定可能ですが、StackWise Virtual要件が根拠不足によりunsupported扱いとなるため、開発者指示に従いconfiguration全体を空としています。",
+      "主要要件を安全に実現できないため、部分設定を破棄しました: GigabitEthernet1/0/3をStackWise VirtualのFast Hello Dual-Active-Detectionリンクとして設定する要件を満たすためのCLI構文が根拠に存在しないため、この要件はサポートできません。"
+    ],
+    "inferred_commands": [],
+    "unsupported_requirements": [
+      "GigabitEthernet1/0/3をStackWise VirtualのFast Hello Dual-Active-Detectionリンクとして設定する要件を満たすためのCLI構文が根拠に存在しないため、この要件はサポートできません。"
+    ],
+    "missing_required_values": [],
+    "retrieval": [
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f:section-0061",
+        "score": 4.166666666666666,
+        "document_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Configuring NTP",
+          "Configuring NTP Authentication"
+        ]
+      },
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f:section-0064",
+        "score": 2.0,
+        "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Example"
+        ]
+      },
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b:section-1018",
+        "score": 1.878404985182479,
+        "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Configuring BGP PE to CE Routing Sessions",
+          "Configuring VRF-Aware Services",
+          "Configuring VRF-Aware Services for NTP on NTP Client",
+          "Configuring VRF-Aware Services for NTP on the NTP Server"
+        ]
+      },
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-lyr2-9300-cg-db110697da80:section-0206",
+        "score": 1.3333333333333333,
+        "document_id": "catalyst9300-26-x-b-26x-lyr2-9300-cg-db110697da80",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Information About EtherChannels",
+          "Channel Groups and Port-Channel Interfaces"
+        ]
+      },
+      {
+        "citation_id": "c9300_iosxe26_sys_mgmt_cg:section-0043",
+        "score": 2.0,
+        "document_id": "c9300_iosxe26_sys_mgmt_cg",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Configuring NTP Authentication"
+        ]
+      },
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f:section-0065",
+        "score": 1.8333333333333333,
+        "document_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Configuring NTP",
+          "Configuring Poll-Based NTP Associations"
+        ]
+      }
+    ],
+    "search_queries": [
+      "Catalyst 9300にNTPサーバー192.0.2.123を設定し、同時にGigabitEthernet1/0/3をStackWise VirtualのFast Hello Dual-Active-Detectionリンクとして設定してください。",
+      "Cisco Catalyst 9300 IOS XE 26.x configure NTP server command syntax",
+      "Cisco IOS XE NTP server configuration example for Catalyst 9300",
+      "Catalyst 9300 IOS XE NTP configuration guide ntp server authentication",
+      "Cisco Catalyst 9300 IOS XE 26.x configure StackWise Virtual fast hello dual-active-detection link on interface",
+      "Catalyst 9300 StackWise Virtual dual-active-detection fast hello configuration guide",
+      "Cisco IOS XE StackWise Virtual fast hello link configuration and verification commands"
+    ],
+    "cli_terms": [
+      "ntp server",
+      "ntp server ip-address",
+      "ntp authenticate",
+      "stackwise-virtual",
+      "ntp trusted-key",
+      "ntp source",
+      "ntp update-calendar",
+      "no ntp server",
+      "no ntp authenticate",
+      "no ntp trusted-key",
+      "no ntp source",
+      "no ntp update-calendar",
+      "stackwise-virtual domain",
+      "stackwise-virtual link",
+      "dual-active-detection",
+      "fast hello",
+      "interface GigabitEthernet",
+      "channel-group",
+      "lacp",
+      "no stackwise-virtual",
+      "no stackwise-virtual link",
+      "no dual-active-detection",
+      "no channel-group"
+    ]
+  },
+  "evaluator_schema_version": 2
+}

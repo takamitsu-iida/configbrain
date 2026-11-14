@@ -1,0 +1,23 @@
+.venv/
+.uv-cache/
+__pycache__/
+.pytest_cache/
+.env
+*.py[cod]
+
+# Machine-specific TLS trust bundle
+certs/*.pem
+
+# Local pipeline artifacts and generated indexes
+data/products/
+data/qdrant/
+data/trials/
+
+# Generated evaluation outputs
+data/evaluation/results*.json
+data/evaluation/*-poc.json
+data/evaluation/reproducibility*/
+data/evaluation/pilot/
+
+# Source manuals must remain local
+*.pdf

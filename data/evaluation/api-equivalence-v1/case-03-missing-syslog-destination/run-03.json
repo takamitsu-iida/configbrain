@@ -1,0 +1,150 @@
+{
+  "case_id": "missing-syslog-destination",
+  "case_directory": "case-03-missing-syslog-destination",
+  "run": 3,
+  "baseline_sha256": "042f446b07efe24ed7fd4a411587fa578e163319a2c089cefae9f6b8e518e4c4",
+  "evaluation_fingerprint": "d157805af333baac2b9a6faf6f3e5db93b48a77041e9af1e5347b62c74067921",
+  "job_id": "d5540130-792e-4734-b272-2681f1ddecf5",
+  "request_id": "d7df180d-9e62-4ce0-893c-91ba75561588",
+  "duration_ms": 52726,
+  "evaluation": {
+    "retrieval_plan_pass": true,
+    "configuration_pass": true,
+    "citation_pass": true,
+    "product_isolation_pass": true,
+    "configuration_equivalent": true,
+    "decision_equivalent": true,
+    "inference_pass": true,
+    "all_pass": true,
+    "retrieval_checks": {
+      "logging host": true
+    },
+    "required_checks": {},
+    "forbidden_checks": {},
+    "normalized_configuration": ""
+  },
+  "generated": {
+    "requirement": "Catalyst 9300から外部Syslogサーバーへログを送信する設定を生成してください。",
+    "knowledge_policy": "disallow",
+    "configuration": "",
+    "explanation": "要件の前処理で、設定生成に必要な値または根拠が不足しているため、設定を生成しませんでした。",
+    "citations": [
+      "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b:section-1022"
+    ],
+    "warnings": [
+      "生成前の要件検証により部分設定を抑止しました: SyslogサーバーのIPアドレスまたはホスト名"
+    ],
+    "inferred_commands": [],
+    "unsupported_requirements": [],
+    "missing_required_values": [
+      "SyslogサーバーのIPアドレスまたはホスト名"
+    ],
+    "retrieval": [
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b:section-1022",
+        "score": 5.092431187757175,
+        "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Configuring BGP PE to CE Routing Sessions",
+          "Configuring VRF-Aware Services",
+          "Configuring VRF-Aware Services for Syslog"
+        ]
+      },
+      {
+        "citation_id": "c9300_iosxe26_ip_addr_svc_cg:section-0213",
+        "score": 1.6666666666666665,
+        "document_id": "c9300_iosxe26_ip_addr_svc_cg",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "How to Configure GLBP",
+          "Configuring GLBP Text Authentication",
+          "Troubleshooting GLBP",
+          "Before you begin"
+        ]
+      },
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f:section-0369",
+        "score": 2.0161290322580645,
+        "document_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "How to Configure System Message Logs",
+          "Defining the Message Severity Level"
+        ]
+      },
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f:section-0365",
+        "score": 2.0,
+        "document_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "How to Configure System Message Logs",
+          "Disabling Message Logging",
+          "Procedure"
+        ]
+      },
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f:section-0366",
+        "score": 2.0,
+        "document_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "How to Configure System Message Logs",
+          "Enabling and Disabling Time Stamps on Log Messages"
+        ]
+      },
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f:section-0367",
+        "score": 1.5,
+        "document_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "How to Configure System Message Logs",
+          "Enabling and Disabling Time Stamps on Log Messages"
+        ]
+      }
+    ],
+    "search_queries": [
+      "Catalyst 9300から外部Syslogサーバーへログを送信する設定を生成してください。",
+      "Cisco Catalyst 9300 IOS XE 26.x configure external syslog server logging to remote host",
+      "Cisco Catalyst 9300 IOS XE 26.x setup syslog logging to external server with severity level",
+      "Cisco Catalyst 9300 IOS XE 26.x configure logging to remote syslog server using UDP",
+      "Cisco Catalyst 9300 IOS XE 26.x disable external syslog server logging and remove remote host",
+      "Cisco Catalyst 9300 IOS XE 26.x remove syslog logging to external server configuration"
+    ],
+    "cli_terms": [
+      "logging host",
+      "logging trap",
+      "no logging host",
+      "logging facility",
+      "logging source-interface",
+      "logging on",
+      "service timestamps log datetime",
+      "service timestamps log datetime msec",
+      "service timestamps log datetime localtime",
+      "logging buffered",
+      "logging console",
+      "logging monitor",
+      "logging origin-id",
+      "logging origin-id hostname",
+      "logging origin-id ip",
+      "logging persistent",
+      "logging queue-limit",
+      "logging rate-limit",
+      "no logging trap",
+      "no logging facility",
+      "no logging source-interface",
+      "no logging on",
+      "no logging buffered",
+      "no logging console"
+    ]
+  },
+  "evaluator_schema_version": 2
+}

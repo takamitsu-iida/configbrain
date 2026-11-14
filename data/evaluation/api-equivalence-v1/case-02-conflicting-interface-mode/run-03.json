@@ -1,0 +1,151 @@
+{
+  "case_id": "conflicting-access-trunk-mode",
+  "case_directory": "case-02-conflicting-interface-mode",
+  "run": 3,
+  "baseline_sha256": "1a6c26db68187f583b828202097402b09d857123897bfe52f6d5b6be4ca15647",
+  "evaluation_fingerprint": "35ccaa51788b032d6c4bbc3b6bf83f95302525c6f7b3c503c200d66dabeb817f",
+  "job_id": "089110ae-5227-42bb-8117-757d3f7eb450",
+  "request_id": "541385e8-dc4c-42f6-b187-7ad70a99f5c5",
+  "duration_ms": 82447,
+  "evaluation": {
+    "retrieval_plan_pass": true,
+    "configuration_pass": true,
+    "citation_pass": true,
+    "product_isolation_pass": true,
+    "configuration_equivalent": true,
+    "decision_equivalent": true,
+    "inference_pass": true,
+    "all_pass": true,
+    "retrieval_checks": {
+      "switchport mode access": true,
+      "switchport access vlan": true,
+      "switchport mode trunk": true,
+      "switchport trunk allowed vlan": true
+    },
+    "required_checks": {},
+    "forbidden_checks": {},
+    "normalized_configuration": ""
+  },
+  "generated": {
+    "requirement": "Catalyst 9300のGigabitEthernet1/0/20をVLAN 120のアクセスポートにし、同時にVLAN 120と130を通過させるトランクポートとして設定してください。",
+    "knowledge_policy": "disallow",
+    "configuration": "",
+    "explanation": "要件では、同一インターフェース GigabitEthernet1/0/20 を「VLAN 120 のアクセスポート」と「VLAN 120 と 130 を通過させるトランクポート」の両方にするよう求められています。\n\n提供された根拠から確認できる構文では、\n- アクセスポートは `switchport access vlan <vlan-id>` と `switchport mode access` の組み合わせで設定されます（E1, E5）。\n- トランクポートは `switchport trunk encapsulation ...` と `switchport mode trunk`、および `switchport trunk allowed vlan ...` などで設定されます（E2, E5）。\n\nこれらは同一インターフェースに同時適用できない相互排他的なモードであり、根拠にも同一ポートを access と trunk に同時設定する例や構文は示されていません。そのため、要件は相互に矛盾しており、ポリシー上、正常な設定を生成できません。\n\nまた、トランクで VLAN 120 と 130 を通過させるための `switchport trunk allowed vlan 120,130` 等の具体的構文は根拠に明示されておらず、事前知識による補完は禁止されているため、トランク側の詳細設定も根拠に基づいて安全に生成できません。\n\n以上により、この要件に対しては CLI コンフィグレーションを空とし、矛盾する要件として扱う必要があります。",
+    "citations": [
+      "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321:section-1188",
+      "catalyst9300-26-x-b-26x-lyr2-9300-cg-db110697da80:section-0451",
+      "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc:section-0117",
+      "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321:section-0786"
+    ],
+    "warnings": [
+      "同一インターフェースを access モードと trunk モードに同時設定する構成例や許容構文は根拠に存在しません。",
+      "トランクポートで特定 VLAN（例: 120,130）のみを許可する詳細な `switchport trunk allowed vlan` 構文は、提供根拠に明示されていません。事前知識による補完は禁止されているため生成できません。",
+      "主要要件を安全に実現できないため、部分設定を破棄しました: GigabitEthernet1/0/20 を VLAN 120 のアクセスポートかつ VLAN 120 と 130 を通過させるトランクポートとして同時に設定すること, gigabitethernet1/0/20へのaccessモードとtrunkモードの同時指定"
+    ],
+    "inferred_commands": [],
+    "unsupported_requirements": [
+      "GigabitEthernet1/0/20 を VLAN 120 のアクセスポートかつ VLAN 120 と 130 を通過させるトランクポートとして同時に設定すること",
+      "gigabitethernet1/0/20へのaccessモードとtrunkモードの同時指定"
+    ],
+    "missing_required_values": [],
+    "retrieval": [
+      {
+        "citation_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321:section-1188",
+        "score": 2.0,
+        "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Configure the VTEPs"
+        ]
+      },
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-lyr2-9300-cg-db110697da80:section-0451",
+        "score": 1.3333333333333333,
+        "document_id": "catalyst9300-26-x-b-26x-lyr2-9300-cg-db110697da80",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Configuration Examples for Layer 2 Protocol Tunneling",
+          "Examples: Configuring the SP Edge and Customer Switches"
+        ]
+      },
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc:section-0117",
+        "score": 1.0,
+        "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Trunking Overview",
+          "Trunking Modes",
+          "Layer 2 Interface Modes",
+          "Table 5: Layer 2 Interface Modes"
+        ]
+      },
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-cts-9300-cg-5f2b2b664dea:section-0345",
+        "score": 1.0,
+        "document_id": "catalyst9300-26-x-b-26x-cts-9300-cg-5f2b2b664dea",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Configuring SGT Inline Tagging",
+          "Procedure"
+        ]
+      },
+      {
+        "citation_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321:section-0786",
+        "score": 1.5,
+        "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Example: Configuring TRM with PIM-SM for IPv4 Multicast Traffic when the RP is Inside the BGP EVPN VXLAN Fabric",
+          "Figure 48: TRM with PIM-SM when the RP is Inside the BGP EVPN VXLAN Fabric"
+        ]
+      },
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc:section-0191",
+        "score": 1.3757894687472152,
+        "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Configuring a Layer 2 Interface as a Private VLAN Promiscuous Port",
+          "Configuring a Layer 2 Interface as an Isolated Private VLAN Trunk Port"
+        ]
+      }
+    ],
+    "search_queries": [
+      "Catalyst 9300のGigabitEthernet1/0/20をVLAN 120のアクセスポートにし、同時にVLAN 120と130を通過させるトランクポートとして設定してください。",
+      "Cisco Catalyst 9300 IOS XE 26.x configure access port for VLAN 120 on GigabitEthernet interface",
+      "Cisco Catalyst 9300 IOS XE 26.x switchport access vlan configuration example for access port",
+      "Cisco Catalyst 9300 IOS XE 26.x how to set interface as access port and assign VLAN 120",
+      "Cisco Catalyst 9300 IOS XE 26.x configure trunk port to carry VLAN 120 and 130 on GigabitEthernet interface",
+      "Cisco Catalyst 9300 IOS XE 26.x switchport trunk allowed vlan configuration example",
+      "Cisco Catalyst 9300 IOS XE 26.x how to set interface as trunk port with VLAN 120 and 130",
+      "Cisco Catalyst 9300 IOS XE 26.x interface cannot be both access and trunk port at same time configuration behavior",
+      "Cisco Catalyst 9300 IOS XE 26.x switchport mode access vs trunk mutual exclusivity",
+      "Cisco Catalyst 9300 IOS XE 26.x restrictions on configuring interface as access and trunk simultaneously",
+      "Cisco Catalyst 9300 IOS XE 26.x remove trunk configuration and disable trunk mode to revert interface to access port",
+      "Cisco Catalyst 9300 IOS XE 26.x disable switchport trunk and configure access vlan on interface",
+      "Cisco Catalyst 9300 IOS XE 26.x how to remove trunk settings and set interface back to access mode"
+    ],
+    "cli_terms": [
+      "interface GigabitEthernet",
+      "switchport mode trunk",
+      "switchport mode access",
+      "no switchport mode trunk",
+      "switchport access vlan",
+      "no switchport trunk encapsulation",
+      "no switchport trunk allowed vlan",
+      "no switchport trunk native vlan",
+      "switchport trunk allowed vlan",
+      "switchport trunk encapsulation dot1q",
+      "switchport trunk native vlan",
+      "no switchport access vlan"
+    ]
+  },
+  "evaluator_schema_version": 2
+}

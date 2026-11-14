@@ -1,0 +1,130 @@
+{
+  "case_id": "remove-ntp-server-negation",
+  "case_directory": "case-04-remove-ntp-server",
+  "run": 1,
+  "baseline_sha256": "88c9021ee4c938ab626dbd9fa09a171d20df0a02a939be107dd2e54b72346737",
+  "evaluation_fingerprint": "ce0a695d3a15c44c998e78141497f653909e793282beb80b95501df7d71ee287",
+  "job_id": "c4bea208-a704-433f-862e-8cc75fdfb7c8",
+  "request_id": "9afe2030-8a69-4d7b-8dbb-a0ee41dc4507",
+  "duration_ms": 42295,
+  "evaluation": {
+    "retrieval_plan_pass": true,
+    "configuration_pass": true,
+    "citation_pass": true,
+    "product_isolation_pass": true,
+    "configuration_equivalent": true,
+    "decision_equivalent": true,
+    "inference_pass": true,
+    "all_pass": true,
+    "retrieval_checks": {
+      "no ntp server": true,
+      "ntp server": true
+    },
+    "required_checks": {
+      "(?im)^no ntp server 192\\.0\\.2\\.123$": true
+    },
+    "forbidden_checks": {
+      "(?im)^ntp server 192\\.0\\.2\\.123$": true
+    },
+    "normalized_configuration": "no ntp server 192.0.2.123"
+  },
+  "generated": {
+    "requirement": "Catalyst 9300に設定されているNTPサーバー192.0.2.123を削除してください。",
+    "knowledge_policy": "disallow",
+    "configuration": "no ntp server 192.0.2.123\n",
+    "explanation": "要件は、既存のNTPサーバー192.0.2.123の削除です。\n\n根拠E1およびE4では、`[ no ] ntp server ip-address ...` の「no」形式を使用することで、NTPサーバーとのサーバーアソシエーションを削除できると明記されています。また、E3/E4の認証付きの例でも同様に「no ntp server ip-address ...」で削除することが示されています。\n\n今回の要件ではVRF名や認証キーなど追加情報は指定されていないため、IPアドレスのみを指定した最小構成の削除コマンド `no ntp server 192.0.2.123` を生成しています。",
+    "citations": [
+      "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f:section-0065",
+      "c9300_iosxe26_sys_mgmt_cg:section-0043",
+      "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f:section-0061"
+    ],
+    "warnings": [],
+    "inferred_commands": [],
+    "unsupported_requirements": [],
+    "missing_required_values": [],
+    "retrieval": [
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f:section-0065",
+        "score": 1.3333333333333333,
+        "document_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Configuring NTP",
+          "Configuring Poll-Based NTP Associations"
+        ]
+      },
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b:section-1016",
+        "score": 1.0,
+        "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Configuring BGP PE to CE Routing Sessions",
+          "Configuring VRF-Aware Services",
+          "Configuring VRF-Aware Services for NTP on NTP Client"
+        ]
+      },
+      {
+        "citation_id": "c9300_iosxe26_sys_mgmt_cg:section-0043",
+        "score": 1.5,
+        "document_id": "c9300_iosxe26_sys_mgmt_cg",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Configuring NTP Authentication"
+        ]
+      },
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f:section-0061",
+        "score": 0.8333333333333333,
+        "document_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Configuring NTP",
+          "Configuring NTP Authentication"
+        ]
+      },
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b:section-1017",
+        "score": 0.5,
+        "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Configuring BGP PE to CE Routing Sessions",
+          "Configuring VRF-Aware Services",
+          "Configuring VRF-Aware Services for NTP on NTP Client",
+          "Configuring VRF-Aware Services for NTP on the NTP Server"
+        ]
+      },
+      {
+        "citation_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b:section-1018",
+        "score": 0.3619281045751634,
+        "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+        "product": "catalyst9300",
+        "release": "26.x",
+        "heading_path": [
+          "Configuring BGP PE to CE Routing Sessions",
+          "Configuring VRF-Aware Services",
+          "Configuring VRF-Aware Services for NTP on NTP Client",
+          "Configuring VRF-Aware Services for NTP on the NTP Server"
+        ]
+      }
+    ],
+    "search_queries": [
+      "Catalyst 9300に設定されているNTPサーバー192.0.2.123を削除してください。",
+      "Cisco Catalyst 9300 IOS XE 26.x remove configured NTP server from global configuration using CLI",
+      "Cisco IOS XE 26.x disable NTP server configuration on Catalyst 9300 switch via command line",
+      "How to remove NTP server configuration on Cisco Catalyst 9300 IOS XE 26.x using no ntp server command"
+    ],
+    "cli_terms": [
+      "no ntp server",
+      "ntp server ip-address",
+      "ntp server"
+    ]
+  },
+  "evaluator_schema_version": 2
+}

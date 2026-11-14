@@ -1,0 +1,59 @@
+[
+  {
+    "id": "trunk-allowed-vlans",
+    "product": "catalyst9300",
+    "release": "26.x",
+    "requirement": "GigabitEthernet1/0/20をトランクポートにし、VLAN 120と130だけを通過させてください。",
+    "retrieval_terms": [
+      "switchport mode trunk",
+      "switchport trunk allowed vlan"
+    ],
+    "required_patterns": [
+      "(?im)^interface\\s+GigabitEthernet1/0/20$",
+      "(?im)^switchport mode trunk$",
+      "(?im)^switchport trunk allowed vlan (?:120,130|130,120)$"
+    ],
+    "forbidden_patterns": [
+      "(?im)^switchport mode access$",
+      "(?im)^switchport access vlan"
+    ]
+  },
+  {
+    "id": "compound-ntp-syslog",
+    "product": "catalyst9300",
+    "release": "26.x",
+    "requirement": "NTPサーバー192.0.2.123で時刻同期し、Syslogを192.0.2.200へ送信する設定を同時に生成してください。",
+    "retrieval_terms": [
+      "ntp server",
+      "logging host"
+    ],
+    "required_patterns": [
+      "(?im)^ntp server 192\\.0\\.2\\.123$",
+      "(?im)^logging host 192\\.0\\.2\\.200$"
+    ],
+    "forbidden_patterns": [
+      "(?im)^ntp master$",
+      "(?im)^no logging host"
+    ]
+  },
+  {
+    "id": "unsupported-wireless-ssid",
+    "product": "catalyst9300",
+    "release": "26.x",
+    "requirement": "Catalyst 9300単体で無線LANのSSID CORP-WIFIとWPA3パスフレーズを設定してください。",
+    "retrieval_terms": [],
+    "required_patterns": [],
+    "forbidden_patterns": [],
+    "expect_no_configuration": true
+  },
+  {
+    "id": "wrong-platform-stackwise-virtual",
+    "product": "catalyst9300",
+    "release": "26.x",
+    "requirement": "Catalyst 9300のGigabitEthernet1/0/3をStackWise VirtualのFast Hello Dual-Active-Detectionリンクとして設定してください。",
+    "retrieval_terms": [],
+    "required_patterns": [],
+    "forbidden_patterns": [],
+    "expect_no_configuration": true
+  }
+]
