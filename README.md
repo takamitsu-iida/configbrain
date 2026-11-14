@@ -1,4 +1,4 @@
-# configbrain2
+# configbrain
 
 Ciscoの英語マニュアルを、検索・参照可能なOpen Knowledge Formatへ変換し、
 公式情報を根拠にCiscoコンフィグを生成するためのPythonパイプラインです。
@@ -461,7 +461,7 @@ githubには中間生成物は置けないため、別マシンで実行する�
 
 rsync -av --progress \
   data/products/catalyst9300/ \
-  user@fast-machine:/path/configbrain2/data/products/catalyst9300/
+  user@fast-machine:/path/configbrain/data/products/catalyst9300/
 
 別マシンでは uv sync の実行と .env の設定が必要。
 
