@@ -1,0 +1,1469 @@
+{
+  "schema_version": 1,
+  "data_root": "/home/iida/git/configbrain/data/products/catalyst9300",
+  "status": "completed",
+  "started_at": "2026-11-16T11:55:52.778975+00:00",
+  "notice": "Local heuristic audit, not approval of semantic correctness or completeness. Text normalization ignores spacing, case and punctuation; CLI checks also compare punctuation but PDF columns and wrapping can cause false positives. Page windows are inferred from unique text anchors and overlap at boundaries. Repeated lines and standalone page numbers in the outer 6% PDF margins are excluded from text coverage and recorded. Images, diagrams, OCR and the meaning of tables require visual review. No API calls, repairs, package writes or index updates are performed.",
+  "tool_fingerprint": {
+    "audit": {
+      "path": "/home/iida/git/configbrain/scripts/audit_corpus.py",
+      "sha256": "77bce05bcbadf6613f43fa25dd406238fb6bf6803352a6c67b43a5fd50c8e4e1"
+    },
+    "checker": {
+      "path": "/home/iida/git/configbrain/scripts/check_pdf_markdown_quality.py",
+      "sha256": "cbe9bb1100793d611d353e1448f5e68590c035300f7d6d6f768f1c07b106055a"
+    },
+    "validator": {
+      "path": "/home/iida/git/configbrain/scripts/validate_packages.py",
+      "sha256": "78c01711a0de564b27795d5f418a9ee524d1052e3b3e64bf088452e595389717"
+    }
+  },
+  "dependencies": {
+    "pypdfium2": "5.10.1",
+    "frictionless": "5.21.0"
+  },
+  "parameters": {
+    "shingle_characters": 48,
+    "stride": 32,
+    "low_coverage_threshold": 0.9
+  },
+  "expected_documents": 18,
+  "documents": [
+    {
+      "document_id": "c9300_iosxe26_int_hw_cg",
+      "status": "review_required",
+      "page_count": 198,
+      "page_status_counts": {
+        "unverifiable": 14,
+        "checked": 13,
+        "review_required": 171
+      },
+      "source_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg.pdf",
+      "pdf_sha256": "ec7c3e347a34bb1fab34723292d14d033555dad48dd9f5fcbe0040b509ad0038",
+      "report": "documents/c9300_iosxe26_int_hw_cg.json",
+      "finding_counts": {
+        "extracted_structure": 47,
+        "package_structure": 36,
+        "extracted_to_package": 14
+      },
+      "page_finding_counts": {
+        "visual_review_required": 25,
+        "pdf_text_fragments_not_found": 335,
+        "possible_missing_constraint_or_alert": 11,
+        "possible_transformation_text_change": 95,
+        "possible_missing_or_changed_prompt_command": 20,
+        "pdf_margin_coordinates_unavailable": 1
+      },
+      "priority_pages": [
+        {
+          "page": 148,
+          "status": "review_required",
+          "package_lines": [
+            5673,
+            5723
+          ],
+          "high_priority_findings": 8,
+          "finding_count": 8
+        },
+        {
+          "page": 47,
+          "status": "review_required",
+          "package_lines": [
+            1662,
+            1674
+          ],
+          "high_priority_findings": 6,
+          "finding_count": 7
+        },
+        {
+          "page": 38,
+          "status": "review_required",
+          "package_lines": [
+            1240,
+            1351
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 5
+        },
+        {
+          "page": 98,
+          "status": "review_required",
+          "package_lines": [
+            3748,
+            3829
+          ],
+          "high_priority_findings": 4,
+          "finding_count": 5
+        },
+        {
+          "page": 189,
+          "status": "review_required",
+          "package_lines": [
+            7314,
+            7379
+          ],
+          "high_priority_findings": 4,
+          "finding_count": 5
+        }
+      ],
+      "error": null
+    },
+    {
+      "document_id": "c9300_iosxe26_ip_addr_svc_cg",
+      "status": "review_required",
+      "page_count": 250,
+      "page_status_counts": {
+        "review_required": 203,
+        "checked": 13,
+        "unverifiable": 34
+      },
+      "source_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip/b_26x_ip_9300_cg.pdf",
+      "pdf_sha256": "158e784d02aee08881c68010114559a373b810ec41c6cb6a2c3ba5daef4320f1",
+      "report": "documents/c9300_iosxe26_ip_addr_svc_cg.json",
+      "finding_counts": {
+        "extracted_structure": 109,
+        "package_structure": 77,
+        "extracted_to_package": 10
+      },
+      "page_finding_counts": {
+        "visual_review_required": 43,
+        "pdf_text_fragments_not_found": 412,
+        "possible_transformation_text_change": 121,
+        "possible_missing_constraint_or_alert": 18,
+        "possible_missing_or_changed_prompt_command": 46
+      },
+      "priority_pages": [
+        {
+          "page": 54,
+          "status": "review_required",
+          "package_lines": [
+            1593,
+            1595
+          ],
+          "high_priority_findings": 7,
+          "finding_count": 7
+        },
+        {
+          "page": 40,
+          "status": "review_required",
+          "package_lines": [
+            1142,
+            1178
+          ],
+          "high_priority_findings": 6,
+          "finding_count": 7
+        },
+        {
+          "page": 79,
+          "status": "review_required",
+          "package_lines": [
+            2587,
+            2598
+          ],
+          "high_priority_findings": 6,
+          "finding_count": 7
+        },
+        {
+          "page": 164,
+          "status": "review_required",
+          "package_lines": [
+            5755,
+            6009
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 6
+        },
+        {
+          "page": 101,
+          "status": "review_required",
+          "package_lines": [
+            3374,
+            3457
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 5
+        }
+      ],
+      "error": null
+    },
+    {
+      "document_id": "c9300_iosxe26_sys_mgmt_cg",
+      "status": "review_required",
+      "page_count": 396,
+      "page_status_counts": {
+        "review_required": 296,
+        "checked": 49,
+        "unverifiable": 51
+      },
+      "source_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/sys_mgmt/b_26x_sys_mgmt_9300_cg.pdf",
+      "pdf_sha256": "dc196fff1ada1cd06849c54a99f514ef90f6e73bc35b09513c13c9c8057ad0a5",
+      "report": "documents/c9300_iosxe26_sys_mgmt_cg.json",
+      "finding_counts": {
+        "extracted_structure": 136,
+        "package_structure": 101,
+        "extracted_to_package": 30
+      },
+      "page_finding_counts": {
+        "visual_review_required": 32,
+        "pdf_text_fragments_not_found": 596,
+        "possible_transformation_text_change": 188,
+        "possible_missing_or_changed_prompt_command": 65,
+        "possible_missing_constraint_or_alert": 23
+      },
+      "priority_pages": [
+        {
+          "page": 249,
+          "status": "review_required",
+          "package_lines": [
+            9785,
+            9846
+          ],
+          "high_priority_findings": 8,
+          "finding_count": 9
+        },
+        {
+          "page": 377,
+          "status": "review_required",
+          "package_lines": [
+            15253,
+            15311
+          ],
+          "high_priority_findings": 7,
+          "finding_count": 9
+        },
+        {
+          "page": 179,
+          "status": "review_required",
+          "package_lines": [
+            6965,
+            7015
+          ],
+          "high_priority_findings": 6,
+          "finding_count": 7
+        },
+        {
+          "page": 34,
+          "status": "review_required",
+          "package_lines": [
+            931,
+            1007
+          ],
+          "high_priority_findings": 6,
+          "finding_count": 6
+        },
+        {
+          "page": 38,
+          "status": "review_required",
+          "package_lines": [
+            1140,
+            1241
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 7
+        }
+      ],
+      "error": null
+    },
+    {
+      "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+      "status": "review_required",
+      "page_count": 1298,
+      "page_status_counts": {
+        "review_required": 563,
+        "checked": 305,
+        "unverifiable": 430
+      },
+      "source_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg.pdf",
+      "pdf_sha256": "fee1c7616e2e4449f6f7014bbb4043dc14d72d109e521eeb9c8cd4d546700fe5",
+      "report": "documents/catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321.json",
+      "finding_counts": {
+        "extracted_structure": 83,
+        "package_structure": 73,
+        "extracted_to_package": 164
+      },
+      "page_finding_counts": {
+        "visual_review_required": 177,
+        "pdf_text_fragments_not_found": 987,
+        "possible_missing_constraint_or_alert": 32,
+        "possible_transformation_text_change": 510,
+        "possible_missing_or_changed_prompt_command": 67
+      },
+      "priority_pages": [
+        {
+          "page": 708,
+          "status": "review_required",
+          "package_lines": [
+            37910,
+            37932
+          ],
+          "high_priority_findings": 6,
+          "finding_count": 7
+        },
+        {
+          "page": 41,
+          "status": "review_required",
+          "package_lines": [
+            1138,
+            1181
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 6
+        },
+        {
+          "page": 42,
+          "status": "review_required",
+          "package_lines": [
+            1169,
+            1211
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 6
+        },
+        {
+          "page": 110,
+          "status": "review_required",
+          "package_lines": [
+            4671,
+            4789
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 5
+        },
+        {
+          "page": 676,
+          "status": "review_required",
+          "package_lines": [
+            35921,
+            35974
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 5
+        }
+      ],
+      "error": null
+    },
+    {
+      "document_id": "catalyst9300-26-x-b-26x-bonjour-9300-cg-ee5da72ad5b7",
+      "status": "review_required",
+      "page_count": 110,
+      "page_status_counts": {
+        "review_required": 79,
+        "checked": 10,
+        "unverifiable": 21
+      },
+      "source_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/bonjour/b_26x_bonjour_9300_cg.pdf",
+      "pdf_sha256": "58f541cd38fd0bd1169ecb40dc6fc53875b3ccca72b289cdd29934c0eceb7e1e",
+      "report": "documents/catalyst9300-26-x-b-26x-bonjour-9300-cg-ee5da72ad5b7.json",
+      "finding_counts": {
+        "extracted_structure": 21,
+        "package_structure": 13,
+        "extracted_to_package": 2
+      },
+      "page_finding_counts": {
+        "visual_review_required": 32,
+        "pdf_text_fragments_not_found": 137,
+        "possible_transformation_text_change": 27,
+        "possible_missing_constraint_or_alert": 4,
+        "possible_missing_or_changed_prompt_command": 4
+      },
+      "priority_pages": [
+        {
+          "page": 51,
+          "status": "review_required",
+          "package_lines": [
+            1671,
+            1723
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 5
+        },
+        {
+          "page": 100,
+          "status": "review_required",
+          "package_lines": [
+            3557,
+            3639
+          ],
+          "high_priority_findings": 4,
+          "finding_count": 5
+        },
+        {
+          "page": 50,
+          "status": "review_required",
+          "package_lines": [
+            1652,
+            1680
+          ],
+          "high_priority_findings": 4,
+          "finding_count": 4
+        },
+        {
+          "page": 54,
+          "status": "review_required",
+          "package_lines": [
+            1817,
+            1869
+          ],
+          "high_priority_findings": 3,
+          "finding_count": 4
+        },
+        {
+          "page": 56,
+          "status": "review_required",
+          "package_lines": [
+            1897,
+            1983
+          ],
+          "high_priority_findings": 3,
+          "finding_count": 4
+        }
+      ],
+      "error": null
+    },
+    {
+      "document_id": "catalyst9300-26-x-b-26x-cts-9300-cg-5f2b2b664dea",
+      "status": "review_required",
+      "page_count": 136,
+      "page_status_counts": {
+        "review_required": 117,
+        "checked": 6,
+        "unverifiable": 13
+      },
+      "source_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/cts/b_26x_cts_9300_cg.pdf",
+      "pdf_sha256": "e9adb585a66ed76d019f79cf08e6ba51cd0f62070a08a13248bdc476ad34e39b",
+      "report": "documents/catalyst9300-26-x-b-26x-cts-9300-cg-5f2b2b664dea.json",
+      "finding_counts": {
+        "extracted_structure": 39,
+        "package_structure": 40,
+        "extracted_to_package": 3
+      },
+      "page_finding_counts": {
+        "visual_review_required": 18,
+        "pdf_text_fragments_not_found": 233,
+        "possible_missing_constraint_or_alert": 8,
+        "possible_transformation_text_change": 50,
+        "possible_missing_or_changed_prompt_command": 9
+      },
+      "priority_pages": [
+        {
+          "page": 57,
+          "status": "review_required",
+          "package_lines": [
+            1977,
+            2027
+          ],
+          "high_priority_findings": 4,
+          "finding_count": 7
+        },
+        {
+          "page": 42,
+          "status": "review_required",
+          "package_lines": [
+            1344,
+            1427
+          ],
+          "high_priority_findings": 4,
+          "finding_count": 4
+        },
+        {
+          "page": 43,
+          "status": "review_required",
+          "package_lines": [
+            1409,
+            1487
+          ],
+          "high_priority_findings": 4,
+          "finding_count": 4
+        },
+        {
+          "page": 82,
+          "status": "review_required",
+          "package_lines": [
+            2916,
+            2972
+          ],
+          "high_priority_findings": 3,
+          "finding_count": 5
+        },
+        {
+          "page": 40,
+          "status": "review_required",
+          "package_lines": [
+            1243,
+            1308
+          ],
+          "high_priority_findings": 3,
+          "finding_count": 4
+        }
+      ],
+      "error": null
+    },
+    {
+      "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+      "status": "review_required",
+      "page_count": 198,
+      "page_status_counts": {
+        "review_required": 169,
+        "checked": 14,
+        "unverifiable": 15
+      },
+      "source_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg.pdf",
+      "pdf_sha256": "ec7c3e347a34bb1fab34723292d14d033555dad48dd9f5fcbe0040b509ad0038",
+      "report": "documents/catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f.json",
+      "finding_counts": {
+        "extracted_structure": 47,
+        "package_structure": 32,
+        "extracted_to_package": 12
+      },
+      "page_finding_counts": {
+        "pdf_text_fragments_not_found": 336,
+        "possible_transformation_text_change": 93,
+        "visual_review_required": 25,
+        "possible_missing_constraint_or_alert": 12,
+        "possible_missing_or_changed_prompt_command": 21,
+        "pdf_margin_coordinates_unavailable": 1
+      },
+      "priority_pages": [
+        {
+          "page": 47,
+          "status": "review_required",
+          "package_lines": [
+            1524,
+            1536
+          ],
+          "high_priority_findings": 6,
+          "finding_count": 7
+        },
+        {
+          "page": 173,
+          "status": "review_required",
+          "package_lines": [
+            6430,
+            6487
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 7
+        },
+        {
+          "page": 104,
+          "status": "review_required",
+          "package_lines": [
+            3939,
+            3959
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 5
+        },
+        {
+          "page": 105,
+          "status": "review_required",
+          "package_lines": [
+            3950,
+            4000
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 5
+        },
+        {
+          "page": 172,
+          "status": "review_required",
+          "package_lines": [
+            6390,
+            6438
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 5
+        }
+      ],
+      "error": null
+    },
+    {
+      "document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d",
+      "status": "review_required",
+      "page_count": 250,
+      "page_status_counts": {
+        "review_required": 209,
+        "checked": 12,
+        "unverifiable": 29
+      },
+      "source_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip/b_26x_ip_9300_cg.pdf",
+      "pdf_sha256": "158e784d02aee08881c68010114559a373b810ec41c6cb6a2c3ba5daef4320f1",
+      "report": "documents/catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d.json",
+      "finding_counts": {
+        "extracted_structure": 109,
+        "package_structure": 95,
+        "extracted_to_package": 4
+      },
+      "page_finding_counts": {
+        "visual_review_required": 43,
+        "pdf_text_fragments_not_found": 414,
+        "possible_missing_constraint_or_alert": 18,
+        "possible_transformation_text_change": 110,
+        "possible_missing_or_changed_prompt_command": 50
+      },
+      "priority_pages": [
+        {
+          "page": 79,
+          "status": "review_required",
+          "package_lines": [
+            2419,
+            2429
+          ],
+          "high_priority_findings": 7,
+          "finding_count": 8
+        },
+        {
+          "page": 54,
+          "status": "review_required",
+          "package_lines": [
+            1484,
+            1488
+          ],
+          "high_priority_findings": 7,
+          "finding_count": 7
+        },
+        {
+          "page": 162,
+          "status": "review_required",
+          "package_lines": [
+            5227,
+            5248
+          ],
+          "high_priority_findings": 6,
+          "finding_count": 6
+        },
+        {
+          "page": 170,
+          "status": "review_required",
+          "package_lines": [
+            5491,
+            5523
+          ],
+          "high_priority_findings": 6,
+          "finding_count": 6
+        },
+        {
+          "page": 99,
+          "status": "review_required",
+          "package_lines": [
+            3022,
+            3088
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 5
+        }
+      ],
+      "error": null
+    },
+    {
+      "document_id": "catalyst9300-26-x-b-26x-ip-mcast-rtng-9300-cg-b076db950562",
+      "status": "review_required",
+      "page_count": 446,
+      "page_status_counts": {
+        "review_required": 369,
+        "checked": 30,
+        "unverifiable": 47
+      },
+      "source_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip_mcast_rtng/b_26x_ip_mcast_rtng_9300_cg.pdf",
+      "pdf_sha256": "0388d5d974577d4dbbc8af00d6086e32593f33317608d0893711110f12d28248",
+      "report": "documents/catalyst9300-26-x-b-26x-ip-mcast-rtng-9300-cg-b076db950562.json",
+      "finding_counts": {
+        "extracted_structure": 168,
+        "package_structure": 160,
+        "extracted_to_package": 8
+      },
+      "page_finding_counts": {
+        "visual_review_required": 75,
+        "pdf_text_fragments_not_found": 739,
+        "possible_transformation_text_change": 221,
+        "possible_missing_constraint_or_alert": 21,
+        "possible_missing_or_changed_prompt_command": 53
+      },
+      "priority_pages": [
+        {
+          "page": 234,
+          "status": "review_required",
+          "package_lines": [
+            7760,
+            7775
+          ],
+          "high_priority_findings": 7,
+          "finding_count": 7
+        },
+        {
+          "page": 96,
+          "status": "review_required",
+          "package_lines": [
+            2848,
+            2896
+          ],
+          "high_priority_findings": 6,
+          "finding_count": 6
+        },
+        {
+          "page": 191,
+          "status": "review_required",
+          "package_lines": [
+            6316,
+            6359
+          ],
+          "high_priority_findings": 6,
+          "finding_count": 6
+        },
+        {
+          "page": 203,
+          "status": "review_required",
+          "package_lines": [
+            6784,
+            6816
+          ],
+          "high_priority_findings": 6,
+          "finding_count": 6
+        },
+        {
+          "page": 341,
+          "status": "review_required",
+          "package_lines": [
+            11837,
+            11906
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 7
+        }
+      ],
+      "error": null
+    },
+    {
+      "document_id": "catalyst9300-26-x-b-26x-lyr2-9300-cg-db110697da80",
+      "status": "review_required",
+      "page_count": 298,
+      "page_status_counts": {
+        "review_required": 247,
+        "checked": 30,
+        "unverifiable": 21
+      },
+      "source_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/lyr2/b_26x_lyr2_9300_cg.pdf",
+      "pdf_sha256": "ff3c0f4b8e84292c9798712597255b0a0044ff5df8a266de42b6f37b0fa10abb",
+      "report": "documents/catalyst9300-26-x-b-26x-lyr2-9300-cg-db110697da80.json",
+      "finding_counts": {
+        "extracted_structure": 102,
+        "package_structure": 92,
+        "extracted_to_package": 7
+      },
+      "page_finding_counts": {
+        "visual_review_required": 64,
+        "pdf_text_fragments_not_found": 489,
+        "possible_missing_constraint_or_alert": 25,
+        "possible_transformation_text_change": 146,
+        "possible_missing_or_changed_prompt_command": 34
+      },
+      "priority_pages": [
+        {
+          "page": 34,
+          "status": "review_required",
+          "package_lines": [
+            837,
+            879
+          ],
+          "high_priority_findings": 6,
+          "finding_count": 6
+        },
+        {
+          "page": 122,
+          "status": "review_required",
+          "package_lines": [
+            3638,
+            3678
+          ],
+          "high_priority_findings": 6,
+          "finding_count": 6
+        },
+        {
+          "page": 152,
+          "status": "review_required",
+          "package_lines": [
+            4690,
+            4748
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 6
+        },
+        {
+          "page": 30,
+          "status": "review_required",
+          "package_lines": [
+            623,
+            685
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 5
+        },
+        {
+          "page": 32,
+          "status": "review_required",
+          "package_lines": [
+            738,
+            789
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 5
+        }
+      ],
+      "error": null
+    },
+    {
+      "document_id": "catalyst9300-26-x-b-26x-mpls-9300-cg-b8c1ee43d3e9",
+      "status": "review_required",
+      "page_count": 406,
+      "page_status_counts": {
+        "review_required": 298,
+        "checked": 20,
+        "unverifiable": 88
+      },
+      "source_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/mpls/b_26x_mpls_9300_cg.pdf",
+      "pdf_sha256": "037185733ff0f85cb2a672dde983d8fb743bc70fed41f5d8cbad0dfb227a4901",
+      "report": "documents/catalyst9300-26-x-b-26x-mpls-9300-cg-b8c1ee43d3e9.json",
+      "finding_counts": {
+        "extracted_structure": 175,
+        "package_structure": 138,
+        "extracted_to_package": 22
+      },
+      "page_finding_counts": {
+        "pdf_text_fragments_not_found": 612,
+        "possible_transformation_text_change": 129,
+        "visual_review_required": 68,
+        "possible_missing_or_changed_prompt_command": 63,
+        "possible_missing_constraint_or_alert": 9
+      },
+      "priority_pages": [
+        {
+          "page": 399,
+          "status": "review_required",
+          "package_lines": [
+            14661,
+            14749
+          ],
+          "high_priority_findings": 7,
+          "finding_count": 7
+        },
+        {
+          "page": 375,
+          "status": "review_required",
+          "package_lines": [
+            13526,
+            13576
+          ],
+          "high_priority_findings": 6,
+          "finding_count": 7
+        },
+        {
+          "page": 242,
+          "status": "review_required",
+          "package_lines": [
+            8719,
+            8738
+          ],
+          "high_priority_findings": 6,
+          "finding_count": 6
+        },
+        {
+          "page": 261,
+          "status": "review_required",
+          "package_lines": [
+            9299,
+            9425
+          ],
+          "high_priority_findings": 6,
+          "finding_count": 6
+        },
+        {
+          "page": 267,
+          "status": "review_required",
+          "package_lines": [
+            9535,
+            9582
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 6
+        }
+      ],
+      "error": null
+    },
+    {
+      "document_id": "catalyst9300-26-x-b-26x-nmgmt-9300-cg-3e060c1d1d52",
+      "status": "review_required",
+      "page_count": 292,
+      "page_status_counts": {
+        "review_required": 238,
+        "checked": 25,
+        "unverifiable": 29
+      },
+      "source_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/nmgmt/b_26x_nmgmt_9300_cg.pdf",
+      "pdf_sha256": "20089444105a94ab4456a2f53318baf1e0a46711fdc23dfb79753a105777fae3",
+      "report": "documents/catalyst9300-26-x-b-26x-nmgmt-9300-cg-3e060c1d1d52.json",
+      "finding_counts": {
+        "extracted_structure": 114,
+        "package_structure": 108,
+        "extracted_to_package": 15
+      },
+      "page_finding_counts": {
+        "visual_review_required": 30,
+        "pdf_text_fragments_not_found": 481,
+        "possible_transformation_text_change": 131,
+        "possible_missing_or_changed_prompt_command": 22,
+        "possible_missing_constraint_or_alert": 23
+      },
+      "priority_pages": [
+        {
+          "page": 32,
+          "status": "review_required",
+          "package_lines": [
+            1119,
+            1191
+          ],
+          "high_priority_findings": 6,
+          "finding_count": 6
+        },
+        {
+          "page": 94,
+          "status": "review_required",
+          "package_lines": [
+            3690,
+            3766
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 5
+        },
+        {
+          "page": 95,
+          "status": "review_required",
+          "package_lines": [
+            3754,
+            3801
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 5
+        },
+        {
+          "page": 114,
+          "status": "review_required",
+          "package_lines": [
+            4388,
+            4455
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 5
+        },
+        {
+          "page": 204,
+          "status": "review_required",
+          "package_lines": [
+            8119,
+            8181
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 5
+        }
+      ],
+      "error": null
+    },
+    {
+      "document_id": "catalyst9300-26-x-b-26x-qos-9300-cg-4e21dc6d1e2a",
+      "status": "review_required",
+      "page_count": 148,
+      "page_status_counts": {
+        "review_required": 103,
+        "checked": 17,
+        "unverifiable": 28
+      },
+      "source_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/qos/b_26x_qos_9300_cg.pdf",
+      "pdf_sha256": "03c0ce85c36cd6f9e7e484b1547fea87e658c7204df0bb188174b90956e6050f",
+      "report": "documents/catalyst9300-26-x-b-26x-qos-9300-cg-4e21dc6d1e2a.json",
+      "finding_counts": {
+        "extracted_structure": 45,
+        "package_structure": 43,
+        "extracted_to_package": 7
+      },
+      "page_finding_counts": {
+        "visual_review_required": 11,
+        "pdf_text_fragments_not_found": 215,
+        "possible_transformation_text_change": 63,
+        "possible_missing_or_changed_prompt_command": 24,
+        "possible_missing_constraint_or_alert": 14
+      },
+      "priority_pages": [
+        {
+          "page": 108,
+          "status": "review_required",
+          "package_lines": [
+            4371,
+            4425
+          ],
+          "high_priority_findings": 6,
+          "finding_count": 6
+        },
+        {
+          "page": 94,
+          "status": "review_required",
+          "package_lines": [
+            3736,
+            3790
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 6
+        },
+        {
+          "page": 98,
+          "status": "review_required",
+          "package_lines": [
+            3912,
+            3971
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 6
+        },
+        {
+          "page": 101,
+          "status": "review_required",
+          "package_lines": [
+            4045,
+            4173
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 6
+        },
+        {
+          "page": 85,
+          "status": "review_required",
+          "package_lines": [
+            3345,
+            3403
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 5
+        }
+      ],
+      "error": null
+    },
+    {
+      "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+      "status": "review_required",
+      "page_count": 470,
+      "page_status_counts": {
+        "review_required": 392,
+        "checked": 11,
+        "unverifiable": 67
+      },
+      "source_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg.pdf",
+      "pdf_sha256": "ae29ba900cb469d2327ad94ec60e2772ce0ab3554b9ab4ec303317d453391c48",
+      "report": "documents/catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b.json",
+      "finding_counts": {
+        "extracted_structure": 230,
+        "package_structure": 222,
+        "extracted_to_package": 39
+      },
+      "page_finding_counts": {
+        "visual_review_required": 50,
+        "pdf_text_fragments_not_found": 801,
+        "possible_missing_constraint_or_alert": 31,
+        "possible_transformation_text_change": 198,
+        "possible_missing_or_changed_prompt_command": 93
+      },
+      "priority_pages": [
+        {
+          "page": 201,
+          "status": "review_required",
+          "package_lines": [
+            7398,
+            7406
+          ],
+          "high_priority_findings": 8,
+          "finding_count": 9
+        },
+        {
+          "page": 141,
+          "status": "review_required",
+          "package_lines": [
+            5154,
+            5239
+          ],
+          "high_priority_findings": 8,
+          "finding_count": 8
+        },
+        {
+          "page": 384,
+          "status": "review_required",
+          "package_lines": [
+            14263,
+            14268
+          ],
+          "high_priority_findings": 7,
+          "finding_count": 8
+        },
+        {
+          "page": 255,
+          "status": "review_required",
+          "package_lines": [
+            9246,
+            9265
+          ],
+          "high_priority_findings": 7,
+          "finding_count": 7
+        },
+        {
+          "page": 318,
+          "status": "review_required",
+          "package_lines": [
+            11775,
+            11857
+          ],
+          "high_priority_findings": 7,
+          "finding_count": 7
+        }
+      ],
+      "error": null
+    },
+    {
+      "document_id": "catalyst9300-26-x-b-26x-sec-9300-cg-8e2ad3aabae2",
+      "status": "review_required",
+      "page_count": 964,
+      "page_status_counts": {
+        "review_required": 815,
+        "checked": 53,
+        "unverifiable": 96
+      },
+      "source_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/sec/b_26x_sec_9300_cg.pdf",
+      "pdf_sha256": "75630300ad9471a3141887ed28d580e34331288e225df23dec0d75689a634847",
+      "report": "documents/catalyst9300-26-x-b-26x-sec-9300-cg-8e2ad3aabae2.json",
+      "finding_counts": {
+        "extracted_structure": 336,
+        "package_structure": 320,
+        "extracted_to_package": 52
+      },
+      "page_finding_counts": {
+        "visual_review_required": 289,
+        "pdf_text_fragments_not_found": 1629,
+        "possible_missing_constraint_or_alert": 74,
+        "possible_transformation_text_change": 508,
+        "possible_missing_or_changed_prompt_command": 119
+      },
+      "priority_pages": [
+        {
+          "page": 104,
+          "status": "review_required",
+          "package_lines": [
+            3449,
+            3514
+          ],
+          "high_priority_findings": 10,
+          "finding_count": 12
+        },
+        {
+          "page": 469,
+          "status": "review_required",
+          "package_lines": [
+            18793,
+            18817
+          ],
+          "high_priority_findings": 7,
+          "finding_count": 7
+        },
+        {
+          "page": 106,
+          "status": "review_required",
+          "package_lines": [
+            3562,
+            3625
+          ],
+          "high_priority_findings": 6,
+          "finding_count": 8
+        },
+        {
+          "page": 533,
+          "status": "review_required",
+          "package_lines": [
+            21344,
+            21394
+          ],
+          "high_priority_findings": 6,
+          "finding_count": 7
+        },
+        {
+          "page": 568,
+          "status": "review_required",
+          "package_lines": [
+            22666,
+            22728
+          ],
+          "high_priority_findings": 6,
+          "finding_count": 7
+        }
+      ],
+      "error": null
+    },
+    {
+      "document_id": "catalyst9300-26-x-b-26x-stck-mgr-ha-9300-cg-b916a4af4da2",
+      "status": "review_required",
+      "page_count": 122,
+      "page_status_counts": {
+        "review_required": 100,
+        "checked": 6,
+        "unverifiable": 16
+      },
+      "source_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/stck_mgr_ha/b_26x_stck_mgr_ha_9300_cg.pdf",
+      "pdf_sha256": "ae2c20fa0087ef0276594a12e1ed3c4840c2b1d558ca41b1e3c3782eb7b10116",
+      "report": "documents/catalyst9300-26-x-b-26x-stck-mgr-ha-9300-cg-b916a4af4da2.json",
+      "finding_counts": {
+        "extracted_structure": 16,
+        "package_structure": 16,
+        "extracted_to_package": 12
+      },
+      "page_finding_counts": {
+        "visual_review_required": 27,
+        "pdf_text_fragments_not_found": 201,
+        "possible_transformation_text_change": 33,
+        "possible_missing_or_changed_prompt_command": 14
+      },
+      "priority_pages": [
+        {
+          "page": 84,
+          "status": "review_required",
+          "package_lines": [
+            2539,
+            2557
+          ],
+          "high_priority_findings": 7,
+          "finding_count": 7
+        },
+        {
+          "page": 25,
+          "status": "review_required",
+          "package_lines": [
+            677,
+            727
+          ],
+          "high_priority_findings": 6,
+          "finding_count": 6
+        },
+        {
+          "page": 94,
+          "status": "review_required",
+          "package_lines": [
+            3000,
+            3040
+          ],
+          "high_priority_findings": 6,
+          "finding_count": 6
+        },
+        {
+          "page": 101,
+          "status": "review_required",
+          "package_lines": [
+            3190,
+            3444
+          ],
+          "high_priority_findings": 4,
+          "finding_count": 4
+        },
+        {
+          "page": 51,
+          "status": "review_required",
+          "package_lines": [
+            1535,
+            1607
+          ],
+          "high_priority_findings": 3,
+          "finding_count": 4
+        }
+      ],
+      "error": null
+    },
+    {
+      "document_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f",
+      "status": "review_required",
+      "page_count": 394,
+      "page_status_counts": {
+        "review_required": 297,
+        "checked": 45,
+        "unverifiable": 52
+      },
+      "source_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/sys_mgmt/b_26x_sys_mgmt_9300_cg.pdf",
+      "pdf_sha256": "f743c759cfa194874b6c20f41adf6be8ed4913b39804a5500482b5c194535205",
+      "report": "documents/catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f.json",
+      "finding_counts": {
+        "extracted_structure": 137,
+        "package_structure": 139,
+        "extracted_to_package": 27
+      },
+      "page_finding_counts": {
+        "visual_review_required": 32,
+        "pdf_text_fragments_not_found": 594,
+        "possible_transformation_text_change": 146,
+        "possible_missing_or_changed_prompt_command": 47,
+        "possible_missing_constraint_or_alert": 14
+      },
+      "priority_pages": [
+        {
+          "page": 375,
+          "status": "review_required",
+          "package_lines": [
+            14866,
+            14922
+          ],
+          "high_priority_findings": 7,
+          "finding_count": 9
+        },
+        {
+          "page": 34,
+          "status": "review_required",
+          "package_lines": [
+            886,
+            936
+          ],
+          "high_priority_findings": 6,
+          "finding_count": 6
+        },
+        {
+          "page": 174,
+          "status": "review_required",
+          "package_lines": [
+            6839,
+            6870
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 7
+        },
+        {
+          "page": 31,
+          "status": "review_required",
+          "package_lines": [
+            792,
+            839
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 5
+        },
+        {
+          "page": 123,
+          "status": "review_required",
+          "package_lines": [
+            4493,
+            4544
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 5
+        }
+      ],
+      "error": null
+    },
+    {
+      "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+      "status": "review_required",
+      "page_count": 126,
+      "page_status_counts": {
+        "review_required": 102,
+        "checked": 5,
+        "unverifiable": 19
+      },
+      "source_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg.pdf",
+      "pdf_sha256": "47bc77c74d68871e1941b3d7f8bd94ef46453c30d0f5a4443a68ce03022f47d4",
+      "report": "documents/catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc.json",
+      "finding_counts": {
+        "extracted_structure": 41,
+        "package_structure": 39,
+        "extracted_to_package": 3
+      },
+      "page_finding_counts": {
+        "visual_review_required": 19,
+        "pdf_text_fragments_not_found": 202,
+        "possible_transformation_text_change": 65,
+        "possible_missing_or_changed_prompt_command": 15,
+        "possible_missing_constraint_or_alert": 10
+      },
+      "priority_pages": [
+        {
+          "page": 103,
+          "status": "review_required",
+          "package_lines": [
+            3413,
+            3565
+          ],
+          "high_priority_findings": 6,
+          "finding_count": 7
+        },
+        {
+          "page": 98,
+          "status": "review_required",
+          "package_lines": [
+            3298,
+            3366
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 5
+        },
+        {
+          "page": 99,
+          "status": "review_required",
+          "package_lines": [
+            3364,
+            3527
+          ],
+          "high_priority_findings": 5,
+          "finding_count": 5
+        },
+        {
+          "page": 47,
+          "status": "review_required",
+          "package_lines": [
+            1510,
+            1557
+          ],
+          "high_priority_findings": 4,
+          "finding_count": 4
+        },
+        {
+          "page": 56,
+          "status": "review_required",
+          "package_lines": [
+            1806,
+            1845
+          ],
+          "high_priority_findings": 4,
+          "finding_count": 4
+        }
+      ],
+      "error": null
+    }
+  ],
+  "document_count": 18,
+  "page_count": 6502,
+  "page_status_counts": {
+    "unverifiable": 1070,
+    "checked": 664,
+    "review_required": 4768
+  },
+  "duplicate_sources": [
+    {
+      "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg.pdf",
+      "document_ids": [
+        "c9300_iosxe26_int_hw_cg",
+        "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f"
+      ]
+    },
+    {
+      "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip/b_26x_ip_9300_cg.pdf",
+      "document_ids": [
+        "c9300_iosxe26_ip_addr_svc_cg",
+        "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d"
+      ]
+    },
+    {
+      "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/sys_mgmt/b_26x_sys_mgmt_9300_cg.pdf",
+      "document_ids": [
+        "c9300_iosxe26_sys_mgmt_cg",
+        "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f"
+      ]
+    }
+  ],
+  "finished_at": "2026-11-16T11:56:00.735486+00:00"
+}

@@ -29,6 +29,9 @@ class Embedder(Protocol):
 
 
 class SearchResult(Protocol):
+    citation_id: str
+    title: str
+    heading_path: tuple[str, ...]
     text: str
 
 

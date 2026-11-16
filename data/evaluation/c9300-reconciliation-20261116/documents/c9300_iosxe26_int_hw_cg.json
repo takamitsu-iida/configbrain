@@ -1,0 +1,1513 @@
+{
+  "document_id": "c9300_iosxe26_int_hw_cg",
+  "inputs": {
+    "raw": {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/raw/c9300_iosxe26_int_hw_cg/c9300_iosxe26_int_hw_cg.pdf",
+      "sha256": "ec7c3e347a34bb1fab34723292d14d033555dad48dd9f5fcbe0040b509ad0038"
+    },
+    "extracted": {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/extracted/c9300_iosxe26_int_hw_cg/c9300_iosxe26_int_hw_cg/c9300_iosxe26_int_hw_cg.md",
+      "sha256": "9ed1cccad9d485b63f97884e15255f92245e7fea71c5a04091aa097c52d82607"
+    },
+    "manual": {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/c9300_iosxe26_int_hw_cg/manual.md",
+      "sha256": "549635b922c23c87dffa78fca7a884596cba32b9565bf6a42bb0c7d16784cdfb"
+    },
+    "descriptor": {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/c9300_iosxe26_int_hw_cg/datapackage.json",
+      "sha256": "cb3ee857d537c715502086bffcaee147e54fe24d8eb0af7596fd69056b6c1dd7"
+    }
+  },
+  "command_candidates": 20,
+  "table_candidates": 0,
+  "verdict_counts": {
+    "confirmed_text_difference": 5,
+    "audit_false_positive": 2,
+    "unresolved": 6,
+    "confirmed_formatting_difference": 7
+  },
+  "pdf_pages_read": [
+    38,
+    47,
+    75,
+    89,
+    103,
+    148,
+    167,
+    169,
+    172,
+    185
+  ],
+  "pdf_page_errors": {},
+  "results": [
+    {
+      "kind": "command",
+      "pdf_page": 38,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "copy running-config",
+        "markdown_lines": [
+          1240,
+          1351
+        ]
+      },
+      "verdict": "confirmed_text_difference",
+      "reason": "command_example_absent_in_corresponding_section",
+      "pdf_line": {
+        "page": 38,
+        "text": "Device# copy running-config",
+        "x": 181.46600341796875,
+        "top": 677.0360107421875,
+        "bottom": 670.0360107421875,
+        "command_column_text": "Device# copy running-config"
+      },
+      "pdf_command": {
+        "command": "copy running-config startup-config",
+        "first_line": "copy running-config",
+        "page": 38,
+        "continuation_uncertain": true
+      },
+      "package_scope": {
+        "lines": [
+          1238,
+          1267
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 1238,
+          "page": 36,
+          "title": "Setting the Interface Speed and Duplex Parameters"
+        },
+        "after": {
+          "line": 1268,
+          "page": 38,
+          "title": "Configuring Port Settings for an Interface"
+        }
+      },
+      "extracted_scope": {
+        "lines": [
+          1117,
+          1133
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 1117,
+          "page": 36,
+          "title": "Setting the Interface Speed and Duplex Parameters"
+        },
+        "after": {
+          "line": 1134,
+          "page": 38,
+          "title": "Configuring Port Settings for an Interface"
+        }
+      },
+      "package_matches": [],
+      "fragmented_package_matches": [],
+      "extracted_matches": [],
+      "alternative_context_matches": [],
+      "likely_stage": "pdf_to_extracted",
+      "audit_pointer": "/pages/37/findings/2"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 47,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "copy running-config",
+        "markdown_lines": [
+          1662,
+          1674
+        ]
+      },
+      "verdict": "confirmed_text_difference",
+      "reason": "command_example_absent_in_corresponding_section",
+      "pdf_line": {
+        "page": 47,
+        "text": "Device# copy running-config",
+        "x": 195.86599731445312,
+        "top": 356.20599365234375,
+        "bottom": 349.20599365234375,
+        "command_column_text": "Device# copy running-config"
+      },
+      "pdf_command": {
+        "command": "copy running-config startup-config",
+        "first_line": "copy running-config",
+        "page": 47,
+        "continuation_uncertain": true
+      },
+      "package_scope": {
+        "lines": [
+          1646,
+          1665
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 1646,
+          "page": 46,
+          "title": "Configuring a Layer 3 Interface"
+        },
+        "after": {
+          "line": 1666,
+          "page": 47,
+          "title": "Configuring a Logical Layer 3 GRE Tunnel Interface"
+        }
+      },
+      "extracted_scope": {
+        "lines": [
+          1395,
+          1414
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 1395,
+          "page": 46,
+          "title": "Configuring a Layer 3 Interface"
+        },
+        "after": {
+          "line": 1415,
+          "page": 47,
+          "title": "Configuring a Logical Layer 3 GRE Tunnel Interface"
+        }
+      },
+      "package_matches": [],
+      "fragmented_package_matches": [],
+      "extracted_matches": [],
+      "alternative_context_matches": [],
+      "likely_stage": "pdf_to_extracted",
+      "audit_pointer": "/pages/46/findings/2"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 47,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "ip address",
+        "markdown_lines": [
+          1662,
+          1674
+        ]
+      },
+      "verdict": "confirmed_text_difference",
+      "reason": "command_example_absent_in_corresponding_section",
+      "pdf_line": {
+        "page": 47,
+        "text": "Device(config-if)# ip address",
+        "x": 195.86599731445312,
+        "top": 576.8920288085938,
+        "bottom": 569.8920288085938,
+        "command_column_text": "Device(config-if)# ip address"
+      },
+      "pdf_command": {
+        "command": "ip address 192.20.135.21 255.255.255.0",
+        "first_line": "ip address",
+        "page": 47,
+        "continuation_uncertain": true
+      },
+      "package_scope": {
+        "lines": [
+          1646,
+          1665
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 1646,
+          "page": 46,
+          "title": "Configuring a Layer 3 Interface"
+        },
+        "after": {
+          "line": 1666,
+          "page": 47,
+          "title": "Configuring a Logical Layer 3 GRE Tunnel Interface"
+        }
+      },
+      "extracted_scope": {
+        "lines": [
+          1395,
+          1414
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 1395,
+          "page": 46,
+          "title": "Configuring a Layer 3 Interface"
+        },
+        "after": {
+          "line": 1415,
+          "page": 47,
+          "title": "Configuring a Logical Layer 3 GRE Tunnel Interface"
+        }
+      },
+      "package_matches": [],
+      "fragmented_package_matches": [],
+      "extracted_matches": [],
+      "alternative_context_matches": [],
+      "likely_stage": "pdf_to_extracted",
+      "audit_pointer": "/pages/46/findings/3"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 47,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "no shutdown",
+        "markdown_lines": [
+          1662,
+          1674
+        ]
+      },
+      "verdict": "confirmed_text_difference",
+      "reason": "command_example_absent_in_corresponding_section",
+      "pdf_line": {
+        "page": 47,
+        "text": "Device(config-if)# no shutdown",
+        "x": 195.86599731445312,
+        "top": 503.87799072265625,
+        "bottom": 497.0459899902344,
+        "command_column_text": "Device(config-if)# no shutdown"
+      },
+      "pdf_command": {
+        "command": "no shutdown",
+        "first_line": "no shutdown",
+        "page": 47,
+        "continuation_uncertain": false
+      },
+      "package_scope": {
+        "lines": [
+          1646,
+          1665
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 1646,
+          "page": 46,
+          "title": "Configuring a Layer 3 Interface"
+        },
+        "after": {
+          "line": 1666,
+          "page": 47,
+          "title": "Configuring a Logical Layer 3 GRE Tunnel Interface"
+        }
+      },
+      "extracted_scope": {
+        "lines": [
+          1395,
+          1414
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 1395,
+          "page": 46,
+          "title": "Configuring a Layer 3 Interface"
+        },
+        "after": {
+          "line": 1415,
+          "page": 47,
+          "title": "Configuring a Logical Layer 3 GRE Tunnel Interface"
+        }
+      },
+      "package_matches": [],
+      "fragmented_package_matches": [],
+      "extracted_matches": [],
+      "alternative_context_matches": [],
+      "likely_stage": "pdf_to_extracted",
+      "audit_pointer": "/pages/46/findings/4"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 47,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "no switchport",
+        "markdown_lines": [
+          1662,
+          1674
+        ]
+      },
+      "verdict": "confirmed_text_difference",
+      "reason": "command_example_absent_in_corresponding_section",
+      "pdf_line": {
+        "page": 47,
+        "text": "Device(config-if)# no switchport",
+        "x": 195.86599731445312,
+        "top": 639.97802734375,
+        "bottom": 632.97802734375,
+        "command_column_text": "Device(config-if)# no switchport"
+      },
+      "pdf_command": {
+        "command": "no switchport",
+        "first_line": "no switchport",
+        "page": 47,
+        "continuation_uncertain": false
+      },
+      "package_scope": {
+        "lines": [
+          1646,
+          1665
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 1646,
+          "page": 46,
+          "title": "Configuring a Layer 3 Interface"
+        },
+        "after": {
+          "line": 1666,
+          "page": 47,
+          "title": "Configuring a Logical Layer 3 GRE Tunnel Interface"
+        }
+      },
+      "extracted_scope": {
+        "lines": [
+          1395,
+          1414
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 1395,
+          "page": 46,
+          "title": "Configuring a Layer 3 Interface"
+        },
+        "after": {
+          "line": 1415,
+          "page": 47,
+          "title": "Configuring a Logical Layer 3 GRE Tunnel Interface"
+        }
+      },
+      "package_matches": [],
+      "fragmented_package_matches": [],
+      "extracted_matches": [],
+      "alternative_context_matches": [],
+      "likely_stage": "pdf_to_extracted",
+      "audit_pointer": "/pages/46/findings/5"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 75,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "show interfaces the Ethernet management port LED. When the",
+        "markdown_lines": [
+          2735,
+          2805
+        ]
+      },
+      "verdict": "audit_false_positive",
+      "reason": "purpose_column_contamination",
+      "pdf_line": {
+        "page": 75,
+        "text": "Device# show interfaces the Ethernet management port LED. When the",
+        "x": 195.86599731445312,
+        "top": 600.126953125,
+        "bottom": 590.260009765625,
+        "command_column_text": "Device# show interfaces"
+      },
+      "pdf_command": {
+        "command": "show interfaces gigabitethernet0/0",
+        "first_line": "show interfaces",
+        "page": 75,
+        "continuation_uncertain": true
+      },
+      "package_scope": {
+        "lines": [
+          2711,
+          2813
+        ],
+        "method": "page_marker_bracketed",
+        "before": {
+          "line": 2711,
+          "page": 74,
+          "title": "How to Configure the Ethernet Management Port"
+        },
+        "after": {
+          "line": 2814,
+          "page": 76,
+          "title": "Additional References for Ethernet Management Port"
+        }
+      },
+      "extracted_scope": {
+        "lines": [
+          2211,
+          2267
+        ],
+        "method": "page_marker_bracketed",
+        "before": {
+          "line": 2211,
+          "page": 74,
+          "title": "How to Configure the Ethernet Management Port"
+        },
+        "after": {
+          "line": 2268,
+          "page": 76,
+          "title": "Additional References for Ethernet Management Port"
+        }
+      },
+      "package_matches": [
+        {
+          "line": 2764,
+          "text": "Device# show interfaces gigabitethernet0/0",
+          "prompt_present": true
+        }
+      ],
+      "fragmented_package_matches": [],
+      "extracted_matches": [
+        {
+          "line": 2247,
+          "text": "| Step 7 | show interfaces gigabitethernet0/0 | Displays the link status.                       |",
+          "prompt_present": false
+        }
+      ],
+      "alternative_context_matches": [
+        {
+          "line": 2764,
+          "text": "Device# show interfaces gigabitethernet0/0",
+          "prompt_present": true
+        }
+      ],
+      "audit_pointer": "/pages/74/findings/2"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 89,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "traceroute mac ip source-ip destination-ip",
+        "markdown_lines": [
+          3484,
+          3514
+        ]
+      },
+      "verdict": "unresolved",
+      "reason": "No exact command match; boundaries or continuation remain uncertain",
+      "pdf_line": {
+        "page": 89,
+        "text": "Device# traceroute mac ip source-ip destination-ip",
+        "x": 144.61599731445312,
+        "top": 94.73600006103516,
+        "bottom": 87.73600006103516,
+        "command_column_text": ""
+      },
+      "pdf_command": {
+        "command": "traceroute mac ip source-ip destination-ip",
+        "first_line": "traceroute mac ip source-ip destination-ip",
+        "page": 89,
+        "continuation_uncertain": false
+      },
+      "package_scope": {
+        "lines": [
+          3504,
+          3532
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 3504,
+          "page": 89,
+          "title": "Perform Layer 2 Traceroute"
+        },
+        "after": {
+          "line": 3533,
+          "page": 90,
+          "title": "Configure ICMP"
+        }
+      },
+      "extracted_scope": {
+        "lines": [
+          2733,
+          2746
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 2733,
+          "page": 89,
+          "title": "Perform Layer 2 Traceroute"
+        },
+        "after": {
+          "line": 2747,
+          "page": 90,
+          "title": "Configure ICMP"
+        }
+      },
+      "package_matches": [],
+      "fragmented_package_matches": [],
+      "extracted_matches": [],
+      "alternative_context_matches": [],
+      "audit_pointer": "/pages/88/findings/2"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 103,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "country US • identifier id:Specifiesthe ID for the civic,",
+        "markdown_lines": [
+          4019,
+          4140
+        ]
+      },
+      "verdict": "audit_false_positive",
+      "reason": "purpose_column_contamination",
+      "pdf_line": {
+        "page": 103,
+        "text": "Device(config-civic)# country US • identifier id:Specifiesthe ID for the civic,",
+        "x": 195.86599731445312,
+        "top": 351.9380187988281,
+        "bottom": 342.76800537109375,
+        "command_column_text": "Device(config-civic)# country US"
+      },
+      "pdf_command": {
+        "command": "country US",
+        "first_line": "country US",
+        "page": 103,
+        "continuation_uncertain": false
+      },
+      "package_scope": {
+        "lines": [
+          4065,
+          4159
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 4065,
+          "page": 103,
+          "title": "Configuring Location TLV and Wired Location Service"
+        },
+        "after": {
+          "line": 4160,
+          "page": 105,
+          "title": "Enabling Wired Location Service on the Device"
+        }
+      },
+      "extracted_scope": {
+        "lines": [
+          3193,
+          3264
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 3193,
+          "page": 103,
+          "title": "Configuring Location TLV and Wired Location Service"
+        },
+        "after": {
+          "line": 3265,
+          "page": 105,
+          "title": "Enabling Wired Location Service on the Device"
+        }
+      },
+      "package_matches": [
+        {
+          "line": 4128,
+          "text": "Device(config-civic)# country US",
+          "prompt_present": true
+        }
+      ],
+      "fragmented_package_matches": [
+        {
+          "line": 4098,
+          "text": "| Device(config-civic)# | country US identifier id :Specifiesthe ID for the civic,                        |"
+        }
+      ],
+      "extracted_matches": [
+        {
+          "line": 3226,
+          "text": "| Device(config-civic)# | country US identifier id :Specifiesthe ID for the civic,                        |"
+        }
+      ],
+      "alternative_context_matches": [
+        {
+          "line": 4128,
+          "text": "Device(config-civic)# country US",
+          "prompt_present": true
+        },
+        {
+          "line": 4098,
+          "text": "| Device(config-civic)# | country US identifier id :Specifiesthe ID for the civic,                        |"
+        }
+      ],
+      "audit_pointer": "/pages/102/findings/2"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 148,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "copy running-config",
+        "markdown_lines": [
+          5673,
+          5723
+        ]
+      },
+      "verdict": "unresolved",
+      "reason": "No exact command match; boundaries or continuation remain uncertain",
+      "pdf_line": {
+        "page": 148,
+        "text": "Device# copy running-config",
+        "x": 181.46600341796875,
+        "top": 281.3919982910156,
+        "bottom": 274.3919982910156,
+        "command_column_text": "Device# copy running-config"
+      },
+      "pdf_command": {
+        "command": "copy running-config startup-config",
+        "first_line": "copy running-config",
+        "page": 148,
+        "continuation_uncertain": true
+      },
+      "package_scope": {
+        "lines": [
+          5630,
+          5710
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 5630,
+          "page": 146,
+          "title": "Configuring Power Policing"
+        },
+        "after": {
+          "line": 5711,
+          "page": 148,
+          "title": "Enable the 802.3bt Mode on Type 3 Cisco UPOE Modules"
+        }
+      },
+      "extracted_scope": {
+        "lines": [
+          4587,
+          4667
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 4587,
+          "page": 146,
+          "title": "Configuring Power Policing"
+        },
+        "after": {
+          "line": 4668,
+          "page": 148,
+          "title": "Enable the 802.3bt Mode on Type 3 Cisco UPOE Modules"
+        }
+      },
+      "package_matches": [],
+      "fragmented_package_matches": [],
+      "extracted_matches": [],
+      "alternative_context_matches": [],
+      "audit_pointer": "/pages/147/findings/2"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 148,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "errdisable detect cause",
+        "markdown_lines": [
+          5673,
+          5723
+        ]
+      },
+      "verdict": "confirmed_formatting_difference",
+      "reason": "command_split_across_table_cells_or_rows",
+      "pdf_line": {
+        "page": 148,
+        "text": "Device(config)# errdisable detect cause",
+        "x": 181.46600341796875,
+        "top": 550.9760131835938,
+        "bottom": 544.14404296875,
+        "command_column_text": "Device(config)# errdisable detect cause"
+      },
+      "pdf_command": {
+        "command": "errdisable detect cause",
+        "first_line": "errdisable detect cause",
+        "page": 148,
+        "continuation_uncertain": false
+      },
+      "package_scope": {
+        "lines": [
+          5630,
+          5710
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 5630,
+          "page": 146,
+          "title": "Configuring Power Policing"
+        },
+        "after": {
+          "line": 5711,
+          "page": 148,
+          "title": "Enable the 802.3bt Mode on Type 3 Cisco UPOE Modules"
+        }
+      },
+      "extracted_scope": {
+        "lines": [
+          4587,
+          4667
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 4587,
+          "page": 146,
+          "title": "Configuring Power Policing"
+        },
+        "after": {
+          "line": 4668,
+          "page": 148,
+          "title": "Enable the 802.3bt Mode on Type 3 Cisco UPOE Modules"
+        }
+      },
+      "package_matches": [],
+      "fragmented_package_matches": [
+        {
+          "line": 5691,
+          "text": "| Device(config)# |                    | errdisable        | detect cause                                               |"
+        }
+      ],
+      "extracted_matches": [
+        {
+          "line": 4648,
+          "text": "| Device(config)# |                    | errdisable        | detect cause                                               |"
+        }
+      ],
+      "alternative_context_matches": [
+        {
+          "line": 5691,
+          "text": "| Device(config)# |                    | errdisable        | detect cause                                               |"
+        }
+      ],
+      "audit_pointer": "/pages/147/findings/3"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 148,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "errdisable recovery",
+        "markdown_lines": [
+          5673,
+          5723
+        ]
+      },
+      "verdict": "confirmed_formatting_difference",
+      "reason": "command_split_across_table_cells_or_rows",
+      "pdf_line": {
+        "page": 148,
+        "text": "Device(config)# errdisable recovery",
+        "x": 181.46600341796875,
+        "top": 499.2640075683594,
+        "bottom": 492.2640075683594,
+        "command_column_text": "Device(config)# errdisable recovery"
+      },
+      "pdf_command": {
+        "command": "errdisable recovery interval 100",
+        "first_line": "errdisable recovery",
+        "page": 148,
+        "continuation_uncertain": true
+      },
+      "package_scope": {
+        "lines": [
+          5630,
+          5710
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 5630,
+          "page": 146,
+          "title": "Configuring Power Policing"
+        },
+        "after": {
+          "line": 5711,
+          "page": 148,
+          "title": "Enable the 802.3bt Mode on Type 3 Cisco UPOE Modules"
+        }
+      },
+      "extracted_scope": {
+        "lines": [
+          4587,
+          4667
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 4587,
+          "page": 146,
+          "title": "Configuring Power Policing"
+        },
+        "after": {
+          "line": 4668,
+          "page": 148,
+          "title": "Enable the 802.3bt Mode on Type 3 Cisco UPOE Modules"
+        }
+      },
+      "package_matches": [],
+      "fragmented_package_matches": [
+        {
+          "line": 5693,
+          "end_line": 5694,
+          "text": "Device(config)#  errdisable recovery interval 100  ",
+          "prompt_present": true,
+          "multiline": true
+        }
+      ],
+      "extracted_matches": [
+        {
+          "line": 4650,
+          "end_line": 4651,
+          "text": "Device(config)#  errdisable recovery interval 100  ",
+          "prompt_present": true,
+          "multiline": true
+        }
+      ],
+      "alternative_context_matches": [
+        {
+          "line": 5693,
+          "end_line": 5694,
+          "text": "Device(config)#  errdisable recovery interval 100  ",
+          "prompt_present": true,
+          "multiline": true
+        }
+      ],
+      "audit_pointer": "/pages/147/findings/4"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 148,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "errdisable recovery cause",
+        "markdown_lines": [
+          5673,
+          5723
+        ]
+      },
+      "verdict": "confirmed_formatting_difference",
+      "reason": "command_split_across_table_cells_or_rows",
+      "pdf_line": {
+        "page": 148,
+        "text": "Device(config)# errdisable recovery cause",
+        "x": 181.46600341796875,
+        "top": 525.1199951171875,
+        "bottom": 518.1199951171875,
+        "command_column_text": "Device(config)# errdisable recovery cause"
+      },
+      "pdf_command": {
+        "command": "errdisable recovery cause",
+        "first_line": "errdisable recovery cause",
+        "page": 148,
+        "continuation_uncertain": false
+      },
+      "package_scope": {
+        "lines": [
+          5630,
+          5710
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 5630,
+          "page": 146,
+          "title": "Configuring Power Policing"
+        },
+        "after": {
+          "line": 5711,
+          "page": 148,
+          "title": "Enable the 802.3bt Mode on Type 3 Cisco UPOE Modules"
+        }
+      },
+      "extracted_scope": {
+        "lines": [
+          4587,
+          4667
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 4587,
+          "page": 146,
+          "title": "Configuring Power Policing"
+        },
+        "after": {
+          "line": 4668,
+          "page": 148,
+          "title": "Enable the 802.3bt Mode on Type 3 Cisco UPOE Modules"
+        }
+      },
+      "package_matches": [],
+      "fragmented_package_matches": [
+        {
+          "line": 5692,
+          "text": "| Device(config)# |                    | errdisable        | recovery cause                                             |"
+        }
+      ],
+      "extracted_matches": [
+        {
+          "line": 4649,
+          "text": "| Device(config)# |                    | errdisable        | recovery cause                                             |"
+        }
+      ],
+      "alternative_context_matches": [
+        {
+          "line": 5692,
+          "text": "| Device(config)# |                    | errdisable        | recovery cause                                             |"
+        }
+      ],
+      "audit_pointer": "/pages/147/findings/5"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 148,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "show errdisable recovery",
+        "markdown_lines": [
+          5673,
+          5723
+        ]
+      },
+      "verdict": "confirmed_formatting_difference",
+      "reason": "command_split_across_table_cells_or_rows",
+      "pdf_line": {
+        "page": 148,
+        "text": "Device# show errdisable recovery",
+        "x": 181.46600341796875,
+        "top": 334.87799072265625,
+        "bottom": 327.87799072265625,
+        "command_column_text": "Device# show errdisable recovery"
+      },
+      "pdf_command": {
+        "command": "show errdisable recovery",
+        "first_line": "show errdisable recovery",
+        "page": 148,
+        "continuation_uncertain": false
+      },
+      "package_scope": {
+        "lines": [
+          5630,
+          5710
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 5630,
+          "page": 146,
+          "title": "Configuring Power Policing"
+        },
+        "after": {
+          "line": 5711,
+          "page": 148,
+          "title": "Enable the 802.3bt Mode on Type 3 Cisco UPOE Modules"
+        }
+      },
+      "extracted_scope": {
+        "lines": [
+          4587,
+          4667
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 4587,
+          "page": 146,
+          "title": "Configuring Power Policing"
+        },
+        "after": {
+          "line": 4668,
+          "page": 148,
+          "title": "Enable the 802.3bt Mode on Type 3 Cisco UPOE Modules"
+        }
+      },
+      "package_matches": [],
+      "fragmented_package_matches": [
+        {
+          "line": 5704,
+          "text": "| Device#         | show               | errdisable        | recovery                                                   |"
+        }
+      ],
+      "extracted_matches": [
+        {
+          "line": 4661,
+          "text": "| Device#         | show               | errdisable        | recovery                                                   |"
+        }
+      ],
+      "alternative_context_matches": [
+        {
+          "line": 5704,
+          "text": "| Device#         | show               | errdisable        | recovery                                                   |"
+        }
+      ],
+      "audit_pointer": "/pages/147/findings/6"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 148,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "show power inline police",
+        "markdown_lines": [
+          5673,
+          5723
+        ]
+      },
+      "verdict": "confirmed_formatting_difference",
+      "reason": "command_split_across_table_cells_or_rows",
+      "pdf_line": {
+        "page": 148,
+        "text": "Device# show power inline police",
+        "x": 181.46600341796875,
+        "top": 350.8059997558594,
+        "bottom": 343.8059997558594,
+        "command_column_text": "Device# show power inline police"
+      },
+      "pdf_command": {
+        "command": "show power inline police",
+        "first_line": "show power inline police",
+        "page": 148,
+        "continuation_uncertain": false
+      },
+      "package_scope": {
+        "lines": [
+          5630,
+          5710
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 5630,
+          "page": 146,
+          "title": "Configuring Power Policing"
+        },
+        "after": {
+          "line": 5711,
+          "page": 148,
+          "title": "Enable the 802.3bt Mode on Type 3 Cisco UPOE Modules"
+        }
+      },
+      "extracted_scope": {
+        "lines": [
+          4587,
+          4667
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 4587,
+          "page": 146,
+          "title": "Configuring Power Policing"
+        },
+        "after": {
+          "line": 4668,
+          "page": 148,
+          "title": "Enable the 802.3bt Mode on Type 3 Cisco UPOE Modules"
+        }
+      },
+      "package_matches": [],
+      "fragmented_package_matches": [
+        {
+          "line": 5703,
+          "text": "| Device#         | show power         | inline            | police                                                     |"
+        }
+      ],
+      "extracted_matches": [
+        {
+          "line": 4660,
+          "text": "| Device#         | show power         | inline            | police                                                     |"
+        }
+      ],
+      "alternative_context_matches": [
+        {
+          "line": 5703,
+          "text": "| Device#         | show power         | inline            | police                                                     |"
+        }
+      ],
+      "audit_pointer": "/pages/147/findings/7"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 167,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "device classifier The device gets classified to the set",
+        "markdown_lines": [
+          6407,
+          6448
+        ]
+      },
+      "verdict": "unresolved",
+      "reason": "No exact command match; boundaries or continuation remain uncertain",
+      "pdf_line": {
+        "page": 167,
+        "text": "Device(config)# device classifier The device gets classified to the set",
+        "x": 195.86599731445312,
+        "top": 261.9469909667969,
+        "bottom": 251.13800048828125,
+        "command_column_text": "Device(config)# device classifier"
+      },
+      "pdf_command": {
+        "command": "device classifier device-type Terminal-Server p",
+        "first_line": "device classifier",
+        "page": 167,
+        "continuation_uncertain": true
+      },
+      "package_scope": {
+        "lines": [
+          6369,
+          6447
+        ],
+        "method": "page_marker_bracketed",
+        "before": {
+          "line": 6369,
+          "page": 166,
+          "title": "How to Configure Auto SmartPorts"
+        },
+        "after": {
+          "line": 6448,
+          "page": 168,
+          "title": "Configuring Mapping Between Event Triggers and Built-in Macros"
+        }
+      },
+      "extracted_scope": {
+        "lines": [
+          5147,
+          5224
+        ],
+        "method": "page_marker_bracketed",
+        "before": {
+          "line": 5147,
+          "page": 166,
+          "title": "How to Configure Auto SmartPorts"
+        },
+        "after": {
+          "line": 5225,
+          "page": 168,
+          "title": "Configuring Mapping Between Event Triggers and Built-in Macros"
+        }
+      },
+      "package_matches": [],
+      "fragmented_package_matches": [],
+      "extracted_matches": [],
+      "alternative_context_matches": [],
+      "audit_pointer": "/pages/166/findings/2"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 169,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "copy running-config",
+        "markdown_lines": [
+          6486,
+          6546
+        ]
+      },
+      "verdict": "unresolved",
+      "reason": "No exact command match; boundaries or continuation remain uncertain",
+      "pdf_line": {
+        "page": 169,
+        "text": "Device# copy running-config",
+        "x": 195.86599731445312,
+        "top": 633.1500244140625,
+        "bottom": 626.1500244140625,
+        "command_column_text": "Device# copy running-config"
+      },
+      "pdf_command": {
+        "command": "copy running-config startup-config",
+        "first_line": "copy running-config",
+        "page": 169,
+        "continuation_uncertain": true
+      },
+      "package_scope": {
+        "lines": [
+          6448,
+          6501
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 6448,
+          "page": 168,
+          "title": "Configuring Mapping Between Event Triggers and Built-in Macros"
+        },
+        "after": {
+          "line": 6502,
+          "page": 169,
+          "title": "Example: Enabling Auto SmartPorts"
+        }
+      },
+      "extracted_scope": {
+        "lines": [
+          5225,
+          5278
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 5225,
+          "page": 168,
+          "title": "Configuring Mapping Between Event Triggers and Built-in Macros"
+        },
+        "after": {
+          "line": 5279,
+          "page": 169,
+          "title": "Example: Enabling Auto SmartPorts"
+        }
+      },
+      "package_matches": [],
+      "fragmented_package_matches": [],
+      "extracted_matches": [],
+      "alternative_context_matches": [],
+      "audit_pointer": "/pages/168/findings/2"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 172,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "configure terminal",
+        "markdown_lines": [
+          6620,
+          6670
+        ]
+      },
+      "verdict": "confirmed_formatting_difference",
+      "reason": "command_split_across_table_cells_or_rows",
+      "pdf_line": {
+        "page": 172,
+        "text": "Device# configure terminal",
+        "x": 189.46600341796875,
+        "top": 344.7619934082031,
+        "bottom": 337.7619934082031,
+        "command_column_text": "Device# configure terminal"
+      },
+      "pdf_command": {
+        "command": "configure terminal",
+        "first_line": "configure terminal",
+        "page": 172,
+        "continuation_uncertain": false
+      },
+      "package_scope": {
+        "lines": [
+          6632,
+          6736
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 6632,
+          "page": 172,
+          "title": "Configuring the COAP Proxy"
+        },
+        "after": {
+          "line": 6737,
+          "page": 174,
+          "title": "Configuring COAP Endpoints"
+        }
+      },
+      "extracted_scope": {
+        "lines": [
+          5368,
+          5472
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 5368,
+          "page": 172,
+          "title": "Configuring the COAP Proxy"
+        },
+        "after": {
+          "line": 5473,
+          "page": 174,
+          "title": "Configuring COAP Endpoints"
+        }
+      },
+      "package_matches": [],
+      "fragmented_package_matches": [
+        {
+          "line": 6643,
+          "text": "| Device#       | configure                  | terminal                   |                |            |            |               |                   |"
+        }
+      ],
+      "extracted_matches": [
+        {
+          "line": 5379,
+          "text": "| Device#       | configure                  | terminal                   |                |            |            |               |                   |"
+        }
+      ],
+      "alternative_context_matches": [
+        {
+          "line": 6643,
+          "text": "| Device#       | configure                  | terminal                   |                |            |            |               |                   |"
+        }
+      ],
+      "audit_pointer": "/pages/171/findings/2"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 172,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "security none trustpoint and Verification trustpoint",
+        "markdown_lines": [
+          6620,
+          6670
+        ]
+      },
+      "verdict": "confirmed_formatting_difference",
+      "reason": "command_split_across_table_cells_or_rows",
+      "pdf_line": {
+        "page": 172,
+        "text": "Device(config-coap-proxy)# security none trustpoint and Verification trustpoint",
+        "x": 189.46600341796875,
+        "top": 128.53900146484375,
+        "bottom": 118.88800048828125,
+        "command_column_text": "Device(config-coap-proxy)# security none"
+      },
+      "pdf_command": {
+        "command": "security none",
+        "first_line": "security none",
+        "page": 172,
+        "continuation_uncertain": false
+      },
+      "package_scope": {
+        "lines": [
+          6632,
+          6736
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 6632,
+          "page": 172,
+          "title": "Configuring the COAP Proxy"
+        },
+        "after": {
+          "line": 6737,
+          "page": 174,
+          "title": "Configuring COAP Endpoints"
+        }
+      },
+      "extracted_scope": {
+        "lines": [
+          5368,
+          5472
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 5368,
+          "page": 172,
+          "title": "Configuring the COAP Proxy"
+        },
+        "after": {
+          "line": 5473,
+          "page": 174,
+          "title": "Configuring COAP Endpoints"
+        }
+      },
+      "package_matches": [],
+      "fragmented_package_matches": [
+        {
+          "line": 6664,
+          "text": "|               | Device(config-coap-proxy)# | security                   | none           | trustpoint | and        | Verification  | trustpoint        |"
+        }
+      ],
+      "extracted_matches": [
+        {
+          "line": 5400,
+          "text": "|               | Device(config-coap-proxy)# | security                   | none           | trustpoint | and        | Verification  | trustpoint        |"
+        }
+      ],
+      "alternative_context_matches": [
+        {
+          "line": 6664,
+          "text": "|               | Device(config-coap-proxy)# | security                   | none           | trustpoint | and        | Verification  | trustpoint        |"
+        }
+      ],
+      "audit_pointer": "/pages/171/findings/3"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 185,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "end",
+        "markdown_lines": [
+          7218,
+          7262
+        ]
+      },
+      "verdict": "unresolved",
+      "reason": "No exact command match; boundaries or continuation remain uncertain",
+      "pdf_line": {
+        "page": 185,
+        "text": "Device(config)# end",
+        "x": 195.86599731445312,
+        "top": 686.635986328125,
+        "bottom": 679.8040161132812,
+        "command_column_text": "Device(config)# end"
+      },
+      "pdf_command": {
+        "command": "end",
+        "first_line": "end",
+        "page": 185,
+        "continuation_uncertain": false
+      },
+      "package_scope": {
+        "lines": [
+          7184,
+          7221
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 7184,
+          "page": 184,
+          "title": "Configuring USB 3.0 SSD Password on a Switch"
+        },
+        "after": {
+          "line": 7222,
+          "page": 185,
+          "title": "Unlocking USB 3.0 SSD"
+        }
+      },
+      "extracted_scope": {
+        "lines": [
+          5783,
+          5820
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 5783,
+          "page": 184,
+          "title": "Configuring USB 3.0 SSD Password on a Switch"
+        },
+        "after": {
+          "line": 5821,
+          "page": 185,
+          "title": "Unlocking USB 3.0 SSD"
+        }
+      },
+      "package_matches": [],
+      "fragmented_package_matches": [],
+      "extracted_matches": [],
+      "alternative_context_matches": [],
+      "audit_pointer": "/pages/184/findings/2"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 185,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "hw-module switch 1 usbflash1",
+        "markdown_lines": [
+          7218,
+          7262
+        ]
+      },
+      "verdict": "unresolved",
+      "reason": "Source command occurrence is ambiguous",
+      "pdf_source_candidates": [
+        {
+          "page": 185,
+          "text": "will be in locked state. Device# hw-module switch 1 usbflash1",
+          "x": 195.86599731445312,
+          "top": 453.2070007324219,
+          "bottom": 444.1300048828125,
+          "command_column_text": "Device# hw-module switch 1 usbflash1"
+        },
+        {
+          "page": 185,
+          "text": "Device# hw-module switch 1 usbflash1",
+          "x": 195.86599731445312,
+          "top": 209.85000610351562,
+          "bottom": 204.01800537109375,
+          "command_column_text": "Device# hw-module switch 1 usbflash1"
+        }
+      ],
+      "audit_pointer": "/pages/184/findings/3"
+    }
+  ]
+}

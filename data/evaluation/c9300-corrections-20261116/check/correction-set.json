@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d",
+  "source": {
+    "pdf": {
+      "path": "../../products/catalyst9300/raw/catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d/b_26x_ip_9300_cg.pdf",
+      "sha256": "158e784d02aee08881c68010114559a373b810ec41c6cb6a2c3ba5daef4320f1"
+    },
+    "markdown": {
+      "path": "../../products/catalyst9300/extracted/catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d/b_26x_ip_9300_cg/b_26x_ip_9300_cg.md",
+      "sha256": "c9a5e5103e1cdba4f1a640ba9797772268e4aa9bb7c20d89a692e21fc73a4cb2"
+    },
+    "assets_dir": "../../products/catalyst9300/extracted/catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d/b_26x_ip_9300_cg"
+  },
+  "open_issues": [
+    "This candidate only covers Configuring Stateful DHCP Externally. Other command and table audit findings remain unresolved.",
+    "PDF visual comparison and complete-procedure review of this replacement have not been approved.",
+    "Downstream transformation content preservation, pipeline integration, package rebuild and indexing remain out of scope."
+  ],
+  "corrections": [
+    {
+      "id": "stateful-dhcp-steps-1-14",
+      "reason": "Restore the complete procedure from physical PDF pages 39-40: extracted Markdown loses the continuation of Step 9 and all of Steps 10-14, truncates wrapped examples, and splits table cells. Present steps outside tables; preserve the heading anchor, source values, modes and wording, including Step 10's printed IPv6 wording. Join PDF visual line wraps; Step 14's relay/destination spacing follows its command example. Do not infer missing configuration from external knowledge.",
+      "pdf_pages": [39, 40],
+      "target": {
+        "lines": [951, 988],
+        "sha256": "dec5ed3933f3753d3758d22f47a97813b6981b4337822d00bd5ff8db2354ca3f"
+      },
+      "replacement": {
+        "path": "stateful-dhcp.md",
+        "sha256": "eaca8533620bff3261dc51f8ea0d4a0c99f02da5c357a5a790471b78ab3dffa5"
+      },
+      "review": {
+        "status": "pending_review",
+        "pdf_compared": false,
+        "complete_procedure_checked": false,
+        "notes": "Unapproved transcription candidate. Compare all 14 steps, commands, examples, purposes and conditions against physical PDF pages 39-40 before approving. Automated validation is not approval."
+      }
+    }
+  ]
+}

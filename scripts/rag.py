@@ -49,6 +49,7 @@ class RAGError(RuntimeError):
 
 DEFAULT_MODEL = "intfloat/multilingual-e5-small"
 DEFAULT_COLLECTION = "cisco_manual_sections"
+SECTION_INDEX_VERSION = 2
 FRONTMATTER_PATTERN = re.compile(r"\A---\n.*?\n---\n\n", re.DOTALL)
 HEADING_PATTERN = re.compile(r"^(?P<level>#{1,6})\s+(?P<title>.+?)\s*$")
 FENCE_PATTERN = re.compile(r"^\s*(`{3,}|~{3,})")
@@ -57,8 +58,36 @@ PRODUCT_ID_PATTERN = re.compile(r"[a-z0-9][a-z0-9_-]*")
 IPV4_PATTERN = re.compile(
     r"(?<![\d.])(?:\d{1,3}\.){3}\d{1,3}(?![\d.])"
 )
+IPV4_PREFIX_PATTERN = re.compile(
+    r"(?<![\d.])(?:\d{1,3}\.){3}\d{1,3}/(?:[0-9]|[12]\d|3[0-2])(?!\d)"
+)
+IPV4_ADDRESS_MASK_PATTERN = re.compile(
+    r"\bip\s+address\s+(?:\d{1,3}\.){3}\d{1,3}\s+"
+    r"(?:\d{1,3}\.){3}\d{1,3}\b",
+    re.IGNORECASE,
+)
 HOSTNAME_PATTERN = re.compile(
     r"(?<![A-Za-z0-9-])(?:[A-Za-z0-9-]+\.)+[A-Za-z]{2,}(?![A-Za-z0-9-])"
+)
+DHCP_RELAY_INTENT_PATTERN = re.compile(
+    r"(?:DHCP.{0,80}(?:relay|リレー|中継|転送)"
+    r"|(?:relay|リレー|中継|転送).{0,80}DHCP)",
+    re.IGNORECASE,
+)
+DHCP_VRF_CONTEXT_PATTERN = re.compile(
+    r"\b(?:tenant|different|cross|inter)[ -]?VRF\b"
+    r"|テナント.{0,12}VRF|異なる.{0,12}VRF|VRF間",
+    re.IGNORECASE,
+)
+VLAN_CREATION_PATTERN = re.compile(
+    r"(?:\bVLAN\s*\d+.{0,24}(?:作成|新設|追加|create|add)"
+    r"|(?:作成|新設|追加|create|add).{0,24}\bVLAN\s*\d+)",
+    re.IGNORECASE | re.DOTALL,
+)
+VLAN_ID_PATTERN = re.compile(r"\bVLAN\s*(\d+)", re.IGNORECASE)
+DHCP_VRF_HELPER_PATTERN = re.compile(
+    r"^\s*ip\s+helper-address\s+(?:global\b|vrf\s+\S+)",
+    re.IGNORECASE,
 )
 NEGATION_INTENT_PATTERN = re.compile(
     r"削除|解除|無効(?:化|に)|\b(?:remove|delete|disable)\b",
@@ -181,6 +210,7 @@ def split_markdown_sections(
     current_path: tuple[str, ...] = ()
     lines: list[str] = []
     raw_sections: list[tuple[tuple[str, ...], str]] = []
+    procedure_context: dict[int, tuple[str, ...]] = {}
     in_fence = False
     fence_marker = ""
 
@@ -205,8 +235,29 @@ def split_markdown_sections(
         save()
         level = len(heading.group("level"))
         heading_value = clean_heading(heading.group("title"))
+        generic_procedure_heading = heading_value.lower() in {
+            "before you begin", "procedure",
+        }
+        if generic_procedure_heading:
+            if (
+                level not in procedure_context
+                and len(heading_stack) >= level
+                and re.search(
+                    r"\b(?:creating|configuring|assigning|enabling|disabling|"
+                    r"modifying|setting|installing|deleting|removing|specifying|"
+                    r"managing)\b",
+                    heading_stack[level - 1],
+                    re.IGNORECASE,
+                )
+            ):
+                procedure_context[level] = tuple(heading_stack[:level])
+        else:
+            procedure_context = {
+                key: value for key, value in procedure_context.items() if key < level
+            }
         heading_stack[level - 1 :] = [heading_value]
-        current_path = tuple(heading_stack)
+        owner = procedure_context.get(level) if generic_procedure_heading else None
+        current_path = (*owner, heading_value) if owner else tuple(heading_stack)
         lines = [line]
     save()
     if in_fence:
@@ -508,6 +559,9 @@ def build_index(
         )
     if previous and not _manifest_is_compatible(previous, collection, embedder):
         raise RAGError(f"Incompatible index manifest: {manifest_path}")
+    previous_versions = previous.get("section_versions", {})
+    if not isinstance(previous_versions, dict):
+        raise RAGError(f"Invalid section versions in index manifest: {manifest_path}")
 
     previous_sources: dict[str, str] = previous.get("source_sha256", {})
     previous_products: dict[str, str] = previous.get("source_products", {})
@@ -568,6 +622,10 @@ def build_index(
         "sections": section_count,
         "source_sha256": combined_sources,
         "source_products": combined_products,
+        "section_versions": {
+            **previous_versions,
+            **{product: SECTION_INDEX_VERSION for product in rebuilt_products},
+        },
     }
     _write_index_manifest(qdrant_path, manifest)
     return manifest
@@ -608,6 +666,14 @@ def update_index_incrementally(
         for document_id, checksum in current.items()
         if previous_sources.get(document_id) != checksum
     }
+    previous_versions = previous.get("section_versions", {})
+    if not isinstance(previous_versions, dict):
+        raise RAGError(f"Invalid section versions in index manifest: {manifest_path}")
+    checksum_changes.update(
+        document_id
+        for document_id, product in current_products.items()
+        if previous_versions.get(product) != SECTION_INDEX_VERSION
+    )
 
     client = QdrantClient(path=str(qdrant_path))
     try:
@@ -693,6 +759,10 @@ def update_index_incrementally(
         "sections": sections,
         "source_sha256": combined_sources,
         "source_products": combined_products,
+        "section_versions": {
+            **previous_versions,
+            **{product: SECTION_INDEX_VERSION for product in updated_products},
+        },
         "incremental": {"updated": changed, "removed": removed},
     }
     _write_index_manifest(qdrant_path, manifest)
@@ -1168,6 +1238,26 @@ def _metadata_filter(
     return models.Filter(must=conditions) if conditions else None
 
 
+def _normalize_cli_search_term(term: str) -> str:
+    term = " ".join(term.split())
+    replacements = (
+        (r"^vlan\s+\d+$", "vlan vlan-id"),
+        (r"^interface\s+vlan\s*\d+$", "interface vlan vlan-id"),
+        (r"^interface\s+gigabitethernet\d+(?:/\d+)+$", "interface interface-id"),
+        (r"^switchport\s+access\s+vlan\s+\d+$", "switchport access vlan vlan-id"),
+        (r"^ip\s+helper-address\s+(?:\d{1,3}\.){3}\d{1,3}$", "ip helper-address address"),
+        (
+            r"^ip\s+address\s+(?:\d{1,3}\.){3}\d{1,3}"
+            r"(?:\s+(?:\d{1,3}\.){3}\d{1,3})?$",
+            "ip address ip-address subnet-mask",
+        ),
+    )
+    for pattern, normalized in replacements:
+        if re.fullmatch(pattern, term, re.IGNORECASE):
+            return normalized
+    return term
+
+
 def expand_search_plan(
     requirement: str,
     config: LLMConfig,
@@ -1232,7 +1322,7 @@ def expand_search_plan(
                 "trusted-key",
             ]))
         normalized_cli_terms = tuple(
-            term.strip()
+            _normalize_cli_search_term(term)
             for term in cli_terms
             if not any(
                 _contains_search_concept(term, excluded)
@@ -1246,6 +1336,72 @@ def expand_search_plan(
                 cli_terms=normalized_cli_terms,
                 excluded_terms=normalized_excluded_terms,
             )
+        )
+    if VLAN_CREATION_PATTERN.search(requirement):
+        target_index = next(
+            (
+                index for index, feature in enumerate(features)
+                if "vlan" in " ".join((*feature.queries, *feature.cli_terms)).lower()
+            ),
+            0,
+        )
+        target = features[target_index]
+        features[target_index] = SearchFeature(
+            queries=tuple(dict.fromkeys((
+                *target.queries, "creating or modifying an ethernet vlan vlan vlan-id",
+            ))),
+            cli_terms=tuple(dict.fromkeys(("vlan vlan-id", *target.cli_terms))),
+            excluded_terms=target.excluded_terms,
+        )
+    if re.search(r"\bSVI\b", requirement, re.IGNORECASE):
+        requests_svi_address = bool(re.search(
+            r"\bSVI\b.{0,30}(?:IPv4|IP|アドレス).{0,30}"
+            r"(?:\d{1,3}\.){3}\d{1,3}",
+            requirement, re.IGNORECASE,
+        ))
+        target_index = next(
+            (
+                index for index, feature in enumerate(features)
+                if re.search(
+                    r"\bsvi\b|interface\s+vlan",
+                    " ".join((*feature.queries, *feature.cli_terms)),
+                    re.IGNORECASE,
+                )
+            ),
+            0,
+        )
+        target = features[target_index]
+        features[target_index] = SearchFeature(
+            queries=tuple(dict.fromkeys((
+                *target.queries,
+                "manually assigning ip information to multiple svis interface vlan vlan-id",
+            ))),
+            cli_terms=tuple(dict.fromkeys((
+                "interface vlan vlan-id",
+                *(("ip address ip-address subnet-mask",) if requests_svi_address else ()),
+                *(("no shutdown",) if requests_svi_address and "有効化" in requirement else ()),
+                *target.cli_terms,
+            ))),
+            excluded_terms=target.excluded_terms,
+        )
+    if re.search(r"アクセスポート|\baccess\s+port\b", requirement, re.IGNORECASE):
+        target_index = next(
+            (
+                index for index, feature in enumerate(features)
+                if "access" in " ".join((*feature.queries, *feature.cli_terms)).lower()
+            ),
+            0,
+        )
+        target = features[target_index]
+        features[target_index] = SearchFeature(
+            queries=tuple(dict.fromkeys((
+                *target.queries, "assigning static-access ports to a vlan",
+            ))),
+            cli_terms=tuple(dict.fromkeys((
+                "interface interface-id", "switchport mode access",
+                "switchport access vlan vlan-id", *target.cli_terms,
+            ))),
+            excluded_terms=target.excluded_terms,
         )
     if VLAN_NAME_INTENT_PATTERN.search(requirement):
         target_index = next(
@@ -1267,6 +1423,67 @@ def expand_search_plan(
             cli_terms=tuple(
                 dict.fromkeys(("name vlan-name", *target.cli_terms))
             ),
+            excluded_terms=target.excluded_terms,
+        )
+    if (
+        DHCP_RELAY_INTENT_PATTERN.search(requirement)
+        and not _has_explicit_dhcp_vrf_context(requirement)
+    ):
+        target_index = next(
+            (
+                index
+                for index, feature in enumerate(features)
+                if _is_dhcp_relay_feature(feature)
+            ),
+            None,
+        )
+        if target_index is None:
+            target_index = len(features)
+            features.append(SearchFeature((), ()))
+        target = features[target_index]
+        excluded_terms = tuple(
+            dict.fromkeys(
+                (
+                    *target.excluded_terms,
+                    "EVPN",
+                    "VXLAN",
+                    "tenant VRF",
+                    "ip helper-address global",
+                    "ip helper-address vrf",
+                )
+            )
+        )
+        features[target_index] = SearchFeature(
+            queries=tuple(
+                dict.fromkeys(
+                    (
+                        *target.queries,
+                        "DHCP relay agent specifying the packet forwarding "
+                        "address ip helper-address address",
+                    )
+                )
+            ),
+            cli_terms=tuple(
+                term
+                for term in dict.fromkeys(
+                    (
+                        *target.cli_terms,
+                        "ip helper-address address",
+                        "ip helper-address",
+                    )
+                )
+                if not any(
+                    _contains_search_concept(term, excluded)
+                    for excluded in excluded_terms
+                )
+            ),
+            excluded_terms=excluded_terms,
+        )
+    if re.search(r"\bexit\b", requirement, re.IGNORECASE):
+        target = features[0]
+        features[0] = SearchFeature(
+            queries=target.queries,
+            cli_terms=tuple(dict.fromkeys((*target.cli_terms, "exit"))),
             excluded_terms=target.excluded_terms,
         )
     all_queries = list(dict.fromkeys(
@@ -1310,6 +1527,13 @@ def _prioritize_cli_terms(
         preferred_terms.append("logging host")
         if has_target:
             preferred_terms.append("logging host ip-address")
+    if (
+        DHCP_RELAY_INTENT_PATTERN.search(requirement)
+        and not _has_explicit_dhcp_vrf_context(requirement)
+    ):
+        preferred_terms.extend(
+            ("ip helper-address address", "ip helper-address")
+        )
     if re.search(r"\bprefer\b|優先", requirement, re.IGNORECASE):
         preferred_terms.append("prefer")
     if VLAN_NAME_INTENT_PATTERN.search(requirement):
@@ -1424,6 +1648,89 @@ def _contains_search_concept(text: str, concept: str) -> bool:
     return _contains_search_phrase(text, concept)
 
 
+def _is_dhcp_relay_feature(feature: SearchFeature) -> bool:
+    feature_text = " ".join((*feature.queries, *feature.cli_terms))
+    return bool(
+        re.search(r"\bDHCP\b|ip\s+helper-address", feature_text, re.IGNORECASE)
+    )
+
+
+def _has_explicit_dhcp_vrf_context(requirement: str) -> bool:
+    if DHCP_VRF_CONTEXT_PATTERN.search(requirement):
+        return True
+    vrf_names = {
+        name.lower()
+        for name in re.findall(
+            r"\bVRF\s+([A-Za-z][A-Za-z0-9_.-]*)\b",
+            requirement,
+            re.IGNORECASE,
+        )
+        if name.lower() not in {"name", "unknown", "unspecified"}
+    }
+    return len(vrf_names) > 1
+
+
+def _feature_evidence_multiplier(
+    feature: SearchFeature,
+    result: SearchResult,
+) -> float:
+    context = " ".join((result.title, *result.heading_path))
+    if any(
+        _contains_search_concept(context, excluded)
+        for excluded in feature.excluded_terms
+    ):
+        return 0.05
+    feature_text = " ".join((*feature.queries, *feature.cli_terms)).lower()
+    if "creating or modifying an ethernet vlan" in feature_text:
+        context_lower = context.lower()
+        if any(term in context_lower for term in ("evpn", "vxlan", "rspan")):
+            return 0.1
+        if (
+            "creating or modifying an ethernet vlan" in context_lower
+            or (
+                "normal-range vlan" in context_lower
+                and (
+                    (
+                        "create a vlan" in result.text.lower()
+                        and _supports_configuration_term(result.text, "vlan vlan-id")
+                    )
+                    or _supports_configuration_term(result.text, "exit")
+                )
+            )
+        ):
+            return 3.0
+    if (
+        "manually assigning ip information to multiple svis" in feature_text
+        and (
+            "manually assigning ip information to multiple svis" in context.lower()
+            or (
+                "example: configuring a device to download configurations from a dhcp server"
+                in context.lower()
+                and re.search(r"\binterface\s+vlan", result.text, re.IGNORECASE)
+            )
+        )
+    ):
+        return 3.0
+    if (
+        "assigning static-access ports to a vlan" in feature_text
+        and "assigning static-access ports to a vlan" in context.lower()
+    ):
+        return 3.0
+    if (
+        "evpn" in {term.lower() for term in feature.excluded_terms}
+        and "ip helper-address address" in feature.cli_terms
+        and (
+            "ip addressing services" in result.title.lower()
+            or _contains_search_concept(
+                " ".join(result.heading_path),
+                "specifying the packet forwarding address",
+            )
+        )
+    ):
+        return 3.0
+    return 1.0
+
+
 def _detect_requirement_conflicts(requirement: str) -> list[str]:
     has_access = re.search(r"\baccess\b|アクセス(?:ポート)?", requirement, re.I)
     has_trunk = re.search(r"\btrunk\b|トランク(?:ポート)?", requirement, re.I)
@@ -1454,6 +1761,27 @@ def _has_server_target(requirement: str) -> bool:
     return bool(IPV4_PATTERN.search(requirement) or HOSTNAME_PATTERN.search(requirement))
 
 
+def _has_svi_ipv4_address(requirement: str) -> bool:
+    address_matches = [
+        *IPV4_PREFIX_PATTERN.finditer(requirement),
+        *IPV4_ADDRESS_MASK_PATTERN.finditer(requirement),
+    ]
+    for match in address_matches:
+        context = requirement[
+            max(0, match.start() - 60) : min(len(requirement), match.end() + 40)
+        ]
+        if (
+            re.search(
+                r"\bSVI\b|interface\s+Vlan\s*\d*|\bVLAN\s*\d+",
+                context,
+                re.IGNORECASE,
+            )
+            and re.search(r"\bIP\b|address|アドレス", context, re.IGNORECASE)
+        ):
+            return True
+    return False
+
+
 def _preflight_requirement(
     requirement: str,
     results: list[SearchResult],
@@ -1477,6 +1805,16 @@ def _preflight_requirement(
         missing_required_values.append(
             "削除対象のNTPサーバーIPアドレスまたはホスト名"
         )
+    if (
+        DHCP_RELAY_INTENT_PATTERN.search(requirement)
+        and VLAN_CREATION_PATTERN.search(requirement)
+        and not _has_svi_ipv4_address(requirement)
+    ):
+        vlan_match = VLAN_ID_PATTERN.search(requirement)
+        svi_name = f"Vlan{vlan_match.group(1)}の" if vlan_match else "SVIの"
+        missing_required_values.append(
+            f"{svi_name}IPv4アドレスとプレフィックス"
+        )
     if NO_AUTHENTICATION_PATTERN.search(requirement):
         has_ntp_syntax = any(
             _contains_search_terms_in_order(item.text, "ntp server")
@@ -1487,6 +1825,22 @@ def _preflight_requirement(
                 "認証なしNTPサーバー指定の根拠"
             )
     return missing_required_values, unsupported_requirements
+
+
+def _unrequested_dhcp_vrf_options(
+    requirement: str,
+    configuration: str,
+) -> list[str]:
+    if (
+        not DHCP_RELAY_INTENT_PATTERN.search(requirement)
+        or _has_explicit_dhcp_vrf_context(requirement)
+    ):
+        return []
+    return [
+        line.strip()
+        for line in configuration.splitlines()
+        if DHCP_VRF_HELPER_PATTERN.match(line)
+    ]
 
 
 def _remove_overconfiguration(
@@ -1711,6 +2065,9 @@ def search_expanded(
         release=release,
     )
     for query in queries:
+        query_features = [
+            feature for feature in features or [] if query in feature.queries
+        ]
         rankings = (
             (search_index(
                 query,
@@ -1731,7 +2088,17 @@ def search_expanded(
             for rank, result in enumerate(ranking, start=1):
                 previous = ranked.get(result.citation_id)
                 rank_score = weight / (60 + rank)
-                score = (previous[1] if previous else 0.0) + rank_score
+                context_multiplier = max(
+                    (
+                        _feature_evidence_multiplier(feature, result)
+                        for feature in query_features
+                    ),
+                    default=1.0,
+                )
+                score = (
+                    (previous[1] if previous else 0.0)
+                    + rank_score * context_multiplier
+                )
                 ranked[result.citation_id] = (result, score)
                 for feature, feature_ranked in zip(
                     features or [], feature_rankings, strict=True
@@ -1739,14 +2106,9 @@ def search_expanded(
                     if query not in feature.queries:
                         continue
                     feature_previous = feature_ranked.get(result.citation_id)
-                    heading = " ".join(result.heading_path)
-                    feature_rank_score = (
-                        rank_score * 0.1
-                        if any(
-                            _contains_search_concept(heading, excluded)
-                            for excluded in feature.excluded_terms
-                        )
-                        else rank_score
+                    feature_rank_score = rank_score * _feature_evidence_multiplier(
+                        feature,
+                        result,
                     )
                     feature_score = (
                         (feature_previous[1] if feature_previous else 0.0)
@@ -1754,23 +2116,44 @@ def search_expanded(
                     )
                     feature_ranked[result.citation_id] = (result, feature_score)
     for term in cli_terms or []:
+        term_features = [
+            feature for feature in features or [] if term in feature.cli_terms
+        ]
         term_results = _search_lexical_corpus(
             term,
             lexical_corpus,
-            limit=3,
+            limit=len(lexical_corpus.points),
             require_terms_in_order=True,
         )
         term_results.sort(
-            key=lambda result: _supports_configuration_term(
-                result.text,
-                term,
+            key=lambda result: (
+                _supports_configuration_term(result.text, term),
+                max(
+                    (
+                        _feature_evidence_multiplier(feature, result)
+                        for feature in term_features
+                    ),
+                    default=1.0,
+                ),
+                result.score,
             ),
             reverse=True,
         )
+        term_results = term_results[:per_query_limit]
         for rank, result in enumerate(term_results, start=1):
             previous = ranked.get(result.citation_id)
             rank_score = 1.0 / rank
-            score = (previous[1] if previous else 0.0) + rank_score
+            context_multiplier = max(
+                (
+                    _feature_evidence_multiplier(feature, result)
+                    for feature in term_features
+                ),
+                default=1.0,
+            )
+            score = (
+                (previous[1] if previous else 0.0)
+                + rank_score * context_multiplier
+            )
             ranked[result.citation_id] = (result, score)
             for feature, feature_ranked in zip(
                 features or [], feature_rankings, strict=True
@@ -1778,14 +2161,9 @@ def search_expanded(
                 if term not in feature.cli_terms:
                     continue
                 feature_previous = feature_ranked.get(result.citation_id)
-                heading = " ".join(result.heading_path)
                 feature_rank_score = (
-                    rank_score * 0.1
-                    if any(
-                        _contains_search_concept(heading, excluded)
-                        for excluded in feature.excluded_terms
-                    )
-                    else rank_score
+                    rank_score
+                    * _feature_evidence_multiplier(feature, result)
                 )
                 feature_score = (
                     (feature_previous[1] if feature_previous else 0.0)
@@ -2008,10 +2386,14 @@ def generate_configuration(
         raise RAGError("Generated citations are empty or not in retrieved evidence")
     for reference, citation_id in evidence_references.items():
         explanation = explanation.replace(f"[{reference}]", f"[{citation_id}]")
-        warnings = [
-            warning.replace(f"[{reference}]", f"[{citation_id}]")
-            for warning in warnings
-        ]
+    warnings = [
+        re.sub(
+            r"(?<![A-Za-z0-9_:])E\d+(?![A-Za-z0-9_])",
+            lambda match: evidence_references.get(match.group(), match.group()),
+            warning,
+        )
+        for warning in warnings
+    ]
     configuration_lines = {
         line.strip() for line in configuration.splitlines() if line.strip()
     }
@@ -2118,6 +2500,18 @@ def generate_configuration(
             "要件にない操作・任意設定を除外しました: "
             + ", ".join(removed_commands)
         )
+    unrequested_dhcp_vrf_options = _unrequested_dhcp_vrf_options(
+        requirement,
+        configuration,
+    )
+    if unrequested_dhcp_vrf_options:
+        unsupported_reason = "DHCPリレーのVRF専用キーワードが要件にありません"
+        if unsupported_reason not in unsupported_requirements:
+            unsupported_requirements.append(unsupported_reason)
+        warnings.append(
+            "VRF間の経路要件がないため、DHCPリレーのVRF専用構文を拒否しました: "
+            + ", ".join(unrequested_dhcp_vrf_options)
+        )
     for conflict in _detect_requirement_conflicts(requirement):
         if conflict not in unsupported_requirements:
             unsupported_requirements.append(conflict)
@@ -2191,6 +2585,8 @@ def format_markdown_report(
 ) -> str:
     warnings = result.get("warnings", [])
     inferred_commands = result.get("inferred_commands", [])
+    missing_required_values = result.get("missing_required_values", [])
+    unsupported_requirements = result.get("unsupported_requirements", [])
     citations = result.get("citations", [])
     retrieval = result.get("retrieval", [])
     configuration = str(result.get("configuration", "")).rstrip()
@@ -2230,6 +2626,34 @@ def format_markdown_report(
     lines.extend(
         [f"- {warning}" for warning in warnings] if warnings else ["なし"]
     )
+    component_results = result.get("component_results")
+    if isinstance(component_results, list) and component_results:
+        lines.extend([
+            "", "## 要件ごとの結果", "",
+            "候補は個別確認用であり、全体検証に失敗した場合は投入できません。", "",
+            "| 要件 | 状態 | 注意事項 |",
+            "|---|---|---|",
+        ])
+        for part in component_results:
+            lines.append(
+                f"| {_markdown_cell(part['name'])} "
+                f"| {'確認候補' if part['status'] == 'verified' else '未確認'} "
+                f"| {_markdown_cell('; '.join(part['warnings']) or 'なし')} |"
+            )
+        if any(part["status"] != "verified" for part in component_results):
+            for part in component_results:
+                candidate = part.get("candidate_configuration", "").strip()
+                if candidate:
+                    lines.extend([
+                        "", f"### {_markdown_cell(part['name'])}の個別候補（投入不可）", "",
+                        "```text", candidate, "```",
+                    ])
+    for heading, items in (
+        ("不足値", missing_required_values),
+        ("未対応要件", unsupported_requirements),
+    ):
+        lines.extend(["", f"## {heading}", ""])
+        lines.extend([f"- {item}" for item in items] if items else ["なし"])
     lines.extend(
         [
             "",
@@ -2258,6 +2682,20 @@ def format_markdown_report(
     )
     if inferred_commands:
         lines.extend(["", "```text", *inferred_commands, "```"])
+    citation_checks = result.get("citation_checks")
+    if isinstance(citation_checks, list) and citation_checks:
+        lines.extend([
+            "", "## CLIごとの引用確認", "",
+            "| CLI | 確認結果 | 一致した引用 | 確認できなかった引用 |",
+            "|---|---|---|---|",
+        ])
+        for check in citation_checks:
+            lines.append(
+                f"| `{_markdown_cell(check['command'])}` "
+                f"| {'確認候補' if check['verified'] else '未確認'} "
+                f"| {_markdown_cell(', '.join(check['citations']) or 'なし')} "
+                f"| {_markdown_cell(', '.join(check['rejected_citations']) or 'なし')} |"
+            )
     if retrieval:
         lines.extend(
             [

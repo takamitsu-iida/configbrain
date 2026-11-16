@@ -1,0 +1,327 @@
+{
+  "status": "verified_pending_review",
+  "notice": "No real correction was approved or applied. Check and apply both exit 2. Source PDF review remains required.",
+  "executions": [
+    {
+      "command": [
+        "/home/iida/git/configbrain/.venv/bin/python",
+        "scripts/apply_corrections.py",
+        "check",
+        "data/corrections/c9300-stateful-dhcp/corrections.json",
+        "--output-dir",
+        "data/evaluation/c9300-corrections-20261116/check"
+      ],
+      "exit_code": 2,
+      "status": "validated_review_required",
+      "applied_manual_exists": false,
+      "manifest": "data/evaluation/c9300-corrections-20261116/check/manifest.json"
+    },
+    {
+      "command": [
+        "/home/iida/git/configbrain/.venv/bin/python",
+        "scripts/apply_corrections.py",
+        "apply",
+        "data/corrections/c9300-stateful-dhcp/corrections.json",
+        "--output-dir",
+        "data/evaluation/c9300-corrections-20261116/apply-blocked"
+      ],
+      "exit_code": 2,
+      "status": "blocked_unapproved",
+      "applied_manual_exists": false,
+      "manifest": "data/evaluation/c9300-corrections-20261116/apply-blocked/manifest.json"
+    }
+  ],
+  "original_documents_verified": 18,
+  "original_files_verified_unchanged": 72,
+  "audit_and_reconciliation_files_verified_unchanged": 46,
+  "originals": [
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/extracted/c9300_iosxe26_int_hw_cg/c9300_iosxe26_int_hw_cg/c9300_iosxe26_int_hw_cg.md",
+      "sha256": "9ed1cccad9d485b63f97884e15255f92245e7fea71c5a04091aa097c52d82607"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/extracted/c9300_iosxe26_ip_addr_svc_cg/c9300_iosxe26_ip_addr_svc_cg/c9300_iosxe26_ip_addr_svc_cg.md",
+      "sha256": "10240d22604629f5496d3e29dbd04d3c27e05c5b46ee732bc8ce2429637afc0b"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/extracted/c9300_iosxe26_sys_mgmt_cg/c9300_iosxe26_sys_mgmt_cg/c9300_iosxe26_sys_mgmt_cg.md",
+      "sha256": "09875c9fa0085ddf83a5f376be95407fbf71499a5761b91db52ca72c7e07a316"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/extracted/catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321/26x-bgp-evpn-vxlan-9300-cg/26x-bgp-evpn-vxlan-9300-cg.md",
+      "sha256": "e9b090c63159b97fd6b969201664342327cad350d9495f2347167f518dead7ae"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/extracted/catalyst9300-26-x-b-26x-bonjour-9300-cg-ee5da72ad5b7/b_26x_bonjour_9300_cg/b_26x_bonjour_9300_cg.md",
+      "sha256": "034b476d46c00d8ae22c2f7a0343308d89e95ec0f569be53abff965e2a8397df"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/extracted/catalyst9300-26-x-b-26x-cts-9300-cg-5f2b2b664dea/b_26x_cts_9300_cg/b_26x_cts_9300_cg.md",
+      "sha256": "8ba64a3fc561f8df0b982d99ce7ed8b2ac78116c24d2a70cde6ab02b8fb1417e"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/extracted/catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f/b_26x_int_and_hw_9300_cg/b_26x_int_and_hw_9300_cg.md",
+      "sha256": "c32473bbfd9a42b050015adfed9aae91991e65875974cdbba9a271a46d486071"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/extracted/catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d/b_26x_ip_9300_cg/b_26x_ip_9300_cg.md",
+      "sha256": "c9a5e5103e1cdba4f1a640ba9797772268e4aa9bb7c20d89a692e21fc73a4cb2"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/extracted/catalyst9300-26-x-b-26x-ip-mcast-rtng-9300-cg-b076db950562/b_26x_ip_mcast_rtng_9300_cg/b_26x_ip_mcast_rtng_9300_cg.md",
+      "sha256": "f95825f0044b18a26cb4aef7c9d7b0363060c8e92e070059b512d3361116b110"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/extracted/catalyst9300-26-x-b-26x-lyr2-9300-cg-db110697da80/b_26x_lyr2_9300_cg/b_26x_lyr2_9300_cg.md",
+      "sha256": "703c0a9745bbcc8b3e6a46ea2a5af13edbb8b0e5063e9b54d32ebf3b029c8fe8"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/extracted/catalyst9300-26-x-b-26x-mpls-9300-cg-b8c1ee43d3e9/b_26x_mpls_9300_cg/b_26x_mpls_9300_cg.md",
+      "sha256": "b66747743c000236c7f9d411430ce6d23b19b3338cda27744fc237d6e2664e71"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/extracted/catalyst9300-26-x-b-26x-nmgmt-9300-cg-3e060c1d1d52/b_26x_nmgmt_9300_cg/b_26x_nmgmt_9300_cg.md",
+      "sha256": "0dcf1046cd5a6e70db6556d09c1a082f30e03c34d49f014edb9eb37bc77edd33"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/extracted/catalyst9300-26-x-b-26x-qos-9300-cg-4e21dc6d1e2a/b_26x_qos_9300_cg/b_26x_qos_9300_cg.md",
+      "sha256": "b1ca87334d950b51168378639acb7d12f1bc3d901d1577e2d358cbcefb06482b"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/extracted/catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b/b_26x_rtng_9300_cg/b_26x_rtng_9300_cg.md",
+      "sha256": "b5ce6041424669a86ecaa38bd70ba7cb3f182e2890af1c28b57159db84682562"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/extracted/catalyst9300-26-x-b-26x-sec-9300-cg-8e2ad3aabae2/b_26x_sec_9300_cg/b_26x_sec_9300_cg.md",
+      "sha256": "c3b1c11937e9aed2812d9fdb477970dcee7835ecd10e334f12eb685cc4e55a7d"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/extracted/catalyst9300-26-x-b-26x-stck-mgr-ha-9300-cg-b916a4af4da2/b_26x_stck_mgr_ha_9300_cg/b_26x_stck_mgr_ha_9300_cg.md",
+      "sha256": "7dfc18350273f07b6c62fc49fdf399339a3be1141df82371f4166c48cfd40ddb"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/extracted/catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f/b_26x_sys_mgmt_9300_cg/b_26x_sys_mgmt_9300_cg.md",
+      "sha256": "e55038e9607722bbc5c758d7bf2b60d750d57267f9e268b7d20d7b310d1451a7"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/extracted/catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc/b_26x_vlan_9300_cg/b_26x_vlan_9300_cg.md",
+      "sha256": "0686dbad6f289f2f83bffaf10bb9ad46c85ee8f921e8f5bc9f2c4a194e979c52"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/c9300_iosxe26_int_hw_cg/datapackage.json",
+      "sha256": "cb3ee857d537c715502086bffcaee147e54fe24d8eb0af7596fd69056b6c1dd7"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/c9300_iosxe26_int_hw_cg/manual.md",
+      "sha256": "549635b922c23c87dffa78fca7a884596cba32b9565bf6a42bb0c7d16784cdfb"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/c9300_iosxe26_ip_addr_svc_cg/datapackage.json",
+      "sha256": "dec17e5e2aefd09473d36ac7aa255cf42a0d22ce2172f4a61b716e2218c5b8ac"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/c9300_iosxe26_ip_addr_svc_cg/manual.md",
+      "sha256": "3d119a9694eb402acfb15bcb8f54f3841ca997ca0cdf19bab110ec3007667fe1"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/c9300_iosxe26_sys_mgmt_cg/datapackage.json",
+      "sha256": "2387929fc1bd27ce93260d4296f13a6f6ad9020138c75bb365338d9ddfb8e4b0"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/c9300_iosxe26_sys_mgmt_cg/manual.md",
+      "sha256": "98210d1364bb303e0c000b8ab76aae0bb26d72e80b935bba95da9e845bccb71f"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321/datapackage.json",
+      "sha256": "771526c78697f4077a260c473d1a522eefec6da2aa5e50aa13cbe0ca1e5ab607"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321/manual.md",
+      "sha256": "929ecdb86ef051fe5013dabe2805b3d9f6e4ffb07a86c39c9793c576bd7815a9"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-b-26x-bonjour-9300-cg-ee5da72ad5b7/datapackage.json",
+      "sha256": "579606645d2910bc291e28252d49a983a2e4787bd11fa50c1fcd4c9e61900e87"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-b-26x-bonjour-9300-cg-ee5da72ad5b7/manual.md",
+      "sha256": "3e20f94dbb0a6d5d9df8e18bccc91c25dac1f8e6fa36f0ff173349a1b0b80e28"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-b-26x-cts-9300-cg-5f2b2b664dea/datapackage.json",
+      "sha256": "52305796d77bfd19e81b20433fe2d34b499c408fbcc69b79a658fa1dfcc082d9"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-b-26x-cts-9300-cg-5f2b2b664dea/manual.md",
+      "sha256": "619b135763dc7739e42a791307b4f73506d908d66d0206562b07d77118b1a07e"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f/datapackage.json",
+      "sha256": "1165f4377006236170f2a1ff4465b8ce845aefba477c150d26aae3db572df424"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f/manual.md",
+      "sha256": "388b16e5697fc678ab34138e87a09adba4a46dae02d7492986595096fc5920eb"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d/datapackage.json",
+      "sha256": "a77dd13a860247d42fbb4f1727ba39d706f138b63af67b52b4903e938bef747f"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d/manual.md",
+      "sha256": "089339081d9b742d0cd71ca762bf6b1731c7b0dd7162988c384acb4585778d1b"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-b-26x-ip-mcast-rtng-9300-cg-b076db950562/datapackage.json",
+      "sha256": "b29c12bc8d43424dbe82d7d728a1e7c3227b46cad2c3bb835d30305e767fc804"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-b-26x-ip-mcast-rtng-9300-cg-b076db950562/manual.md",
+      "sha256": "89abcb6509a1e0082c408b2c83402ed33e238dcc8e63de068c64aeb1f56dc10e"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-b-26x-lyr2-9300-cg-db110697da80/datapackage.json",
+      "sha256": "8e65af156ef12d941be535c9f5f942d5a484668262c38817a917b062b6402130"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-b-26x-lyr2-9300-cg-db110697da80/manual.md",
+      "sha256": "333bfdd1e7621085be12c23f5e09a2a71832f8bc7a465290b77d96b4e51a1406"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-b-26x-mpls-9300-cg-b8c1ee43d3e9/datapackage.json",
+      "sha256": "b0023a30f8ca69d2e59afa4ca47be0b3724702225c2a09299217fa7dce970f32"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-b-26x-mpls-9300-cg-b8c1ee43d3e9/manual.md",
+      "sha256": "14c727dc766985138f0c6b7a607be410cc7256b49f2e6c4d5a2b7b68c77278b5"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-b-26x-nmgmt-9300-cg-3e060c1d1d52/datapackage.json",
+      "sha256": "a1864e69a952a605345017849bba6559a7dd145735ca9845bc3a20ad7587e7cd"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-b-26x-nmgmt-9300-cg-3e060c1d1d52/manual.md",
+      "sha256": "2479d76e19144c7a18e04d82b2d50379682d98b4644c477e50206bd6f92ca902"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-b-26x-qos-9300-cg-4e21dc6d1e2a/datapackage.json",
+      "sha256": "8d0036fe0683529da9b348c70b006a9f20a17d6cf0c3f2129ef2b083127e0dc0"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-b-26x-qos-9300-cg-4e21dc6d1e2a/manual.md",
+      "sha256": "53904ce952087c1dc938d7f6d7b5de8be8883b7d7de6cdd907dc79f08ff598d7"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b/datapackage.json",
+      "sha256": "51e27fc4045b80f05089a314faa24269b3bdd5deea3fc6c3f56aa2267a600cb2"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b/manual.md",
+      "sha256": "d57b43ce4caa7eb9b41b11c3b09c20d81866e8246164d2137f8d5a070b8c7560"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-b-26x-sec-9300-cg-8e2ad3aabae2/datapackage.json",
+      "sha256": "92874888211212c6c552c1f019ec2a2c3612715f83cf8adaa754b8bd39e2749e"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-b-26x-sec-9300-cg-8e2ad3aabae2/manual.md",
+      "sha256": "fca5953c8c4af9140bcfafe5c14fac88bb2c1535e7e7ae2e089afb4c86e23d58"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-b-26x-stck-mgr-ha-9300-cg-b916a4af4da2/datapackage.json",
+      "sha256": "00b4b873f8715ca10b748e6497e35e9ac4ce2b8b91a1364553fa31f806848d90"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-b-26x-stck-mgr-ha-9300-cg-b916a4af4da2/manual.md",
+      "sha256": "715b553bf26585a8ece446401d17fa7cbdbfa3c957e199f3d7df99a7587c8bf4"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f/datapackage.json",
+      "sha256": "6206ff1db8131b9716b99fea7c9e518c81b5fda31fd1da6329d6bc67ed66c74e"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f/manual.md",
+      "sha256": "e19b614196c793525c399cab3de79a44da8a4e8473310df4b3924ecae978b2e8"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc/datapackage.json",
+      "sha256": "187b1a6a02779efbadb06c98f11b16bf6f76ade0c653faa9d26a353d1b70916e"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc/manual.md",
+      "sha256": "bc2aad5917e08156b19059c8492300290b21ca55824feea8dfcdd5d926f379f1"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/raw/c9300_iosxe26_int_hw_cg/c9300_iosxe26_int_hw_cg.pdf",
+      "sha256": "ec7c3e347a34bb1fab34723292d14d033555dad48dd9f5fcbe0040b509ad0038"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/raw/c9300_iosxe26_ip_addr_svc_cg/c9300_iosxe26_ip_addr_svc_cg.pdf",
+      "sha256": "158e784d02aee08881c68010114559a373b810ec41c6cb6a2c3ba5daef4320f1"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/raw/c9300_iosxe26_sys_mgmt_cg/c9300_iosxe26_sys_mgmt_cg.pdf",
+      "sha256": "dc196fff1ada1cd06849c54a99f514ef90f6e73bc35b09513c13c9c8057ad0a5"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/raw/catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321/26x-bgp-evpn-vxlan-9300-cg.pdf",
+      "sha256": "fee1c7616e2e4449f6f7014bbb4043dc14d72d109e521eeb9c8cd4d546700fe5"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/raw/catalyst9300-26-x-b-26x-bonjour-9300-cg-ee5da72ad5b7/b_26x_bonjour_9300_cg.pdf",
+      "sha256": "58f541cd38fd0bd1169ecb40dc6fc53875b3ccca72b289cdd29934c0eceb7e1e"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/raw/catalyst9300-26-x-b-26x-cts-9300-cg-5f2b2b664dea/b_26x_cts_9300_cg.pdf",
+      "sha256": "e9adb585a66ed76d019f79cf08e6ba51cd0f62070a08a13248bdc476ad34e39b"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/raw/catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f/b_26x_int_and_hw_9300_cg.pdf",
+      "sha256": "ec7c3e347a34bb1fab34723292d14d033555dad48dd9f5fcbe0040b509ad0038"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/raw/catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d/b_26x_ip_9300_cg.pdf",
+      "sha256": "158e784d02aee08881c68010114559a373b810ec41c6cb6a2c3ba5daef4320f1"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/raw/catalyst9300-26-x-b-26x-ip-mcast-rtng-9300-cg-b076db950562/b_26x_ip_mcast_rtng_9300_cg.pdf",
+      "sha256": "0388d5d974577d4dbbc8af00d6086e32593f33317608d0893711110f12d28248"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/raw/catalyst9300-26-x-b-26x-lyr2-9300-cg-db110697da80/b_26x_lyr2_9300_cg.pdf",
+      "sha256": "ff3c0f4b8e84292c9798712597255b0a0044ff5df8a266de42b6f37b0fa10abb"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/raw/catalyst9300-26-x-b-26x-mpls-9300-cg-b8c1ee43d3e9/b_26x_mpls_9300_cg.pdf",
+      "sha256": "037185733ff0f85cb2a672dde983d8fb743bc70fed41f5d8cbad0dfb227a4901"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/raw/catalyst9300-26-x-b-26x-nmgmt-9300-cg-3e060c1d1d52/b_26x_nmgmt_9300_cg.pdf",
+      "sha256": "20089444105a94ab4456a2f53318baf1e0a46711fdc23dfb79753a105777fae3"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/raw/catalyst9300-26-x-b-26x-qos-9300-cg-4e21dc6d1e2a/b_26x_qos_9300_cg.pdf",
+      "sha256": "03c0ce85c36cd6f9e7e484b1547fea87e658c7204df0bb188174b90956e6050f"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/raw/catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b/b_26x_rtng_9300_cg.pdf",
+      "sha256": "ae29ba900cb469d2327ad94ec60e2772ce0ab3554b9ab4ec303317d453391c48"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/raw/catalyst9300-26-x-b-26x-sec-9300-cg-8e2ad3aabae2/b_26x_sec_9300_cg.pdf",
+      "sha256": "75630300ad9471a3141887ed28d580e34331288e225df23dec0d75689a634847"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/raw/catalyst9300-26-x-b-26x-stck-mgr-ha-9300-cg-b916a4af4da2/b_26x_stck_mgr_ha_9300_cg.pdf",
+      "sha256": "ae2c20fa0087ef0276594a12e1ed3c4840c2b1d558ca41b1e3c3782eb7b10116"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/raw/catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f/b_26x_sys_mgmt_9300_cg.pdf",
+      "sha256": "f743c759cfa194874b6c20f41adf6be8ed4913b39804a5500482b5c194535205"
+    },
+    {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/raw/catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc/b_26x_vlan_9300_cg.pdf",
+      "sha256": "47bc77c74d68871e1941b3d7f8bd94ef46453c30d0f5a4443a68ce03022f47d4"
+    }
+  ]
+}

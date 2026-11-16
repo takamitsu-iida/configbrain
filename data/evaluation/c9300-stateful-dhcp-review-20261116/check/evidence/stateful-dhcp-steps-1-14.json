@@ -1,0 +1,914 @@
+{
+  "pdf_sha256": "158e784d02aee08881c68010114559a373b810ec41c6cb6a2c3ba5daef4320f1",
+  "pdf_pages": [
+    39,
+    40
+  ],
+  "lines": [
+    {
+      "page": 39,
+      "text": "Configuring Stateful DHCP Externally",
+      "x": 51.35200119018555,
+      "top": 704.947021484375,
+      "bottom": 689.18798828125,
+      "command_column_text": "HCP Externally"
+    },
+    {
+      "page": 39,
+      "text": "This interface configuration is for a Cisco IOS IPv6 router implementing stateful DHCPv6 on an external",
+      "x": 144.3000030517578,
+      "top": 679.2139892578125,
+      "bottom": 670.0239868164062,
+      "command_column_text": "onfiguration is for a Cisco IOS IPv6 router imp"
+    },
+    {
+      "page": 39,
+      "text": "DHCP server.",
+      "x": 144.1699981689453,
+      "top": 667.0440063476562,
+      "bottom": 660.0339965820312,
+      "command_column_text": ""
+    },
+    {
+      "page": 39,
+      "text": "Procedure",
+      "x": 99.22899627685547,
+      "top": 633.2569580078125,
+      "bottom": 625.9469604492188,
+      "command_column_text": ""
+    },
+    {
+      "page": 39,
+      "text": "Command or Action Purpose",
+      "x": 203.80999755859375,
+      "top": 611.8770141601562,
+      "bottom": 602.3770141601562,
+      "command_column_text": "Command or Action"
+    },
+    {
+      "page": 39,
+      "text": "Step 1 enable Enables privileged EXEC mode.",
+      "x": 147.3699951171875,
+      "top": 593.3770141601562,
+      "bottom": 583.8770141601562,
+      "command_column_text": "enable"
+    },
+    {
+      "page": 39,
+      "text": "Example: Enter your password if prompted.",
+      "x": 203.8800048828125,
+      "top": 575.2139892578125,
+      "bottom": 565.8190307617188,
+      "command_column_text": "Example:"
+    },
+    {
+      "page": 39,
+      "text": "Device> enable",
+      "x": 203.86599731445312,
+      "top": 558.97900390625,
+      "bottom": 553.7150268554688,
+      "command_column_text": "Device> enable"
+    },
+    {
+      "page": 39,
+      "text": "configure terminal Enters global configuration mode.",
+      "x": 203.5,
+      "top": 539.7279663085938,
+      "bottom": 530.5379638671875,
+      "command_column_text": "configure terminal"
+    },
+    {
+      "page": 39,
+      "text": "Example:",
+      "x": 203.8800048828125,
+      "top": 521.7129516601562,
+      "bottom": 512.3330078125,
+      "command_column_text": "Example:"
+    },
+    {
+      "page": 39,
+      "text": "Step 2",
+      "x": 147.3699951171875,
+      "top": 539.8910522460938,
+      "bottom": 530.3910522460938,
+      "command_column_text": ""
+    },
+    {
+      "page": 39,
+      "text": "Device# configure terminal",
+      "x": 203.86599731445312,
+      "top": 505.6929931640625,
+      "bottom": 498.6929931640625,
+      "command_column_text": "Device# configure terminal"
+    },
+    {
+      "page": 39,
+      "text": "ipv6 unicast-routing Configures the IPv6 for unicasting.",
+      "x": 203.41000366210938,
+      "top": 486.24200439453125,
+      "bottom": 477.052001953125,
+      "command_column_text": "ipv6 unicast-routing"
+    },
+    {
+      "page": 39,
+      "text": "Example:",
+      "x": 203.8800048828125,
+      "top": 468.22698974609375,
+      "bottom": 458.84698486328125,
+      "command_column_text": "Example:"
+    },
+    {
+      "page": 39,
+      "text": "Step 3",
+      "x": 147.3699951171875,
+      "top": 486.4049987792969,
+      "bottom": 476.9049987792969,
+      "command_column_text": ""
+    },
+    {
+      "page": 39,
+      "text": "Device(config)# ipv6 unicast-routing",
+      "x": 203.86599731445312,
+      "top": 452.2070007324219,
+      "bottom": 445.2070007324219,
+      "command_column_text": "Device(config)# ipv6 unicast-routing"
+    },
+    {
+      "page": 39,
+      "text": "Provides the DNS server option to DHCP",
+      "x": 391.4200134277344,
+      "top": 432.7560119628906,
+      "bottom": 423.58599853515625,
+      "command_column_text": ""
+    },
+    {
+      "page": 39,
+      "text": "clients.",
+      "x": 391.5899963378906,
+      "top": 420.7560119628906,
+      "bottom": 413.58599853515625,
+      "command_column_text": ""
+    },
+    {
+      "page": 39,
+      "text": "dns-server 2001:100:0:1::1",
+      "x": 203.5,
+      "top": 432.47601318359375,
+      "bottom": 425.5459899902344,
+      "command_column_text": "dns-server 2001:100:0:1::1"
+    },
+    {
+      "page": 39,
+      "text": "Example:",
+      "x": 203.8800048828125,
+      "top": 414.5329895019531,
+      "bottom": 405.1529846191406,
+      "command_column_text": "Example:"
+    },
+    {
+      "page": 39,
+      "text": "Step 4",
+      "x": 147.3699951171875,
+      "top": 432.91900634765625,
+      "bottom": 423.41900634765625,
+      "command_column_text": ""
+    },
+    {
+      "page": 39,
+      "text": "Device(config-dhcpv6)# dns-server",
+      "x": 203.86599731445312,
+      "top": 398.51300048828125,
+      "bottom": 391.6809997558594,
+      "command_column_text": "Device(config-dhcpv6)# dns-server"
+    },
+    {
+      "page": 39,
+      "text": "2001:100:0:1::1",
+      "x": 203.6820068359375,
+      "top": 388.51300048828125,
+      "bottom": 383.1130065917969,
+      "command_column_text": "2001:100:0:1::1"
+    },
+    {
+      "page": 39,
+      "text": "Provides the domain name option to DHCP",
+      "x": 391.4200134277344,
+      "top": 369.1340026855469,
+      "bottom": 359.9639892578125,
+      "command_column_text": ""
+    },
+    {
+      "page": 39,
+      "text": "clients.",
+      "x": 391.5899963378906,
+      "top": 357.1340026855469,
+      "bottom": 349.9639892578125,
+      "command_column_text": ""
+    },
+    {
+      "page": 39,
+      "text": "domain-name example.com",
+      "x": 203.5,
+      "top": 369.0039978027344,
+      "bottom": 360.0140075683594,
+      "command_column_text": "domain-name example.com"
+    },
+    {
+      "page": 39,
+      "text": "Example:",
+      "x": 203.8800048828125,
+      "top": 350.9110107421875,
+      "bottom": 341.531005859375,
+      "command_column_text": "Example:"
+    },
+    {
+      "page": 39,
+      "text": "Step 5",
+      "x": 147.3699951171875,
+      "top": 369.2969970703125,
+      "bottom": 359.7969970703125,
+      "command_column_text": ""
+    },
+    {
+      "page": 39,
+      "text": "Device(config-dhcpv6)# domain-name",
+      "x": 203.86599731445312,
+      "top": 334.8909912109375,
+      "bottom": 328.0589904785156,
+      "command_column_text": "Device(config-dhcpv6)# domain-name"
+    },
+    {
+      "page": 39,
+      "text": "example.com",
+      "x": 203.50599670410156,
+      "top": 324.76300048828125,
+      "bottom": 317.9630126953125,
+      "command_column_text": "example.com"
+    },
+    {
+      "page": 39,
+      "text": "exit Returns to the previous mode.",
+      "x": 203.5,
+      "top": 305.5119934082031,
+      "bottom": 296.34197998046875,
+      "command_column_text": "exit"
+    },
+    {
+      "page": 39,
+      "text": "Example:",
+      "x": 203.8800048828125,
+      "top": 287.49700927734375,
+      "bottom": 278.11700439453125,
+      "command_column_text": "Example:"
+    },
+    {
+      "page": 39,
+      "text": "Step 6",
+      "x": 147.3699951171875,
+      "top": 305.67498779296875,
+      "bottom": 296.17498779296875,
+      "command_column_text": ""
+    },
+    {
+      "page": 39,
+      "text": "Device(config-dhcpv6)# exit",
+      "x": 203.86599731445312,
+      "top": 271.47698974609375,
+      "bottom": 264.6449890136719,
+      "command_column_text": "Device(config-dhcpv6)# exit"
+    },
+    {
+      "page": 39,
+      "text": "Enters the interface mode to configure the",
+      "x": 391.4599914550781,
+      "top": 252.02598571777344,
+      "bottom": 242.83599853515625,
+      "command_column_text": ""
+    },
+    {
+      "page": 39,
+      "text": "stateful DHCP.",
+      "x": 391.739990234375,
+      "top": 240.02598571777344,
+      "bottom": 232.8459930419922,
+      "command_column_text": ""
+    },
+    {
+      "page": 39,
+      "text": "interface vlan 1",
+      "x": 203.41000366210938,
+      "top": 251.89599609375,
+      "bottom": 244.82598876953125,
+      "command_column_text": "interface vlan 1"
+    },
+    {
+      "page": 39,
+      "text": "Example:",
+      "x": 203.8800048828125,
+      "top": 233.80299377441406,
+      "bottom": 224.42298889160156,
+      "command_column_text": "Example:"
+    },
+    {
+      "page": 39,
+      "text": "Step 7",
+      "x": 147.3699951171875,
+      "top": 252.18899536132812,
+      "bottom": 242.68899536132812,
+      "command_column_text": ""
+    },
+    {
+      "page": 39,
+      "text": "Device(config)# interface vlan 1",
+      "x": 203.86599731445312,
+      "top": 217.7830047607422,
+      "bottom": 210.9510040283203,
+      "command_column_text": "Device(config)# interface vlan 1"
+    },
+    {
+      "page": 39,
+      "text": "description IPv6-DHCP-Stateful Enter description for the stateful IPv6 DHCP.",
+      "x": 203.5,
+      "top": 198.33200073242188,
+      "bottom": 189.16200256347656,
+      "command_column_text": "description IPv6-DHCP-Stateful"
+    },
+    {
+      "page": 39,
+      "text": "Example:",
+      "x": 203.8800048828125,
+      "top": 180.31700134277344,
+      "bottom": 170.93699645996094,
+      "command_column_text": "Example:"
+    },
+    {
+      "page": 39,
+      "text": "Step 8",
+      "x": 147.3699951171875,
+      "top": 198.4949951171875,
+      "bottom": 188.9949951171875,
+      "command_column_text": ""
+    },
+    {
+      "page": 39,
+      "text": "Device(config-if)# description",
+      "x": 203.86599731445312,
+      "top": 164.2969970703125,
+      "bottom": 157.2969970703125,
+      "command_column_text": "Device(config-if)# description"
+    },
+    {
+      "page": 39,
+      "text": "IPv6-DHCP-Stateful",
+      "x": 203.906005859375,
+      "top": 154.29701232910156,
+      "bottom": 148.90499877929688,
+      "command_column_text": "IPv6-DHCP-Stateful"
+    },
+    {
+      "page": 39,
+      "text": "Enters the IPv6 address for the stateful IPv6",
+      "x": 391.4599914550781,
+      "top": 134.91799926757812,
+      "bottom": 127.74800109863281,
+      "command_column_text": ""
+    },
+    {
+      "page": 39,
+      "text": "DHCP.",
+      "x": 391.4200134277344,
+      "top": 122.74800109863281,
+      "bottom": 115.73799896240234,
+      "command_column_text": ""
+    },
+    {
+      "page": 39,
+      "text": "ipv6 address 2001:DB8:0:20::1/64",
+      "x": 203.41000366210938,
+      "top": 135.04800415039062,
+      "bottom": 125.83799743652344,
+      "command_column_text": "ipv6 address 2001:DB8:0:20::1/64"
+    },
+    {
+      "page": 39,
+      "text": "Example:",
+      "x": 203.8800048828125,
+      "top": 116.69499969482422,
+      "bottom": 107.31500244140625,
+      "command_column_text": "Example:"
+    },
+    {
+      "page": 39,
+      "text": "Step 9",
+      "x": 147.3699951171875,
+      "top": 135.08099365234375,
+      "bottom": 125.58099365234375,
+      "command_column_text": ""
+    },
+    {
+      "page": 39,
+      "text": "IP Addressing Services Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9300 Switches)",
+      "x": 222.1199951171875,
+      "top": 40.42000198364258,
+      "bottom": 32.836002349853516,
+      "command_column_text": "IP Addressing Services Configuration Guide, Cisco IO"
+    },
+    {
+      "page": 39,
+      "text": "21",
+      "x": 548.7839965820312,
+      "top": 28.436002731323242,
+      "bottom": 22.78000259399414,
+      "command_column_text": ""
+    },
+    {
+      "page": 39,
+      "text": "IPv6 Client IP Address Learning",
+      "x": 60.90400314331055,
+      "top": 771.052001953125,
+      "bottom": 763.635986328125,
+      "command_column_text": ""
+    },
+    {
+      "page": 39,
+      "text": "Configuring Stateful DHCP Externally",
+      "x": 438.4320068359375,
+      "top": 759.4520263671875,
+      "bottom": 752.0360107421875,
+      "command_column_text": ""
+    },
+    {
+      "page": 40,
+      "text": "Command or Action Purpose",
+      "x": 189.41000366210938,
+      "top": 702.2760009765625,
+      "bottom": 692.7760009765625,
+      "command_column_text": "Command or Action"
+    },
+    {
+      "page": 40,
+      "text": "Device(config-if)# ipv6 address",
+      "x": 189.46600341796875,
+      "top": 686.635986328125,
+      "bottom": 679.635986328125,
+      "command_column_text": "Device(config-if)# ipv6 address"
+    },
+    {
+      "page": 40,
+      "text": "2001:DB8:0:20::1/64",
+      "x": 189.28201293945312,
+      "top": 677.1080322265625,
+      "bottom": 670.4600219726562,
+      "command_column_text": "2001:DB8:0:20::1/64"
+    },
+    {
+      "page": 40,
+      "text": "Enters the IPv6 address for the stateful IPv6",
+      "x": 377.05999755859375,
+      "top": 657.2569580078125,
+      "bottom": 650.0869750976562,
+      "command_column_text": ""
+    },
+    {
+      "page": 40,
+      "text": "DHCP.",
+      "x": 377.02001953125,
+      "top": 645.0869750976562,
+      "bottom": 638.0769653320312,
+      "command_column_text": ""
+    },
+    {
+      "page": 40,
+      "text": "ip address 192.168.20.1",
+      "x": 189.010009765625,
+      "top": 657.126953125,
+      "bottom": 648.177001953125,
+      "command_column_text": "ip address 192.168.20.1"
+    },
+    {
+      "page": 40,
+      "text": "255.255.255.0",
+      "x": 189.38999938964844,
+      "top": 644.531005859375,
+      "bottom": 637.8009643554688,
+      "command_column_text": "255.255.255.0"
+    },
+    {
+      "page": 40,
+      "text": "Example:",
+      "x": 189.48001098632812,
+      "top": 626.7679443359375,
+      "bottom": 617.3880004882812,
+      "command_column_text": "Example:"
+    },
+    {
+      "page": 40,
+      "text": "Step 10",
+      "x": 132.97000122070312,
+      "top": 657.4200439453125,
+      "bottom": 647.9200439453125,
+      "command_column_text": ""
+    },
+    {
+      "page": 40,
+      "text": "Device(config-if)# ip address",
+      "x": 189.46600341796875,
+      "top": 610.7479858398438,
+      "bottom": 603.7479858398438,
+      "command_column_text": "Device(config-if)# ip address"
+    },
+    {
+      "page": 40,
+      "text": "192.168.20.1 255.255.255.0",
+      "x": 189.51400756835938,
+      "top": 600.7479858398438,
+      "bottom": 595.364013671875,
+      "command_column_text": "192.168.20.1 255.255.255.0"
+    },
+    {
+      "page": 40,
+      "text": "Configures the IPv6 routing prefix",
+      "x": 377.2099914550781,
+      "top": 581.3689575195312,
+      "bottom": 572.178955078125,
+      "command_column_text": ""
+    },
+    {
+      "page": 40,
+      "text": "advertisement that must not be advertised.",
+      "x": 377.2099914550781,
+      "top": 569.3689575195312,
+      "bottom": 562.198974609375,
+      "command_column_text": ""
+    },
+    {
+      "page": 40,
+      "text": "ipv6 nd prefix 2001:db8::/64",
+      "x": 189.010009765625,
+      "top": 581.4989624023438,
+      "bottom": 572.2890014648438,
+      "command_column_text": "ipv6 nd prefix 2001:db8::/64"
+    },
+    {
+      "page": 40,
+      "text": "no-advertise",
+      "x": 189.0600128173828,
+      "top": 568.9729614257812,
+      "bottom": 561.9329833984375,
+      "command_column_text": "no-advertise"
+    },
+    {
+      "page": 40,
+      "text": "Example:",
+      "x": 189.48001098632812,
+      "top": 551.0879516601562,
+      "bottom": 541.7080078125,
+      "command_column_text": "Example:"
+    },
+    {
+      "page": 40,
+      "text": "Step 11",
+      "x": 132.97000122070312,
+      "top": 581.5320434570312,
+      "bottom": 572.0320434570312,
+      "command_column_text": ""
+    },
+    {
+      "page": 40,
+      "text": "Device(config-if)# ipv6 nd prefix",
+      "x": 189.46600341796875,
+      "top": 535.0679931640625,
+      "bottom": 528.0679931640625,
+      "command_column_text": "Device(config-if)# ipv6 nd prefix"
+    },
+    {
+      "page": 40,
+      "text": "2001:db8::/64 no-advertise",
+      "x": 189.28201293945312,
+      "top": 525.5400390625,
+      "bottom": 518.8920288085938,
+      "command_column_text": "2001:db8::/64 no-advertise"
+    },
+    {
+      "page": 40,
+      "text": "ConfiguresIPv6 interfaces neighbor discovery",
+      "x": 377.2099914550781,
+      "top": 505.6889953613281,
+      "bottom": 496.4989929199219,
+      "command_column_text": ""
+    },
+    {
+      "page": 40,
+      "text": "to allow the hosts to uses DHCP for address",
+      "x": 376.95001220703125,
+      "top": 493.6889953613281,
+      "bottom": 486.50897216796875,
+      "command_column_text": ""
+    },
+    {
+      "page": 40,
+      "text": "configuration.",
+      "x": 377.19000244140625,
+      "top": 481.6889953613281,
+      "bottom": 472.4989929199219,
+      "command_column_text": ""
+    },
+    {
+      "page": 40,
+      "text": "ipv6 nd managed-config-flag",
+      "x": 189.010009765625,
+      "top": 505.5589904785156,
+      "bottom": 496.5989990234375,
+      "command_column_text": "ipv6 nd managed-config-flag"
+    },
+    {
+      "page": 40,
+      "text": "Example:",
+      "x": 189.48001098632812,
+      "top": 487.67401123046875,
+      "bottom": 478.29400634765625,
+      "command_column_text": "Example:"
+    },
+    {
+      "page": 40,
+      "text": "Device(config-if)# ipv6 nd",
+      "x": 189.46600341796875,
+      "top": 471.65399169921875,
+      "bottom": 464.65399169921875,
+      "command_column_text": "Device(config-if)# ipv6 nd"
+    },
+    {
+      "page": 40,
+      "text": "managed-config-flag",
+      "x": 188.7220001220703,
+      "top": 461.5260009765625,
+      "bottom": 454.72601318359375,
+      "command_column_text": "managed-config-flag"
+    },
+    {
+      "page": 40,
+      "text": "Step 12",
+      "x": 132.97000122070312,
+      "top": 505.85198974609375,
+      "bottom": 496.35198974609375,
+      "command_column_text": ""
+    },
+    {
+      "page": 40,
+      "text": "ConfiguresIPv6 interfaces neighbor discovery",
+      "x": 377.2099914550781,
+      "top": 442.2749938964844,
+      "bottom": 433.0849914550781,
+      "command_column_text": ""
+    },
+    {
+      "page": 40,
+      "text": "to allow the hosts to uses DHCP for",
+      "x": 376.95001220703125,
+      "top": 430.2749938964844,
+      "bottom": 423.094970703125,
+      "command_column_text": ""
+    },
+    {
+      "page": 40,
+      "text": "non-address configuration.",
+      "x": 376.9100036621094,
+      "top": 418.2749938964844,
+      "bottom": 409.0849914550781,
+      "command_column_text": ""
+    },
+    {
+      "page": 40,
+      "text": "ipv6 nd other-config-flag",
+      "x": 189.010009765625,
+      "top": 442.1449890136719,
+      "bottom": 433.18499755859375,
+      "command_column_text": "ipv6 nd other-config-flag"
+    },
+    {
+      "page": 40,
+      "text": "Example:",
+      "x": 189.48001098632812,
+      "top": 424.260009765625,
+      "bottom": 414.8800048828125,
+      "command_column_text": "Example:"
+    },
+    {
+      "page": 40,
+      "text": "Device(config-if)# ipv6 nd",
+      "x": 189.46600341796875,
+      "top": 408.239990234375,
+      "bottom": 401.239990234375,
+      "command_column_text": "Device(config-if)# ipv6 nd"
+    },
+    {
+      "page": 40,
+      "text": "other-config-flag",
+      "x": 189.18600463867188,
+      "top": 398.11199951171875,
+      "bottom": 391.31201171875,
+      "command_column_text": "other-config-flag"
+    },
+    {
+      "page": 40,
+      "text": "Step 13",
+      "x": 132.97000122070312,
+      "top": 442.43798828125,
+      "bottom": 432.93798828125,
+      "command_column_text": ""
+    },
+    {
+      "page": 40,
+      "text": "ipv6 dhcp relaydestination Configures the DHCP server on the interface.",
+      "x": 189.010009765625,
+      "top": 378.86102294921875,
+      "bottom": 369.6710205078125,
+      "command_column_text": "ipv6 dhcp relaydestination"
+    },
+    {
+      "page": 40,
+      "text": "2001:DB8:0:20::2",
+      "x": 189.38999938964844,
+      "top": 366.3429870605469,
+      "bottom": 359.5929870605469,
+      "command_column_text": "2001:DB8:0:20::2"
+    },
+    {
+      "page": 40,
+      "text": "Step 14",
+      "x": 132.97000122070312,
+      "top": 379.02398681640625,
+      "bottom": 369.52398681640625,
+      "command_column_text": ""
+    },
+    {
+      "page": 40,
+      "text": "Example:",
+      "x": 189.48001098632812,
+      "top": 348.5799865722656,
+      "bottom": 339.1999816894531,
+      "command_column_text": "Example:"
+    },
+    {
+      "page": 40,
+      "text": "Device(config-if)# ipv6 dhcp relay",
+      "x": 189.46600341796875,
+      "top": 332.55999755859375,
+      "bottom": 325.55999755859375,
+      "command_column_text": "Device(config-if)# ipv6 dhcp relay"
+    },
+    {
+      "page": 40,
+      "text": "destination 2001:DB8:0:20::2",
+      "x": 189.0900115966797,
+      "top": 322.55999755859375,
+      "bottom": 317.1600036621094,
+      "command_column_text": "destination 2001:DB8:0:20::2"
+    },
+    {
+      "page": 40,
+      "text": "Verifying IPv6 Address Learning Configuration",
+      "x": 36.10499954223633,
+      "top": 283.041015625,
+      "bottom": 263.5740051269531,
+      "command_column_text": "ress Learning Configu"
+    },
+    {
+      "page": 40,
+      "text": "This example displays the output of the show ipv6 dhcp pool command. This command displays the IPv6",
+      "x": 129.90000915527344,
+      "top": 252.48199462890625,
+      "bottom": 243.29200744628906,
+      "command_column_text": "isplays the output of the show ipv6 dhcp pool"
+    },
+    {
+      "page": 40,
+      "text": "service configuration on the device. The vlan 21 configured pool detail displays 6 clients that are currently",
+      "x": 130.0900115966797,
+      "top": 240.4239959716797,
+      "bottom": 231.2340087890625,
+      "command_column_text": "ration on the device. The vlan 21 configured po"
+    },
+    {
+      "page": 40,
+      "text": "using addresses from the pool.",
+      "x": 129.61000061035156,
+      "top": 228.4239959716797,
+      "bottom": 219.2340087890625,
+      "command_column_text": "s from the pool."
+    },
+    {
+      "page": 40,
+      "text": "Procedure",
+      "x": 84.8290023803711,
+      "top": 194.4669952392578,
+      "bottom": 187.15699768066406,
+      "command_column_text": ""
+    },
+    {
+      "page": 40,
+      "text": "Command or Action Purpose",
+      "x": 181.41000366210938,
+      "top": 173.0869903564453,
+      "bottom": 163.5869903564453,
+      "command_column_text": "mmand or Action P"
+    },
+    {
+      "page": 40,
+      "text": "Displays the IPv6 service configuration on the",
+      "x": 373.02001953125,
+      "top": 154.4239959716797,
+      "bottom": 145.2340087890625,
+      "command_column_text": "D"
+    },
+    {
+      "page": 40,
+      "text": "device.",
+      "x": 373.17999267578125,
+      "top": 142.4239959716797,
+      "bottom": 135.25399780273438,
+      "command_column_text": "d"
+    },
+    {
+      "page": 40,
+      "text": "show ipv6 dhcp pool",
+      "x": 181.10000610351562,
+      "top": 154.29400634765625,
+      "bottom": 145.34400939941406,
+      "command_column_text": "ow ipv6 dhcp pool"
+    },
+    {
+      "page": 40,
+      "text": "Example:",
+      "x": 181.48001098632812,
+      "top": 136.40899658203125,
+      "bottom": 127.02899169921875,
+      "command_column_text": "ample:"
+    },
+    {
+      "page": 40,
+      "text": "Step 1",
+      "x": 132.97000122070312,
+      "top": 154.5869903564453,
+      "bottom": 145.0869903564453,
+      "command_column_text": ""
+    },
+    {
+      "page": 40,
+      "text": "Device show ipv6 dhcp pool",
+      "x": 181.46600341796875,
+      "top": 120.3530044555664,
+      "bottom": 113.72100067138672,
+      "command_column_text": "vice show ipv6 dhcp pool"
+    },
+    {
+      "page": 40,
+      "text": "DHCPv6 pool: vlan21",
+      "x": 181.46600341796875,
+      "top": 110.70499420166016,
+      "bottom": 104.1209945678711,
+      "command_column_text": "CPv6 pool: vlan21"
+    },
+    {
+      "page": 40,
+      "text": "Address allocation prefix:",
+      "x": 180.91400146484375,
+      "top": 101.15299987792969,
+      "bottom": 94.52099609375,
+      "command_column_text": "dress allocation prefix:"
+    },
+    {
+      "page": 40,
+      "text": "IP Addressing Services Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9300 Switches)",
+      "x": 116.42399597167969,
+      "top": 40.42000198364258,
+      "bottom": 32.836002349853516,
+      "command_column_text": "Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9300 Sw"
+    },
+    {
+      "page": 40,
+      "text": "22",
+      "x": 70.7040023803711,
+      "top": 28.436002731323242,
+      "bottom": 22.78000259399414,
+      "command_column_text": ""
+    },
+    {
+      "page": 40,
+      "text": "IPv6 Client IP Address Learning",
+      "x": 450.33599853515625,
+      "top": 771.052001953125,
+      "bottom": 763.635986328125,
+      "command_column_text": ""
+    },
+    {
+      "page": 40,
+      "text": "Verifying IPv6 Address Learning Configuration",
+      "x": 54.040000915527344,
+      "top": 759.4520263671875,
+      "bottom": 752.0360107421875,
+      "command_column_text": "tion"
+    }
+  ],
+  "notice": "Coordinates are evidence, not content approval."
+}

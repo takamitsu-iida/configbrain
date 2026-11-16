@@ -57,6 +57,32 @@ def test_split_markdown_sections_rejects_small_limit() -> None:
         split_markdown_sections("# Guide\n", "guide", "Guide", "26", 100)
 
 
+def test_procedure_headings_keep_their_owner_without_leaking_to_next_section() -> None:
+    sections = split_markdown_sections(
+        "# Guide\n\n## VLAN\n\n### Creating a VLAN\n\n"
+        "### Before you begin\n\nvlan vlan-id\n\n"
+        "### Procedure\n\nvlan 20\n\n"
+        "### Deleting a VLAN\n\n### Before you begin\n\nno vlan 20\n",
+        "guide", "Guide", "26", max_characters=500,
+    )
+    before = next(item for item in sections if "vlan vlan-id" in item.text)
+    procedure = next(item for item in sections if item.heading_path[-1] == "Procedure")
+    deletion = next(item for item in sections if "no vlan 20" in item.text)
+    assert before.heading_path[-2:] == ("Creating a VLAN", "Before you begin")
+    assert procedure.heading_path[-2:] == ("Creating a VLAN", "Procedure")
+    assert deletion.heading_path[-2:] == ("Deleting a VLAN", "Before you begin")
+    assert "Creating a VLAN" not in deletion.heading_path
+
+
+def test_generic_heading_does_not_inherit_unrelated_sibling() -> None:
+    sections = split_markdown_sections(
+        "# Guide\n\n## VLAN\n\n### Overview\n\nText\n\n"
+        "### Before you begin\n\nRequirements\n",
+        "guide", "Guide", "26", max_characters=500,
+    )
+    assert sections[-1].heading_path == ("Guide", "VLAN", "Before you begin")
+
+
 def test_section_point_id_is_stable_and_document_scoped() -> None:
     section = split_markdown_sections(
         "# Guide\n\n## DHCP\n\nip helper-address\n",
@@ -84,7 +110,13 @@ class FakeEmbedder:
         return [[1.0, 0.0] for _ in texts]
 
 
-def write_rag_package(packages_dir: Path, document_id: str, body: str) -> None:
+def write_rag_package(
+    packages_dir: Path,
+    document_id: str,
+    body: str,
+    *,
+    title: str | None = None,
+) -> None:
     package_dir = packages_dir / document_id
     package_dir.mkdir(parents=True, exist_ok=True)
     manual = f"---\n{{}}\n---\n\n# {document_id}\n\n## DHCP\n\n{body}\n"
@@ -93,7 +125,7 @@ def write_rag_package(packages_dir: Path, document_id: str, body: str) -> None:
     descriptor = {
         "profile": "data-package",
         "name": document_id,
-        "title": document_id,
+        "title": title or document_id,
         "version": "26",
         "configbrain": {
             "catalogProduct": (
@@ -132,6 +164,28 @@ def test_incremental_index_updates_only_changed_package(tmp_path: Path) -> None:
     assert updated["incremental"] == {"updated": ["guide-b"], "removed": []}
     assert len(embedder.calls) == 1
     assert "192.0.2.2" in embedder.calls[0][0]
+
+
+def test_incremental_index_rebuilds_old_section_version(tmp_path: Path) -> None:
+    packages = tmp_path / "packages"
+    write_rag_package(packages, "guide-a", "ip helper-address 192.0.2.1")
+    qdrant_path = tmp_path / "qdrant"
+    embedder = FakeEmbedder()
+    build_index(packages, qdrant_path, embedder)
+    manifest_path = qdrant_path / "index-manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest.pop("section_versions")
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+    embedder.calls.clear()
+
+    updated = update_index_incrementally(packages, qdrant_path, embedder)
+
+    assert updated["incremental"]["updated"] == ["guide-a"]
+    assert updated["section_versions"]["catalyst9300"] == 2
+    assert embedder.calls
+    embedder.calls.clear()
+    update_index_incrementally(packages, qdrant_path, embedder)
+    assert embedder.calls == []
 
 
 def test_index_requires_normalized_catalog_product(tmp_path: Path) -> None:
@@ -612,8 +666,193 @@ def test_expand_search_plan_corrects_vlan_name_cli_term(
         config,
     )
 
-    assert cli_terms == ["name vlan-name", "vlan", "vlan name"]
+    assert cli_terms == ["name vlan-name", "vlan vlan-id", "vlan", "vlan name"]
     assert features[0].cli_terms == tuple(cli_terms)
+
+
+def test_expand_search_plan_normalizes_values_and_adds_svi_search(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(
+        "scripts.rag._chat_json",
+        lambda messages, config: {"features": [{
+            "queries": ["configure SVI"],
+            "cli_terms": [
+                "interface Vlan120", "ip address 192.0.2.1 255.255.255.0",
+            ],
+        }]},
+    )
+    config = LLMConfig(
+        api_url="https://example.test", api_key="key", model="model",
+        api_key_header="Authorization",
+    )
+    queries, terms, _ = expand_search_plan(
+        "SVI Vlan120のIPアドレスは192.0.2.1/24としてください。", config
+    )
+    assert "interface vlan vlan-id" in terms
+    assert "ip address ip-address subnet-mask" in terms
+    assert all("192.0.2.1" not in term and "Vlan120" not in term for term in terms)
+    assert any("manually assigning ip information" in query for query in queries)
+
+
+def test_cli_candidates_are_reranked_before_limiting(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path,
+) -> None:
+    def candidate(name: str, heading: str) -> SearchResult:
+        return SearchResult(
+            citation_id=name, score=1.0, document_id=name, title="VLAN guide",
+            version="26", product="catalyst9300", release="26.x",
+            heading_path=(heading,), text="vlan vlan-id",
+        )
+    candidates = [
+        candidate(f"other-{index}", "Other VLAN usage") for index in range(3)
+    ] + [candidate("standard", "Creating or Modifying an Ethernet VLAN")]
+    corpus = SimpleNamespace(points=tuple(range(4)))
+    monkeypatch.setattr("scripts.rag._load_lexical_corpus", lambda *args, **kwargs: corpus)
+    monkeypatch.setattr(
+        "scripts.rag._search_lexical_corpus",
+        lambda query, corpus, limit, **kwargs: candidates[:limit],
+    )
+    feature = SearchFeature(
+        ("creating or modifying an ethernet vlan vlan vlan-id",), ("vlan vlan-id",)
+    )
+    results = search_expanded(
+        [], tmp_path, FakeEmbedder(), limit=1, cli_terms=["vlan vlan-id"],
+        features=[feature], product="catalyst9300", release="26.x",
+    )
+    assert results[0].citation_id == "standard"
+
+
+def test_expand_search_plan_prefers_standard_dhcp_relay_evidence(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(
+        "scripts.rag._chat_json",
+        lambda messages, config: {
+            "features": [
+                {
+                    "queries": ["configure DHCP relay on an SVI"],
+                    "cli_terms": [
+                        "ip helper-address",
+                        "ip helper-address global",
+                    ],
+                }
+            ]
+        },
+    )
+    config = LLMConfig(
+        api_url="https://example.test",
+        api_key="key",
+        model="model",
+        api_key_header="Authorization",
+    )
+
+    queries, cli_terms, features = expand_search_plan(
+        "Vlan100のDHCP要求を192.0.2.50へ転送してください",
+        config,
+    )
+
+    assert (
+        "DHCP relay agent specifying the packet forwarding address "
+        "ip helper-address address"
+    ) in queries
+    assert cli_terms[:2] == [
+        "ip helper-address address",
+        "ip helper-address",
+    ]
+    assert "ip helper-address global" not in cli_terms
+    assert "EVPN" in features[0].excluded_terms
+    assert "tenant VRF" in features[0].excluded_terms
+
+
+def test_expand_search_plan_keeps_explicit_tenant_vrf_context(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(
+        "scripts.rag._chat_json",
+        lambda messages, config: {
+            "features": [
+                {
+                    "queries": ["configure DHCP relay between tenant and default VRFs"],
+                    "cli_terms": ["ip helper-address global"],
+                }
+            ]
+        },
+    )
+    config = LLMConfig(
+        api_url="https://example.test",
+        api_key="key",
+        model="model",
+        api_key_header="Authorization",
+    )
+
+    _, cli_terms, features = expand_search_plan(
+        "DHCPクライアントはテナントVRF blue、DHCPサーバーはデフォルトVRFです。",
+        config,
+    )
+
+    assert cli_terms == ["ip helper-address global"]
+    assert features[0].excluded_terms == ()
+
+
+def test_search_expanded_ranks_standard_dhcp_relay_guide_first(
+    tmp_path: Path,
+) -> None:
+    packages = tmp_path / "packages"
+    write_rag_package(
+        packages,
+        "ip-addressing",
+        (
+            "## Specifying the Packet Forwarding Address\n\n"
+            "Use the ip helper-address address interface command on the "
+            "Layer 3 interface closest to the DHCP client."
+        ),
+        title="Catalyst 9300 IP Addressing Services Configuration Guide",
+    )
+    write_rag_package(
+        packages,
+        "evpn-guide",
+        (
+            "## DHCP Relay in a BGP EVPN VXLAN Fabric\n\n"
+            "The DHCP client is in a tenant VRF and the server is in the "
+            "default VRF. Configure ip helper-address global 192.0.2.50."
+        ),
+        title="Catalyst 9300 BGP EVPN VXLAN Configuration Guide",
+    )
+    qdrant_path = tmp_path / "qdrant"
+    embedder = FakeEmbedder()
+    build_index(packages, qdrant_path, embedder)
+
+    query = (
+        "DHCP relay agent specifying the packet forwarding address "
+        "ip helper-address address"
+    )
+    feature = SearchFeature(
+        (query,),
+        ("ip helper-address address", "ip helper-address"),
+        (
+            "EVPN",
+            "VXLAN",
+            "tenant VRF",
+            "ip helper-address global",
+            "ip helper-address vrf",
+        ),
+    )
+    results = search_expanded(
+        [query],
+        qdrant_path,
+        embedder,
+        limit=6,
+        cli_terms=list(feature.cli_terms),
+        features=[feature],
+        product="catalyst9300",
+        release="26.x",
+    )
+
+    assert results[0].document_id == "ip-addressing"
+    assert results[0].title == (
+        "Catalyst 9300 IP Addressing Services Configuration Guide"
+    )
 
 
 def test_prioritize_cli_terms_caps_expansion_without_dropping_features() -> None:
@@ -827,6 +1066,8 @@ def test_format_markdown_report_is_readable_and_escapes_table_cells() -> None:
             "explanation": "アクセスポートとして設定します。",
             "citations": ["guide:section-0001"],
             "warnings": ["VLAN自体の作成は含みません。"],
+            "missing_required_values": ["SVIのIPアドレス"],
+            "unsupported_requirements": ["必要な根拠"],
             "inferred_commands": [],
             "retrieval": [
                 {
@@ -843,6 +1084,8 @@ def test_format_markdown_report_is_readable_and_escapes_table_cells() -> None:
     assert report.startswith("# Cisco RAG生成レポート\n")
     assert "```text\ninterface GigabitEthernet1/0/20" in report
     assert "- 推測コマンド数: 0" in report
+    assert "## 不足値\n\n- SVIのIPアドレス" in report
+    assert "## 未対応要件\n\n- 必要な根拠" in report
     assert (
         "[`guide:section-0001`](../products/catalyst9300/packages/guide/manual.md)"
         in report
@@ -1087,6 +1330,99 @@ def test_generate_configuration_preflights_missing_syslog_target(
     assert generated["inferred_commands"] == []
 
 
+def test_generate_configuration_preflights_missing_svi_address_for_new_vlan(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    results, config = generation_inputs()
+
+    def fail_if_called(messages: list[dict[str, str]], llm_config: LLMConfig):
+        raise AssertionError("LLM generation must be skipped")
+
+    monkeypatch.setattr("scripts.rag._chat_json", fail_if_called)
+
+    generated = generate_configuration(
+        "VLAN 120を作成し、Vlan120で受信するDHCP要求を"
+        "DHCPサーバー192.0.2.50へ転送してください。",
+        results,
+        config,
+    )
+
+    assert generated["configuration"] == ""
+    assert generated["missing_required_values"] == [
+        "Vlan120のIPv4アドレスとプレフィックス"
+    ]
+    assert generated["unsupported_requirements"] == []
+    assert generated["inferred_commands"] == []
+    assert any("Vlan120のIPv4アドレスとプレフィックス" in warning for warning in generated["warnings"])
+
+
+def test_generate_configuration_accepts_explicit_svi_ipv4_prefix(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    results, config = generation_inputs()
+    monkeypatch.setattr(
+        "scripts.rag._chat_json",
+        lambda messages, llm_config: {
+            "configuration": (
+                "vlan 120\n"
+                "interface Vlan120\n"
+                " ip address 192.0.2.1 255.255.255.0\n"
+                " ip helper-address 192.0.2.50"
+            ),
+            "explanation": "SVIのIPアドレスとDHCPリレーを設定します。",
+            "citations": ["E1"],
+            "warnings": [],
+            "inferred_commands": [],
+            "unsupported_requirements": [],
+            "missing_required_values": [],
+        },
+    )
+
+    generated = generate_configuration(
+        "VLAN 120を作成し、Vlan120のSVI IPアドレスを192.0.2.1/24に設定し、"
+        "DHCPサーバー192.0.2.50へDHCP要求を転送してください。",
+        results,
+        config,
+    )
+
+    assert generated["configuration"].startswith("vlan 120\n")
+    assert generated["missing_required_values"] == []
+    assert generated["unsupported_requirements"] == []
+
+
+def test_generate_configuration_keeps_existing_svi_relay_request(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    results, config = generation_inputs()
+    monkeypatch.setattr(
+        "scripts.rag._chat_json",
+        lambda messages, llm_config: {
+            "configuration": (
+                "interface Vlan100\n"
+                " ip helper-address 192.0.2.50"
+            ),
+            "explanation": "既存SVIにDHCPリレーを設定します。",
+            "citations": ["E1"],
+            "warnings": [],
+            "inferred_commands": [],
+            "unsupported_requirements": [],
+            "missing_required_values": [],
+        },
+    )
+
+    generated = generate_configuration(
+        "既存のVlan100で受信するDHCP要求をDHCPサーバー192.0.2.50へ転送してください。",
+        results,
+        config,
+    )
+
+    assert generated["configuration"] == (
+        "interface Vlan100\n ip helper-address 192.0.2.50\n"
+    )
+    assert generated["missing_required_values"] == []
+    assert generated["unsupported_requirements"] == []
+
+
 def test_generate_configuration_preflights_missing_ntp_delete_target(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -1104,6 +1440,73 @@ def test_generate_configuration_preflights_missing_ntp_delete_target(
         "削除対象のNTPサーバーIPアドレスまたはホスト名"
     ]
     assert generated["inferred_commands"] == []
+
+
+def test_generate_configuration_rejects_unrequested_dhcp_global_keyword(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    results, config = generation_inputs()
+    monkeypatch.setattr(
+        "scripts.rag._chat_json",
+        lambda messages, llm_config: {
+            "configuration": (
+                "interface Vlan100\n"
+                " ip helper-address global 192.0.2.50"
+            ),
+            "explanation": "DHCPリレーを設定します。",
+            "citations": ["E1"],
+            "warnings": [],
+            "inferred_commands": [],
+            "unsupported_requirements": [],
+            "missing_required_values": [],
+        },
+    )
+
+    generated = generate_configuration(
+        "Vlan100のDHCP要求を192.0.2.50へ転送してください。VRF情報は未指定です。",
+        results,
+        config,
+    )
+
+    assert generated["configuration"] == ""
+    assert generated["unsupported_requirements"] == [
+        "DHCPリレーのVRF専用キーワードが要件にありません"
+    ]
+    assert any(
+        "VRF専用構文を拒否しました" in warning
+        for warning in generated["warnings"]
+    )
+
+
+def test_generate_configuration_allows_explicit_cross_vrf_dhcp_keyword(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    results, config = generation_inputs()
+    monkeypatch.setattr(
+        "scripts.rag._chat_json",
+        lambda messages, llm_config: {
+            "configuration": (
+                "interface Vlan100\n"
+                " ip helper-address global 192.0.2.50"
+            ),
+            "explanation": "テナントVRFからデフォルトVRFへ中継します。",
+            "citations": ["E1"],
+            "warnings": [],
+            "inferred_commands": [],
+            "unsupported_requirements": [],
+            "missing_required_values": [],
+        },
+    )
+
+    generated = generate_configuration(
+        "Vlan100のDHCPクライアントはテナントVRF blue、"
+        "DHCPサーバー192.0.2.50はデフォルトVRFにあります。",
+        results,
+        config,
+    )
+
+    assert "ip helper-address global 192.0.2.50" in generated["configuration"]
+    assert generated["unsupported_requirements"] == []
 
 
 def test_generate_configuration_discards_all_for_conflicting_interface_modes(
@@ -1266,7 +1669,7 @@ def test_generate_configuration_discards_ungrounded_disallow_result(
             "citations": ["E1"],
             "warnings": [
                 "根拠内にname構文が記載されていません。"
-                "一般的なIOS XE構文を前提として生成しました。"
+                "一般的なIOS XE構文を前提として生成しました。E1と[E1]を参照。"
             ],
             "inferred_commands": [],
             "unsupported_requirements": [],
@@ -1286,6 +1689,8 @@ def test_generate_configuration_discards_ungrounded_disallow_result(
         "部分設定を破棄" in warning
         for warning in generated["warnings"]
     )
+    assert results[0].citation_id in generated["warnings"][0]
+    assert "E1" not in generated["warnings"][0]
 
 
 def test_generate_configuration_discards_undeclared_limited_inference(

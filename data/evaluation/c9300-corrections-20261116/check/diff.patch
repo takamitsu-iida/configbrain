@@ -1,0 +1,211 @@
+--- /home/iida/git/configbrain/data/products/catalyst9300/extracted/catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d/b_26x_ip_9300_cg/b_26x_ip_9300_cg.md
++++ manual.md (candidate)
+@@ -952,39 +952,175 @@
+ 
+ This interface configuration is for a Cisco IOS IPv6 router implementing stateful DHCPv6 on an external DHCP server.
+ 
+-|        | Command or Action                    | Purpose                                       |
+-|--------|--------------------------------------|-----------------------------------------------|
+-| Step 1 | enable                               | Enables privileged EXEC mode.                 |
+-|        | Example:                             | Enter your password if prompted.              |
+-|        | Device> enable                       |                                               |
+-|        | configure terminal                   | Enters global configuration mode.             |
+-| Step 2 |                                      |                                               |
+-|        | Device# configure terminal           |                                               |
+-|        | ipv6 unicast-routing                 | Configures the IPv6 for unicasting.           |
+-| Step 3 |                                      |                                               |
+-|        | Device(config)# ipv6 unicast-routing |                                               |
+-|        |                                      | Provides the DNS server option to DHCP        |
+-|        | dns-server 2001:100:0:1::1           |                                               |
+-| Step 4 |                                      |                                               |
+-|        | Device(config-dhcpv6)# dns-server    |                                               |
+-|        |                                      | Provides the domain name option to DHCP       |
+-|        | domain-name example.com              |                                               |
+-| Step 5 |                                      |                                               |
+-|        | Device(config-dhcpv6)# domain-name   |                                               |
+-|        | exit                                 | Returns to the previous mode.                 |
+-| Step 6 |                                      |                                               |
+-|        | Device(config-dhcpv6)# exit          |                                               |
+-|        |                                      | Enters the interface mode to configure the    |
+-|        |                                      | stateful DHCP.                                |
+-|        | interface vlan 1                     |                                               |
+-| Step 7 |                                      |                                               |
+-|        | Device(config)# interface vlan 1     |                                               |
+-|        | description IPv6-DHCP-Stateful       | Enter description for the stateful IPv6 DHCP. |
+-| Step 8 |                                      |                                               |
+-|        | Device(config-if)# description       |                                               |
+-|        |                                      | Enters the IPv6 address for the stateful IPv6 |
+-|        | ipv6 address 2001:DB8:0:20::1/64     |                                               |
+-| Step 9 |                                      |                                               |
++### Procedure
++
++#### Step 1
++
++Command or Action: `enable`
++
++Purpose: Enables privileged EXEC mode. Enter your password if prompted.
++
++Example:
++
++```console
++Device> enable
++```
++
++#### Step 2
++
++Command or Action: `configure terminal`
++
++Purpose: Enters global configuration mode.
++
++Example:
++
++```console
++Device# configure terminal
++```
++
++#### Step 3
++
++Command or Action: `ipv6 unicast-routing`
++
++Purpose: Configures the IPv6 for unicasting.
++
++Example:
++
++```console
++Device(config)# ipv6 unicast-routing
++```
++
++#### Step 4
++
++Command or Action: `dns-server 2001:100:0:1::1`
++
++Purpose: Provides the DNS server option to DHCP clients.
++
++Example:
++
++```console
++Device(config-dhcpv6)# dns-server 2001:100:0:1::1
++```
++
++#### Step 5
++
++Command or Action: `domain-name example.com`
++
++Purpose: Provides the domain name option to DHCP clients.
++
++Example:
++
++```console
++Device(config-dhcpv6)# domain-name example.com
++```
++
++#### Step 6
++
++Command or Action: `exit`
++
++Purpose: Returns to the previous mode.
++
++Example:
++
++```console
++Device(config-dhcpv6)# exit
++```
++
++#### Step 7
++
++Command or Action: `interface vlan 1`
++
++Purpose: Enters the interface mode to configure the stateful DHCP.
++
++Example:
++
++```console
++Device(config)# interface vlan 1
++```
++
++#### Step 8
++
++Command or Action: `description IPv6-DHCP-Stateful`
++
++Purpose: Enter description for the stateful IPv6 DHCP.
++
++Example:
++
++```console
++Device(config-if)# description IPv6-DHCP-Stateful
++```
++
++#### Step 9
++
++Command or Action: `ipv6 address 2001:DB8:0:20::1/64`
++
++Purpose: Enters the IPv6 address for the stateful IPv6 DHCP.
++
++Example:
++
++```console
++Device(config-if)# ipv6 address 2001:DB8:0:20::1/64
++```
++
++#### Step 10
++
++Command or Action: `ip address 192.168.20.1 255.255.255.0`
++
++Purpose: Enters the IPv6 address for the stateful IPv6 DHCP.
++
++Example:
++
++```console
++Device(config-if)# ip address 192.168.20.1 255.255.255.0
++```
++
++#### Step 11
++
++Command or Action: `ipv6 nd prefix 2001:db8::/64 no-advertise`
++
++Purpose: Configures the IPv6 routing prefix advertisement that must not be advertised.
++
++Example:
++
++```console
++Device(config-if)# ipv6 nd prefix 2001:db8::/64 no-advertise
++```
++
++#### Step 12
++
++Command or Action: `ipv6 nd managed-config-flag`
++
++Purpose: Configures IPv6 interfaces neighbor discovery to allow the hosts to uses DHCP for address configuration.
++
++Example:
++
++```console
++Device(config-if)# ipv6 nd managed-config-flag
++```
++
++#### Step 13
++
++Command or Action: `ipv6 nd other-config-flag`
++
++Purpose: Configures IPv6 interfaces neighbor discovery to allow the hosts to uses DHCP for non-address configuration.
++
++Example:
++
++```console
++Device(config-if)# ipv6 nd other-config-flag
++```
++
++#### Step 14
++
++Command or Action: `ipv6 dhcp relay destination 2001:DB8:0:20::2`
++
++Purpose: Configures the DHCP server on the interface.
++
++Example:
++
++```console
++Device(config-if)# ipv6 dhcp relay destination 2001:DB8:0:20::2
++```
+ 
+ # <span id="page-39-0"></span>**Verifying IPv6 Address Learning Configuration**
+ 

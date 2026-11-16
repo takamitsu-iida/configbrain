@@ -1,0 +1,1095 @@
+{
+  "document_id": "catalyst9300-26-x-b-26x-stck-mgr-ha-9300-cg-b916a4af4da2",
+  "inputs": {
+    "raw": {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/raw/catalyst9300-26-x-b-26x-stck-mgr-ha-9300-cg-b916a4af4da2/b_26x_stck_mgr_ha_9300_cg.pdf",
+      "sha256": "ae2c20fa0087ef0276594a12e1ed3c4840c2b1d558ca41b1e3c3782eb7b10116"
+    },
+    "extracted": {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/extracted/catalyst9300-26-x-b-26x-stck-mgr-ha-9300-cg-b916a4af4da2/b_26x_stck_mgr_ha_9300_cg/b_26x_stck_mgr_ha_9300_cg.md",
+      "sha256": "7dfc18350273f07b6c62fc49fdf399339a3be1141df82371f4166c48cfd40ddb"
+    },
+    "manual": {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-b-26x-stck-mgr-ha-9300-cg-b916a4af4da2/manual.md",
+      "sha256": "715b553bf26585a8ece446401d17fa7cbdbfa3c957e199f3d7df99a7587c8bf4"
+    },
+    "descriptor": {
+      "path": "/home/iida/git/configbrain/data/products/catalyst9300/packages/catalyst9300-26-x-b-26x-stck-mgr-ha-9300-cg-b916a4af4da2/datapackage.json",
+      "sha256": "00b4b873f8715ca10b748e6497e35e9ac4ce2b8b91a1364553fa31f806848d90"
+    }
+  },
+  "command_candidates": 14,
+  "table_candidates": 0,
+  "verdict_counts": {
+    "confirmed_formatting_difference": 1,
+    "audit_false_positive": 3,
+    "unresolved": 10
+  },
+  "pdf_pages_read": [
+    25,
+    33,
+    34,
+    84,
+    85,
+    94
+  ],
+  "pdf_page_errors": {},
+  "results": [
+    {
+      "kind": "command",
+      "pdf_page": 25,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "/Port# Member number and its stack port number.",
+        "markdown_lines": [
+          677,
+          727
+        ]
+      },
+      "verdict": "confirmed_formatting_difference",
+      "reason": "command_split_across_table_cells_or_rows",
+      "pdf_line": {
+        "page": 25,
+        "text": "Switch#/Port# Member number and its stack port number.",
+        "x": 147.6300048828125,
+        "top": 481.48602294921875,
+        "bottom": 472.3160095214844,
+        "command_column_text": ""
+      },
+      "pdf_command": {
+        "command": "/Port# Member number and its stack port number.",
+        "first_line": "/Port# Member number and its stack port number.",
+        "page": 25,
+        "continuation_uncertain": false
+      },
+      "package_scope": {
+        "lines": [
+          681,
+          742
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 681,
+          "page": 25,
+          "title": "show switch stack-ports summary Command Output: Example"
+        },
+        "after": {
+          "line": 743,
+          "page": 26,
+          "title": "show switch stack-ports detail Command Output: Example"
+        }
+      },
+      "extracted_scope": {
+        "lines": [
+          638,
+          698
+        ],
+        "method": "page_heading_bounded",
+        "before": {
+          "line": 638,
+          "page": 25,
+          "title": "show switch stack-ports summary Command Output: Example"
+        },
+        "after": {
+          "line": 699,
+          "page": 26,
+          "title": "show switch stack-ports detail Command Output: Example"
+        }
+      },
+      "package_matches": [],
+      "fragmented_package_matches": [
+        {
+          "line": 703,
+          "text": "| Switch#/Port# | Member number and its stack port number.                                            |"
+        }
+      ],
+      "extracted_matches": [
+        {
+          "line": 659,
+          "text": "| Switch#/Port# | Member number and its stack port number.                                            |"
+        }
+      ],
+      "alternative_context_matches": [
+        {
+          "line": 703,
+          "text": "| Switch#/Port# | Member number and its stack port number.                                            |"
+        }
+      ],
+      "audit_pointer": "/pages/24/findings/2"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 25,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "Port Length OK Active OK Changes Loopback",
+        "markdown_lines": [
+          677,
+          727
+        ]
+      },
+      "verdict": "audit_false_positive",
+      "reason": "output_header_misidentified_as_prompt",
+      "pdf_line": {
+        "page": 25,
+        "text": "Port# Port Length OK Active OK Changes Loopback",
+        "x": 159.0959930419922,
+        "top": 641.8729858398438,
+        "bottom": 635.041015625,
+        "command_column_text": ""
+      },
+      "pdf_command": {
+        "command": "Port Length OK Active OK Changes Loopback",
+        "first_line": "Port Length OK Active OK Changes Loopback",
+        "page": 25,
+        "continuation_uncertain": false
+      },
+      "audit_pointer": "/pages/24/findings/3"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 33,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "/Port# Port Neighbor Cable Link Link Sync #Changes In",
+        "markdown_lines": [
+          934,
+          1000
+        ]
+      },
+      "verdict": "unresolved",
+      "reason": "Source command occurrence is ambiguous",
+      "pdf_source_candidates": [
+        {
+          "page": 33,
+          "text": "Sw#/Port# Port Neighbor Cable Link Link Sync #Changes In",
+          "x": 149.52000427246094,
+          "top": 664.2400512695312,
+          "bottom": 657.2400512695312,
+          "command_column_text": ""
+        },
+        {
+          "page": 33,
+          "text": "Sw#/Port# Port Neighbor Cable Link Link Sync #Changes In",
+          "x": 149.52000427246094,
+          "top": 507.31201171875,
+          "bottom": 500.31201171875,
+          "command_column_text": ""
+        },
+        {
+          "page": 33,
+          "text": "Sw#/Port# Port Neighbor Cable Link Link Sync #Changes In",
+          "x": 149.52000427246094,
+          "top": 295.78399658203125,
+          "bottom": 288.78399658203125,
+          "command_column_text": ""
+        }
+      ],
+      "audit_pointer": "/pages/32/findings/2"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 34,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "/Port# Port Neighbor Cable Link Link Sync #Changes In",
+        "markdown_lines": [
+          998,
+          1057
+        ]
+      },
+      "verdict": "audit_false_positive",
+      "reason": "output_header_misidentified_as_prompt",
+      "pdf_line": {
+        "page": 34,
+        "text": "Sw#/Port# Port Neighbor Cable Link Link Sync #Changes In",
+        "x": 135.1199951171875,
+        "top": 532.1240234375,
+        "bottom": 525.1240234375,
+        "command_column_text": ""
+      },
+      "pdf_command": {
+        "command": "/Port# Port Neighbor Cable Link Link Sync #Changes In",
+        "first_line": "/Port# Port Neighbor Cable Link Link Sync #Changes In",
+        "page": 34,
+        "continuation_uncertain": false
+      },
+      "audit_pointer": "/pages/33/findings/2"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 84,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "end",
+        "markdown_lines": [
+          2539,
+          2557
+        ]
+      },
+      "verdict": "unresolved",
+      "reason": "Multiple matching examples; the occurrence cannot be identified uniquely",
+      "pdf_line": {
+        "page": 84,
+        "text": "Device(config-if)# end",
+        "x": 189.46600341796875,
+        "top": 329.9939880371094,
+        "bottom": 323.1619873046875,
+        "command_column_text": "Device(config-if)# end"
+      },
+      "pdf_command": {
+        "command": "end",
+        "first_line": "end",
+        "page": 84,
+        "continuation_uncertain": false
+      },
+      "package_scope": {
+        "lines": [
+          2507,
+          3052
+        ],
+        "method": "page_marker_bracketed",
+        "before": {
+          "line": 2507,
+          "page": 83,
+          "title": "EVPN Multihoming Non-Fabric Network Configuration Guidelines"
+        },
+        "after": {
+          "line": 3053,
+          "page": 95,
+          "title": "Verify the EVPN Multihoming Configuration for Non-Fabric Deployments"
+        }
+      },
+      "extracted_scope": {
+        "lines": [
+          2210,
+          2698
+        ],
+        "method": "page_marker_bracketed",
+        "before": {
+          "line": 2210,
+          "page": 83,
+          "title": "EVPN Multihoming Non-Fabric Network Configuration Guidelines"
+        },
+        "after": {
+          "line": 2699,
+          "page": 95,
+          "title": "Verify the EVPN Multihoming Configuration for Non-Fabric Deployments"
+        }
+      },
+      "package_matches": [
+        {
+          "line": 2843,
+          "text": "|      | Device(config-if)# end                         |",
+          "prompt_present": true
+        },
+        {
+          "line": 2852,
+          "text": "Device(config-if)# end",
+          "prompt_present": true
+        }
+      ],
+      "fragmented_package_matches": [],
+      "extracted_matches": [
+        {
+          "line": 2531,
+          "text": "|      | Device(config-if)# end                         |",
+          "prompt_present": true
+        }
+      ],
+      "alternative_context_matches": [],
+      "audit_pointer": "/pages/83/findings/2"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 84,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "evpn multihoming",
+        "markdown_lines": [
+          2539,
+          2557
+        ]
+      },
+      "verdict": "unresolved",
+      "reason": "No exact command match; boundaries or continuation remain uncertain",
+      "pdf_line": {
+        "page": 84,
+        "text": "Device(config-if)# evpn multihoming",
+        "x": 189.46600341796875,
+        "top": 623.2219848632812,
+        "bottom": 616.2219848632812,
+        "command_column_text": "Device(config-if)# evpn multihoming"
+      },
+      "pdf_command": {
+        "command": "evpn multihoming core-tracking",
+        "first_line": "evpn multihoming",
+        "page": 84,
+        "continuation_uncertain": true
+      },
+      "package_scope": {
+        "lines": [
+          2507,
+          3052
+        ],
+        "method": "page_marker_bracketed",
+        "before": {
+          "line": 2507,
+          "page": 83,
+          "title": "EVPN Multihoming Non-Fabric Network Configuration Guidelines"
+        },
+        "after": {
+          "line": 3053,
+          "page": 95,
+          "title": "Verify the EVPN Multihoming Configuration for Non-Fabric Deployments"
+        }
+      },
+      "extracted_scope": {
+        "lines": [
+          2210,
+          2698
+        ],
+        "method": "page_marker_bracketed",
+        "before": {
+          "line": 2210,
+          "page": 83,
+          "title": "EVPN Multihoming Non-Fabric Network Configuration Guidelines"
+        },
+        "after": {
+          "line": 2699,
+          "page": 95,
+          "title": "Verify the EVPN Multihoming Configuration for Non-Fabric Deployments"
+        }
+      },
+      "package_matches": [],
+      "fragmented_package_matches": [],
+      "extracted_matches": [],
+      "alternative_context_matches": [],
+      "audit_pointer": "/pages/83/findings/3"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 84,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "exit",
+        "markdown_lines": [
+          2539,
+          2557
+        ]
+      },
+      "verdict": "unresolved",
+      "reason": "Multiple matching examples; the occurrence cannot be identified uniquely",
+      "pdf_line": {
+        "page": 84,
+        "text": "Device(config-if)# exit",
+        "x": 189.46600341796875,
+        "top": 559.8079833984375,
+        "bottom": 552.9760131835938,
+        "command_column_text": "Device(config-if)# exit"
+      },
+      "pdf_command": {
+        "command": "exit",
+        "first_line": "exit",
+        "page": 84,
+        "continuation_uncertain": false
+      },
+      "package_scope": {
+        "lines": [
+          2507,
+          3052
+        ],
+        "method": "page_marker_bracketed",
+        "before": {
+          "line": 2507,
+          "page": 83,
+          "title": "EVPN Multihoming Non-Fabric Network Configuration Guidelines"
+        },
+        "after": {
+          "line": 3053,
+          "page": 95,
+          "title": "Verify the EVPN Multihoming Configuration for Non-Fabric Deployments"
+        }
+      },
+      "extracted_scope": {
+        "lines": [
+          2210,
+          2698
+        ],
+        "method": "page_marker_bracketed",
+        "before": {
+          "line": 2210,
+          "page": 83,
+          "title": "EVPN Multihoming Non-Fabric Network Configuration Guidelines"
+        },
+        "after": {
+          "line": 2699,
+          "page": 95,
+          "title": "Verify the EVPN Multihoming Configuration for Non-Fabric Deployments"
+        }
+      },
+      "package_matches": [
+        {
+          "line": 2649,
+          "text": "|      | Device(config-evpn)# exit                                                       |",
+          "prompt_present": true
+        },
+        {
+          "line": 2664,
+          "text": "|      | Device(config-evpn-evi)# exit                                                   |",
+          "prompt_present": true
+        },
+        {
+          "line": 2684,
+          "text": "|      | Device(config-evpn-evi)# exit                                                   |",
+          "prompt_present": true
+        },
+        {
+          "line": 2817,
+          "text": "|      | Device(config-if)# exit                        |",
+          "prompt_present": true
+        },
+        {
+          "line": 2848,
+          "text": "Device(config-if)# exit",
+          "prompt_present": true
+        },
+        {
+          "line": 2924,
+          "text": "|      | Device(config-evpn)# exit                                                       |",
+          "prompt_present": true
+        },
+        {
+          "line": 2939,
+          "text": "|      | Device(config-evpn-evi)# exit                                                   |",
+          "prompt_present": true
+        },
+        {
+          "line": 2959,
+          "text": "|      | Device(config-vlan-config)# exit                                                |",
+          "prompt_present": true
+        },
+        {
+          "line": 2970,
+          "text": "Device(config-evpn)# exit",
+          "prompt_present": true
+        },
+        {
+          "line": 2973,
+          "text": "Device(config-evpn-evi)# exit",
+          "prompt_present": true
+        },
+        {
+          "line": 2977,
+          "text": "Device(config-vlan-config)# exit",
+          "prompt_present": true
+        }
+      ],
+      "fragmented_package_matches": [],
+      "extracted_matches": [
+        {
+          "line": 2343,
+          "text": "|      | Device(config-evpn)# exit                                                       |",
+          "prompt_present": true
+        },
+        {
+          "line": 2358,
+          "text": "|      | Device(config-evpn-evi)# exit                                                   |",
+          "prompt_present": true
+        },
+        {
+          "line": 2378,
+          "text": "|      | Device(config-evpn-evi)# exit                                                   |",
+          "prompt_present": true
+        },
+        {
+          "line": 2505,
+          "text": "|      | Device(config-if)# exit                        |",
+          "prompt_present": true
+        },
+        {
+          "line": 2590,
+          "text": "|      | Device(config-evpn)# exit                                                       |",
+          "prompt_present": true
+        },
+        {
+          "line": 2605,
+          "text": "|      | Device(config-evpn-evi)# exit                                                   |",
+          "prompt_present": true
+        },
+        {
+          "line": 2625,
+          "text": "|      | Device(config-vlan-config)# exit                                                |",
+          "prompt_present": true
+        }
+      ],
+      "alternative_context_matches": [],
+      "audit_pointer": "/pages/83/findings/4"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 84,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "interface loopback",
+        "markdown_lines": [
+          2539,
+          2557
+        ]
+      },
+      "verdict": "unresolved",
+      "reason": "No exact command match; boundaries or continuation remain uncertain",
+      "pdf_line": {
+        "page": 84,
+        "text": "Device(config-if)# interface loopback",
+        "x": 189.46600341796875,
+        "top": 506.3219909667969,
+        "bottom": 499.3219909667969,
+        "command_column_text": "Device(config-if)# interface loopback"
+      },
+      "pdf_command": {
+        "command": "interface loopback 0",
+        "first_line": "interface loopback",
+        "page": 84,
+        "continuation_uncertain": true
+      },
+      "package_scope": {
+        "lines": [
+          2507,
+          3052
+        ],
+        "method": "page_marker_bracketed",
+        "before": {
+          "line": 2507,
+          "page": 83,
+          "title": "EVPN Multihoming Non-Fabric Network Configuration Guidelines"
+        },
+        "after": {
+          "line": 3053,
+          "page": 95,
+          "title": "Verify the EVPN Multihoming Configuration for Non-Fabric Deployments"
+        }
+      },
+      "extracted_scope": {
+        "lines": [
+          2210,
+          2698
+        ],
+        "method": "page_marker_bracketed",
+        "before": {
+          "line": 2210,
+          "page": 83,
+          "title": "EVPN Multihoming Non-Fabric Network Configuration Guidelines"
+        },
+        "after": {
+          "line": 2699,
+          "page": 95,
+          "title": "Verify the EVPN Multihoming Configuration for Non-Fabric Deployments"
+        }
+      },
+      "package_matches": [],
+      "fragmented_package_matches": [],
+      "extracted_matches": [],
+      "alternative_context_matches": [],
+      "audit_pointer": "/pages/83/findings/5"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 84,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "ip address 10.0.0.0",
+        "markdown_lines": [
+          2539,
+          2557
+        ]
+      },
+      "verdict": "unresolved",
+      "reason": "No exact command match; boundaries or continuation remain uncertain",
+      "pdf_line": {
+        "page": 84,
+        "text": "Device(config-if)# ip address 10.0.0.0",
+        "x": 189.46600341796875,
+        "top": 686.635986328125,
+        "bottom": 679.635986328125,
+        "command_column_text": "Device(config-if)# ip address 10.0.0.0"
+      },
+      "pdf_command": {
+        "command": "ip address 10.0.0.0",
+        "first_line": "ip address 10.0.0.0",
+        "page": 84,
+        "continuation_uncertain": false
+      },
+      "package_scope": {
+        "lines": [
+          2507,
+          3052
+        ],
+        "method": "page_marker_bracketed",
+        "before": {
+          "line": 2507,
+          "page": 83,
+          "title": "EVPN Multihoming Non-Fabric Network Configuration Guidelines"
+        },
+        "after": {
+          "line": 3053,
+          "page": 95,
+          "title": "Verify the EVPN Multihoming Configuration for Non-Fabric Deployments"
+        }
+      },
+      "extracted_scope": {
+        "lines": [
+          2210,
+          2698
+        ],
+        "method": "page_marker_bracketed",
+        "before": {
+          "line": 2210,
+          "page": 83,
+          "title": "EVPN Multihoming Non-Fabric Network Configuration Guidelines"
+        },
+        "after": {
+          "line": 2699,
+          "page": 95,
+          "title": "Verify the EVPN Multihoming Configuration for Non-Fabric Deployments"
+        }
+      },
+      "package_matches": [],
+      "fragmented_package_matches": [],
+      "extracted_matches": [],
+      "alternative_context_matches": [],
+      "audit_pointer": "/pages/83/findings/6"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 85,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "neighbor • Per-ESswitch unique configuration step.",
+        "markdown_lines": [
+          2545,
+          2593
+        ]
+      },
+      "verdict": "unresolved",
+      "reason": "No exact command match; boundaries or continuation remain uncertain",
+      "pdf_line": {
+        "page": 85,
+        "text": "Device(config-router-af)# neighbor • Per-ESswitch unique configuration step.",
+        "x": 203.86599731445312,
+        "top": 177.3249969482422,
+        "bottom": 166.2899932861328,
+        "command_column_text": "Device(config-router-af)# neighbor"
+      },
+      "pdf_command": {
+        "command": "neighbor 10.200.255.102 activate",
+        "first_line": "neighbor",
+        "page": 85,
+        "continuation_uncertain": true
+      },
+      "package_scope": {
+        "lines": [
+          2507,
+          3052
+        ],
+        "method": "page_marker_bracketed",
+        "before": {
+          "line": 2507,
+          "page": 83,
+          "title": "EVPN Multihoming Non-Fabric Network Configuration Guidelines"
+        },
+        "after": {
+          "line": 3053,
+          "page": 95,
+          "title": "Verify the EVPN Multihoming Configuration for Non-Fabric Deployments"
+        }
+      },
+      "extracted_scope": {
+        "lines": [
+          2210,
+          2698
+        ],
+        "method": "page_marker_bracketed",
+        "before": {
+          "line": 2210,
+          "page": 83,
+          "title": "EVPN Multihoming Non-Fabric Network Configuration Guidelines"
+        },
+        "after": {
+          "line": 2699,
+          "page": 95,
+          "title": "Verify the EVPN Multihoming Configuration for Non-Fabric Deployments"
+        }
+      },
+      "package_matches": [],
+      "fragmented_package_matches": [],
+      "extracted_matches": [],
+      "alternative_context_matches": [],
+      "audit_pointer": "/pages/84/findings/2"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 94,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "configure terminal",
+        "markdown_lines": [
+          3000,
+          3040
+        ]
+      },
+      "verdict": "unresolved",
+      "reason": "Multiple matching examples; the occurrence cannot be identified uniquely",
+      "pdf_line": {
+        "page": 94,
+        "text": "Device# configure terminal",
+        "x": 181.46600341796875,
+        "top": 211.20700073242188,
+        "bottom": 204.20700073242188,
+        "command_column_text": "vice# configure terminal"
+      },
+      "pdf_command": {
+        "command": "configure terminal",
+        "first_line": "configure terminal",
+        "page": 94,
+        "continuation_uncertain": false
+      },
+      "package_scope": {
+        "lines": [
+          2507,
+          3052
+        ],
+        "method": "page_marker_bracketed",
+        "before": {
+          "line": 2507,
+          "page": 83,
+          "title": "EVPN Multihoming Non-Fabric Network Configuration Guidelines"
+        },
+        "after": {
+          "line": 3053,
+          "page": 95,
+          "title": "Verify the EVPN Multihoming Configuration for Non-Fabric Deployments"
+        }
+      },
+      "extracted_scope": {
+        "lines": [
+          2210,
+          2698
+        ],
+        "method": "page_marker_bracketed",
+        "before": {
+          "line": 2210,
+          "page": 83,
+          "title": "EVPN Multihoming Non-Fabric Network Configuration Guidelines"
+        },
+        "after": {
+          "line": 2699,
+          "page": 95,
+          "title": "Verify the EVPN Multihoming Configuration for Non-Fabric Deployments"
+        }
+      },
+      "package_matches": [
+        {
+          "line": 2526,
+          "text": "|      | Device# configure terminal                           |",
+          "prompt_present": true
+        },
+        {
+          "line": 2557,
+          "text": "| Command Step 2 configure Example: Device# Step 3 router Example: Step 4 bgp Example: interface Step 5 neighbor Example: | or Action Purpose terminal Enters global configuration mode. configure terminal Configures BGP AutonomousSystem number bgp autonomous-system-number using 2-bytes or 4-bytes in asplain and asdot formats and enters router configuration mode. Device(config)# router bgp 65101 For more information, refer to the BGP Configuration Guide Configures a static BGP router ID on a router-id interface type number Loopback interface. The IPv4 address of the Loopback interface is automatically selected as the BGP router ID. Device(config-router)# bgp router-id Loopback0 Configures static iBGP peering by using the ES-loopback-address remote-as IP address of the Loopback interface of both autonomous-system-number the ES switches. Device(config-router)# neighbor |",
+          "prompt_present": true
+        },
+        {
+          "line": 2604,
+          "text": "|        | Device# configure terminal               |                                             |",
+          "prompt_present": true
+        },
+        {
+          "line": 2752,
+          "text": "| Device# configure terminal                    |                   |                             |                       |                     |",
+          "prompt_present": true
+        },
+        {
+          "line": 2792,
+          "text": "Device# configure terminal",
+          "prompt_present": true
+        },
+        {
+          "line": 2867,
+          "text": "|        | Device# configure terminal               |                                              |",
+          "prompt_present": true
+        },
+        {
+          "line": 2904,
+          "text": "Device# configure terminal",
+          "prompt_present": true
+        }
+      ],
+      "fragmented_package_matches": [],
+      "extracted_matches": [
+        {
+          "line": 2229,
+          "text": "|      | Device# configure terminal                           |",
+          "prompt_present": true
+        },
+        {
+          "line": 2255,
+          "text": "| Command Step 2 configure Example: Device# Step 3 router Example: Step 4 bgp Example: interface Step 5 neighbor Example: | or Action Purpose terminal Enters global configuration mode. configure terminal Configures BGP AutonomousSystem number bgp autonomous-system-number using 2-bytes or 4-bytes in asplain and asdot formats and enters router configuration mode. Device(config)# router bgp 65101 For more information, refer to the BGP Configuration Guide Configures a static BGP router ID on a router-id interface type number Loopback interface. The IPv4 address of the Loopback interface is automatically selected as the BGP router ID. Device(config-router)# bgp router-id Loopback0 Configures static iBGP peering by using the ES-loopback-address remote-as IP address of the Loopback interface of both autonomous-system-number the ES switches. Device(config-router)# neighbor |",
+          "prompt_present": true
+        },
+        {
+          "line": 2298,
+          "text": "|        | Device# configure terminal               |                                             |",
+          "prompt_present": true
+        },
+        {
+          "line": 2446,
+          "text": "| Device# configure terminal                    |                   |                             |                       |                     |",
+          "prompt_present": true
+        },
+        {
+          "line": 2544,
+          "text": "|        | Device# configure terminal               |                                              |",
+          "prompt_present": true
+        }
+      ],
+      "alternative_context_matches": [],
+      "audit_pointer": "/pages/93/findings/2"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 94,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "evpn ethernet-segment",
+        "markdown_lines": [
+          3000,
+          3040
+        ]
+      },
+      "verdict": "audit_false_positive",
+      "reason": "formatting_or_range_comparison",
+      "pdf_line": {
+        "page": 94,
+        "text": "Device(config-if)# evpn ethernet-segment",
+        "x": 189.46600341796875,
+        "top": 568.0780029296875,
+        "bottom": 561.0780029296875,
+        "command_column_text": "Device(config-if)# evpn ethernet-segment"
+      },
+      "pdf_command": {
+        "command": "evpn ethernet-segment",
+        "first_line": "evpn ethernet-segment",
+        "page": 94,
+        "continuation_uncertain": false
+      },
+      "package_scope": {
+        "lines": [
+          2507,
+          3052
+        ],
+        "method": "page_marker_bracketed",
+        "before": {
+          "line": 2507,
+          "page": 83,
+          "title": "EVPN Multihoming Non-Fabric Network Configuration Guidelines"
+        },
+        "after": {
+          "line": 3053,
+          "page": 95,
+          "title": "Verify the EVPN Multihoming Configuration for Non-Fabric Deployments"
+        }
+      },
+      "extracted_scope": {
+        "lines": [
+          2210,
+          2698
+        ],
+        "method": "page_marker_bracketed",
+        "before": {
+          "line": 2210,
+          "page": 83,
+          "title": "EVPN Multihoming Non-Fabric Network Configuration Guidelines"
+        },
+        "after": {
+          "line": 2699,
+          "page": 95,
+          "title": "Verify the EVPN Multihoming Configuration for Non-Fabric Deployments"
+        }
+      },
+      "package_matches": [
+        {
+          "line": 2984,
+          "text": "| Step 19 Step 20 Step 21 Step 22 Step 23 | Command or Action Purpose Configures a Loopback interface asthe source source-interface interface-id interface to enable Layer 2 data communication Example: over a VXLAN tunnel. Device(config-if)# source-interface Loopback0 Configures BGP as the host-reachability host-reachability protocol bgp control-plane protocol on this interface. Example: Device(config-if)# host-reachability protocol bgp Binds the Layer 2 VNI ID in member vni l2vni-id ingress-replication ingress-replication mode. Example: Device(config-if)# member vni 102002 ingress-replication Configures the static Ethernet segment ID to l2vpn evpn ethernet-segment id be assigned to the Layer 2 ES physical port Example: and enters Layer 2 VPN EVPN ethernet segment configuration mode. Device(config-if)# l2vpn evpn ethernet-segment 1 identifier type 0 H.H.H.H.H.H.H.H.H Configure Type 0 or Type 3 manual ES ID. Type 0: Static 9 octet hexadecimal value identifier type 0 H.H.H.H.H.H.H.H.H ES ID for each multihome Layer 2 identifier type 3 system-mac H.H.H network. Example: Type 3: Static 6 bytes of ESI ID system Device(config-evpn-es)# identifier type MAC format with predefined value. |",
+          "prompt_present": true
+        }
+      ],
+      "fragmented_package_matches": [
+        {
+          "line": 2732,
+          "text": "| Device(config-if)#   | evpn ethernet-segment timers in seconds during initial port          |"
+        },
+        {
+          "line": 3027,
+          "text": "| Device(config-if)# | evpn             | ethernet-segment                              |"
+        }
+      ],
+      "extracted_matches": [
+        {
+          "line": 2634,
+          "text": "| Step 19 Step 20 Step 21 Step 22 Step 23 | Command or Action Purpose Configures a Loopback interface asthe source source-interface interface-id interface to enable Layer 2 data communication Example: over a VXLAN tunnel. Device(config-if)# source-interface Loopback0 Configures BGP as the host-reachability host-reachability protocol bgp control-plane protocol on this interface. Example: Device(config-if)# host-reachability protocol bgp Binds the Layer 2 VNI ID in member vni l2vni-id ingress-replication ingress-replication mode. Example: Device(config-if)# member vni 102002 ingress-replication Configures the static Ethernet segment ID to l2vpn evpn ethernet-segment id be assigned to the Layer 2 ES physical port Example: and enters Layer 2 VPN EVPN ethernet segment configuration mode. Device(config-if)# l2vpn evpn ethernet-segment 1 identifier type 0 H.H.H.H.H.H.H.H.H Configure Type 0 or Type 3 manual ES ID. Type 0: Static 9 octet hexadecimal value identifier type 0 H.H.H.H.H.H.H.H.H ES ID for each multihome Layer 2 identifier type 3 system-mac H.H.H network. Example: Type 3: Static 6 bytes of ESI ID system Device(config-evpn-es)# identifier type MAC format with predefined value. |",
+          "prompt_present": true
+        },
+        {
+          "line": 2426,
+          "text": "| Device(config-if)#   | evpn ethernet-segment timers in seconds during initial port          |"
+        },
+        {
+          "line": 2673,
+          "text": "| Device(config-if)# | evpn             | ethernet-segment                              |"
+        }
+      ],
+      "alternative_context_matches": [
+        {
+          "line": 3027,
+          "text": "| Device(config-if)# | evpn             | ethernet-segment                              |"
+        }
+      ],
+      "audit_pointer": "/pages/93/findings/3"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 94,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "interface Vlan 2001",
+        "markdown_lines": [
+          3000,
+          3040
+        ]
+      },
+      "verdict": "unresolved",
+      "reason": "No exact command match; boundaries or continuation remain uncertain",
+      "pdf_line": {
+        "page": 94,
+        "text": "Device(config)# interface Vlan 2001",
+        "x": 181.46600341796875,
+        "top": 157.7209930419922,
+        "bottom": 150.8889923095703,
+        "command_column_text": "vice(config)# interface Vlan 2001"
+      },
+      "pdf_command": {
+        "command": "interface Vlan 2001",
+        "first_line": "interface Vlan 2001",
+        "page": 94,
+        "continuation_uncertain": false
+      },
+      "package_scope": {
+        "lines": [
+          2507,
+          3052
+        ],
+        "method": "page_marker_bracketed",
+        "before": {
+          "line": 2507,
+          "page": 83,
+          "title": "EVPN Multihoming Non-Fabric Network Configuration Guidelines"
+        },
+        "after": {
+          "line": 3053,
+          "page": 95,
+          "title": "Verify the EVPN Multihoming Configuration for Non-Fabric Deployments"
+        }
+      },
+      "extracted_scope": {
+        "lines": [
+          2210,
+          2698
+        ],
+        "method": "page_marker_bracketed",
+        "before": {
+          "line": 2210,
+          "page": 83,
+          "title": "EVPN Multihoming Non-Fabric Network Configuration Guidelines"
+        },
+        "after": {
+          "line": 2699,
+          "page": 95,
+          "title": "Verify the EVPN Multihoming Configuration for Non-Fabric Deployments"
+        }
+      },
+      "package_matches": [],
+      "fragmented_package_matches": [],
+      "extracted_matches": [],
+      "alternative_context_matches": [],
+      "audit_pointer": "/pages/93/findings/4"
+    },
+    {
+      "kind": "command",
+      "pdf_page": 94,
+      "candidate": {
+        "kind": "possible_missing_or_changed_prompt_command",
+        "command": "ip address",
+        "markdown_lines": [
+          3000,
+          3040
+        ]
+      },
+      "verdict": "unresolved",
+      "reason": "No exact command match; boundaries or continuation remain uncertain",
+      "pdf_line": {
+        "page": 94,
+        "text": "systems. Device(config-if)# ip address",
+        "x": 181.46600341796875,
+        "top": 104.23500061035156,
+        "bottom": 93.08000183105469,
+        "command_column_text": "svice(config-if)# ip address"
+      },
+      "pdf_command": {
+        "command": "ip address",
+        "first_line": "ip address",
+        "page": 94,
+        "continuation_uncertain": false
+      },
+      "package_scope": {
+        "lines": [
+          2507,
+          3052
+        ],
+        "method": "page_marker_bracketed",
+        "before": {
+          "line": 2507,
+          "page": 83,
+          "title": "EVPN Multihoming Non-Fabric Network Configuration Guidelines"
+        },
+        "after": {
+          "line": 3053,
+          "page": 95,
+          "title": "Verify the EVPN Multihoming Configuration for Non-Fabric Deployments"
+        }
+      },
+      "extracted_scope": {
+        "lines": [
+          2210,
+          2698
+        ],
+        "method": "page_marker_bracketed",
+        "before": {
+          "line": 2210,
+          "page": 83,
+          "title": "EVPN Multihoming Non-Fabric Network Configuration Guidelines"
+        },
+        "after": {
+          "line": 2699,
+          "page": 95,
+          "title": "Verify the EVPN Multihoming Configuration for Non-Fabric Deployments"
+        }
+      },
+      "package_matches": [],
+      "fragmented_package_matches": [],
+      "extracted_matches": [],
+      "alternative_context_matches": [],
+      "audit_pointer": "/pages/93/findings/5"
+    }
+  ]
+}

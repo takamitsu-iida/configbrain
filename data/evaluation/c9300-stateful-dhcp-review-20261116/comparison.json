@@ -1,0 +1,405 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-11-16T13:25:16.210891+00:00",
+  "review_method": "AI-assisted direct visual review of rendered PDF pages, cross-checked with PDF text and independently transcribed field comparison. Not an authenticated human approval or an operational test.",
+  "verdict": "matches_with_documented_normalization",
+  "application_approved": false,
+  "candidate": {
+    "path": "/home/iida/git/configbrain/data/corrections/c9300-stateful-dhcp/stateful-dhcp.md",
+    "sha256": "eaca8533620bff3261dc51f8ea0d4a0c99f02da5c357a5a790471b78ab3dffa5"
+  },
+  "pdf": {
+    "path": "/home/iida/git/configbrain/data/products/catalyst9300/raw/catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d/b_26x_ip_9300_cg.pdf",
+    "sha256": "158e784d02aee08881c68010114559a373b810ec41c6cb6a2c3ba5daef4320f1",
+    "physical_pages": [
+      39,
+      40
+    ],
+    "printed_pages": [
+      21,
+      22
+    ]
+  },
+  "introduction_matches": true,
+  "existing_heading_and_anchor_preserved": true,
+  "password_condition_preserved": true,
+  "following_section_excluded": true,
+  "steps_compared": 14,
+  "command_exact_after_whitespace_normalization": 13,
+  "command_documented_source_example_normalization": 1,
+  "examples_matched_after_layout_normalization": 14,
+  "purposes_matched_after_layout_normalization": 14,
+  "steps": [
+    {
+      "step": 1,
+      "physical_pdf_pages": [
+        39
+      ],
+      "command": {
+        "source_normalized_from_visual_review": "enable",
+        "candidate": "enable",
+        "verdict": "matches"
+      },
+      "example": {
+        "source_visual_lines": [
+          "Device> enable"
+        ],
+        "candidate": "Device> enable",
+        "verdict": "matches"
+      },
+      "purpose": {
+        "source_normalized_from_visual_review": "Enables privileged EXEC mode. Enter your password if prompted.",
+        "candidate": "Enables privileged EXEC mode. Enter your password if prompted.",
+        "verdict": "matches"
+      }
+    },
+    {
+      "step": 2,
+      "physical_pdf_pages": [
+        39
+      ],
+      "command": {
+        "source_normalized_from_visual_review": "configure terminal",
+        "candidate": "configure terminal",
+        "verdict": "matches"
+      },
+      "example": {
+        "source_visual_lines": [
+          "Device# configure terminal"
+        ],
+        "candidate": "Device# configure terminal",
+        "verdict": "matches"
+      },
+      "purpose": {
+        "source_normalized_from_visual_review": "Enters global configuration mode.",
+        "candidate": "Enters global configuration mode.",
+        "verdict": "matches"
+      }
+    },
+    {
+      "step": 3,
+      "physical_pdf_pages": [
+        39
+      ],
+      "command": {
+        "source_normalized_from_visual_review": "ipv6 unicast-routing",
+        "candidate": "ipv6 unicast-routing",
+        "verdict": "matches"
+      },
+      "example": {
+        "source_visual_lines": [
+          "Device(config)# ipv6 unicast-routing"
+        ],
+        "candidate": "Device(config)# ipv6 unicast-routing",
+        "verdict": "matches"
+      },
+      "purpose": {
+        "source_normalized_from_visual_review": "Configures the IPv6 for unicasting.",
+        "candidate": "Configures the IPv6 for unicasting.",
+        "verdict": "matches"
+      }
+    },
+    {
+      "step": 4,
+      "physical_pdf_pages": [
+        39
+      ],
+      "command": {
+        "source_normalized_from_visual_review": "dns-server 2001:100:0:1::1",
+        "candidate": "dns-server 2001:100:0:1::1",
+        "verdict": "matches"
+      },
+      "example": {
+        "source_visual_lines": [
+          "Device(config-dhcpv6)# dns-server",
+          "2001:100:0:1::1"
+        ],
+        "candidate": "Device(config-dhcpv6)# dns-server 2001:100:0:1::1",
+        "verdict": "matches_after_line_wrap_join"
+      },
+      "purpose": {
+        "source_normalized_from_visual_review": "Provides the DNS server option to DHCP clients.",
+        "candidate": "Provides the DNS server option to DHCP clients.",
+        "verdict": "matches"
+      }
+    },
+    {
+      "step": 5,
+      "physical_pdf_pages": [
+        39
+      ],
+      "command": {
+        "source_normalized_from_visual_review": "domain-name example.com",
+        "candidate": "domain-name example.com",
+        "verdict": "matches"
+      },
+      "example": {
+        "source_visual_lines": [
+          "Device(config-dhcpv6)# domain-name",
+          "example.com"
+        ],
+        "candidate": "Device(config-dhcpv6)# domain-name example.com",
+        "verdict": "matches_after_line_wrap_join"
+      },
+      "purpose": {
+        "source_normalized_from_visual_review": "Provides the domain name option to DHCP clients.",
+        "candidate": "Provides the domain name option to DHCP clients.",
+        "verdict": "matches"
+      }
+    },
+    {
+      "step": 6,
+      "physical_pdf_pages": [
+        39
+      ],
+      "command": {
+        "source_normalized_from_visual_review": "exit",
+        "candidate": "exit",
+        "verdict": "matches"
+      },
+      "example": {
+        "source_visual_lines": [
+          "Device(config-dhcpv6)# exit"
+        ],
+        "candidate": "Device(config-dhcpv6)# exit",
+        "verdict": "matches"
+      },
+      "purpose": {
+        "source_normalized_from_visual_review": "Returns to the previous mode.",
+        "candidate": "Returns to the previous mode.",
+        "verdict": "matches"
+      }
+    },
+    {
+      "step": 7,
+      "physical_pdf_pages": [
+        39
+      ],
+      "command": {
+        "source_normalized_from_visual_review": "interface vlan 1",
+        "candidate": "interface vlan 1",
+        "verdict": "matches"
+      },
+      "example": {
+        "source_visual_lines": [
+          "Device(config)# interface vlan 1"
+        ],
+        "candidate": "Device(config)# interface vlan 1",
+        "verdict": "matches"
+      },
+      "purpose": {
+        "source_normalized_from_visual_review": "Enters the interface mode to configure the stateful DHCP.",
+        "candidate": "Enters the interface mode to configure the stateful DHCP.",
+        "verdict": "matches"
+      }
+    },
+    {
+      "step": 8,
+      "physical_pdf_pages": [
+        39
+      ],
+      "command": {
+        "source_normalized_from_visual_review": "description IPv6-DHCP-Stateful",
+        "candidate": "description IPv6-DHCP-Stateful",
+        "verdict": "matches"
+      },
+      "example": {
+        "source_visual_lines": [
+          "Device(config-if)# description",
+          "IPv6-DHCP-Stateful"
+        ],
+        "candidate": "Device(config-if)# description IPv6-DHCP-Stateful",
+        "verdict": "matches_after_line_wrap_join"
+      },
+      "purpose": {
+        "source_normalized_from_visual_review": "Enter description for the stateful IPv6 DHCP.",
+        "candidate": "Enter description for the stateful IPv6 DHCP.",
+        "verdict": "matches"
+      }
+    },
+    {
+      "step": 9,
+      "physical_pdf_pages": [
+        39,
+        40
+      ],
+      "command": {
+        "source_normalized_from_visual_review": "ipv6 address 2001:DB8:0:20::1/64",
+        "candidate": "ipv6 address 2001:DB8:0:20::1/64",
+        "verdict": "matches"
+      },
+      "example": {
+        "source_visual_lines": [
+          "Device(config-if)# ipv6 address",
+          "2001:DB8:0:20::1/64"
+        ],
+        "candidate": "Device(config-if)# ipv6 address 2001:DB8:0:20::1/64",
+        "verdict": "matches_after_line_wrap_join"
+      },
+      "purpose": {
+        "source_normalized_from_visual_review": "Enters the IPv6 address for the stateful IPv6 DHCP.",
+        "candidate": "Enters the IPv6 address for the stateful IPv6 DHCP.",
+        "verdict": "matches"
+      }
+    },
+    {
+      "step": 10,
+      "physical_pdf_pages": [
+        40
+      ],
+      "command": {
+        "source_normalized_from_visual_review": "ip address 192.168.20.1 255.255.255.0",
+        "candidate": "ip address 192.168.20.1 255.255.255.0",
+        "verdict": "matches"
+      },
+      "example": {
+        "source_visual_lines": [
+          "Device(config-if)# ip address",
+          "192.168.20.1 255.255.255.0"
+        ],
+        "candidate": "Device(config-if)# ip address 192.168.20.1 255.255.255.0",
+        "verdict": "matches_after_line_wrap_join"
+      },
+      "purpose": {
+        "source_normalized_from_visual_review": "Enters the IPv6 address for the stateful IPv6 DHCP.",
+        "candidate": "Enters the IPv6 address for the stateful IPv6 DHCP.",
+        "verdict": "matches"
+      }
+    },
+    {
+      "step": 11,
+      "physical_pdf_pages": [
+        40
+      ],
+      "command": {
+        "source_normalized_from_visual_review": "ipv6 nd prefix 2001:db8::/64 no-advertise",
+        "candidate": "ipv6 nd prefix 2001:db8::/64 no-advertise",
+        "verdict": "matches"
+      },
+      "example": {
+        "source_visual_lines": [
+          "Device(config-if)# ipv6 nd prefix",
+          "2001:db8::/64 no-advertise"
+        ],
+        "candidate": "Device(config-if)# ipv6 nd prefix 2001:db8::/64 no-advertise",
+        "verdict": "matches_after_line_wrap_join"
+      },
+      "purpose": {
+        "source_normalized_from_visual_review": "Configures the IPv6 routing prefix advertisement that must not be advertised.",
+        "candidate": "Configures the IPv6 routing prefix advertisement that must not be advertised.",
+        "verdict": "matches"
+      }
+    },
+    {
+      "step": 12,
+      "physical_pdf_pages": [
+        40
+      ],
+      "command": {
+        "source_normalized_from_visual_review": "ipv6 nd managed-config-flag",
+        "candidate": "ipv6 nd managed-config-flag",
+        "verdict": "matches"
+      },
+      "example": {
+        "source_visual_lines": [
+          "Device(config-if)# ipv6 nd",
+          "managed-config-flag"
+        ],
+        "candidate": "Device(config-if)# ipv6 nd managed-config-flag",
+        "verdict": "matches_after_line_wrap_join"
+      },
+      "purpose": {
+        "source_normalized_from_visual_review": "Configures IPv6 interfaces neighbor discovery to allow the hosts to uses DHCP for address configuration.",
+        "candidate": "Configures IPv6 interfaces neighbor discovery to allow the hosts to uses DHCP for address configuration.",
+        "verdict": "matches"
+      }
+    },
+    {
+      "step": 13,
+      "physical_pdf_pages": [
+        40
+      ],
+      "command": {
+        "source_normalized_from_visual_review": "ipv6 nd other-config-flag",
+        "candidate": "ipv6 nd other-config-flag",
+        "verdict": "matches"
+      },
+      "example": {
+        "source_visual_lines": [
+          "Device(config-if)# ipv6 nd",
+          "other-config-flag"
+        ],
+        "candidate": "Device(config-if)# ipv6 nd other-config-flag",
+        "verdict": "matches_after_line_wrap_join"
+      },
+      "purpose": {
+        "source_normalized_from_visual_review": "Configures IPv6 interfaces neighbor discovery to allow the hosts to uses DHCP for non-address configuration.",
+        "candidate": "Configures IPv6 interfaces neighbor discovery to allow the hosts to uses DHCP for non-address configuration.",
+        "verdict": "matches"
+      }
+    },
+    {
+      "step": 14,
+      "physical_pdf_pages": [
+        40
+      ],
+      "command": {
+        "source_normalized_from_visual_review": "ipv6 dhcp relaydestination 2001:DB8:0:20::2",
+        "candidate": "ipv6 dhcp relay destination 2001:DB8:0:20::2",
+        "verdict": "matches_after_documented_source_example_normalization"
+      },
+      "example": {
+        "source_visual_lines": [
+          "Device(config-if)# ipv6 dhcp relay",
+          "destination 2001:DB8:0:20::2"
+        ],
+        "candidate": "Device(config-if)# ipv6 dhcp relay destination 2001:DB8:0:20::2",
+        "verdict": "matches_after_line_wrap_join"
+      },
+      "purpose": {
+        "source_normalized_from_visual_review": "Configures the DHCP server on the interface.",
+        "candidate": "Configures the DHCP server on the interface.",
+        "verdict": "matches"
+      }
+    }
+  ],
+  "source_caveats": [
+    "Step 10: IPv4 command has IPv6 purpose wording in the source; preserved unchanged.",
+    "Step 14: command-cell relaydestination is printed without a space; the candidate follows the source example relay plus destination across a visual line break.",
+    "Mode transition between Step 3 config and Step 4 config-dhcpv6 is not specified in this procedure and was not invented.",
+    "PDF text-layer ConfiguresIPv6 in Steps 12-13 has a visible word boundary; candidate uses Configures IPv6."
+  ],
+  "mechanical_check": {
+    "command": [
+      "/home/iida/git/configbrain/.venv/bin/python",
+      "scripts/apply_corrections.py",
+      "check",
+      "data/corrections/c9300-stateful-dhcp/corrections.json",
+      "--output-dir",
+      "data/evaluation/c9300-stateful-dhcp-review-20261116/check"
+    ],
+    "exit_code": 2,
+    "status": "validated_review_required",
+    "manifest": "data/evaluation/c9300-stateful-dhcp-review-20261116/check/manifest.json",
+    "manual_emitted": false
+  },
+  "original_files_verified_unchanged": 72,
+  "evidence_files": [
+    {
+      "path": "evidence/pdf-page-39.png",
+      "sha256": "2f69f2c8887ad5aa37b79be47f0a363d9cce987230b2c3c0d2e8a0c1e8154418"
+    },
+    {
+      "path": "evidence/pdf-page-39.txt",
+      "sha256": "67e3b4563eee2cfdaa0a23c663709f16eb81d711ad1f7f2eb05758b25cd5aeae"
+    },
+    {
+      "path": "evidence/pdf-page-40.png",
+      "sha256": "544250eedad6640f2e5266933a239e296dd49120a41ef7914a05b0e7cb07fa98"
+    },
+    {
+      "path": "evidence/pdf-page-40.txt",
+      "sha256": "5558b8a0d8c8fbd16906685de9f336526d062c3c4bb7634e89d5251fca54607f"
+    }
+  ]
+}
