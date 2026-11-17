@@ -1,24 +1,13 @@
 [project]
-name = "configbrain2"
+name = "configbrain"
 version = "0.1.0"
-description = "A pipeline for converting Cisco manuals into Open Knowledge Format packages."
+description = "Generate useful Cisco configurations grounded in official manuals."
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = [
-    "beautifulsoup4>=4.15.0",
-    "fastapi>=0.162.7",
-    "frictionless>=5.18.1",
-    "marker-pdf>=1.10.0",
-    "pypdfium2>=4.30.0",
-    "qdrant-client>=1.15.0",
-    "uvicorn>=0.54.0",
-]
+dependencies = []
 
 [dependency-groups]
-dev = [
-    "httpx>=0.28.1",
-    "pytest>=8.0",
-]
+dev = ["pytest>=8.0"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

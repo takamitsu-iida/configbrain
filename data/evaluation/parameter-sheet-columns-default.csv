@@ -1,2 +1,0 @@
-機種,バージョン,ユーザーVLAN,接続ポート,ゲートウェイ,SVIのVRF,転送先,転送先のVRF,IP routing,service dhcp
-catalyst9300,26.x,120,GigabitEthernet1/0/20,192.0.2.1/24,default,198.51.100.50,default,already_enabled,already_enabled

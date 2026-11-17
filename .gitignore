@@ -5,19 +5,7 @@ __pycache__/
 .env
 *.py[cod]
 
-# Machine-specific TLS trust bundle
+# Machine-specific trust material and copyrighted source manuals stay local.
 certs/*.pem
-
-# Local pipeline artifacts and generated indexes
-data/products/
-data/qdrant/
-data/trials/
-
-# Generated evaluation outputs
-data/evaluation/results*.json
-data/evaluation/*-poc.json
-data/evaluation/reproducibility*/
-data/evaluation/pilot/
-
-# Source manuals must remain local
+data/source_manuals/
 *.pdf
