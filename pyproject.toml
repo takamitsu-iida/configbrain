@@ -4,7 +4,15 @@ version = "0.1.0"
 description = "Generate useful Cisco configurations grounded in official manuals."
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "beautifulsoup4>=4.15.0",
+    "frictionless>=5.18.1",
+    "markdown-it-py>=4.3.0",
+    "markdownify>=1.2.0",
+    "pypdfium2>=4.30.0",
+    "qdrant-client>=1.20.0",
+    "sentence-transformers>=6.3.0",
+]
 
 [dependency-groups]
 dev = ["pytest>=8.0"]

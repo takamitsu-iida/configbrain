@@ -8,4 +8,6 @@ __pycache__/
 # Machine-specific trust material and copyrighted source manuals stay local.
 certs/*.pem
 data/source_manuals/
+data/okf/
+data/qdrant/
 *.pdf
