@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "purpose": "evaluation_only",
+  "generation_method": "assistant_review_of_locally_expanded_search_results",
+  "product": "catalyst9300",
+  "release": "26.x",
+  "requirement": "VLAN 120を作成し、アクセスポートに割り当てる",
+  "selection_sha256": "e12abc47637ccc14b363a307349edbe0e4068da566e8cf72cdcc42c38e0d573b",
+  "search_results_sha256": "3828c07275a43ca255248df719e7be7e7b77e31d5e6c69ea8652d17ed1ebd03a",
+  "dataset_fingerprint": "1d6f7bf0c2be29b09cf8dd1d9ca9de2738224bb01bcf8effd38d4b80f37704a4",
+  "evidence_status": "candidates_only",
+  "pdf_verification_status": "not_verified_for_this_draft",
+  "configuration_complete": false,
+  "ready_to_apply": false,
+  "device_changes_performed": false,
+  "document": {
+    "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+    "chapter_order": 3,
+    "chapter_title": "Configuring VLANs",
+    "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg/configuring_vlans.html",
+    "manual_path": "../okf/catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc/manual.md",
+    "manual_sha256": "de26413f42b2498a82b679cb3dd95cdf10bec17c0c086df862987054b96b71a9",
+    "source_pdf_path": "../source_manuals/catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc/b_26x_vlan_9300_cg.pdf",
+    "source_pdf_sha256": "47bc77c74d68871e1941b3d7f8bd94ef46453c30d0f5a4443a68ce03022f47d4",
+    "pdf_page_index": 35,
+    "pdf_page_scope": "chapter_start",
+    "verified_procedure_pdf_pages": []
+  },
+  "sources": [
+    {
+      "source_id": "vlan_creation",
+      "context_id": "lines-304-610",
+      "section_path": ["Configuring VLANs", "How to Configure VLANs", "How to Configure Normal-Range VLANs", "Creating or Modifying an Ethernet VLAN"],
+      "manual_line_start": 2768,
+      "manual_line_end": 3074,
+      "table_index": 4
+    },
+    {
+      "source_id": "access_assignment",
+      "context_id": "lines-791-1027",
+      "section_path": ["Configuring VLANs", "How to Configure VLANs", "How to Configure Normal-Range VLANs", "Assigning Static-Access Ports to a VLAN"],
+      "manual_line_start": 3255,
+      "manual_line_end": 3491,
+      "table_index": 9
+    },
+    {
+      "source_id": "prerequisites",
+      "context_id": "lines-5-16",
+      "manual_line_start": 2469,
+      "manual_line_end": 2480
+    },
+    {
+      "source_id": "restrictions",
+      "context_id": "lines-17-58",
+      "manual_line_start": 2481,
+      "manual_line_end": 2522
+    },
+    {
+      "source_id": "normal_range_guidelines",
+      "context_id": "lines-226-254",
+      "manual_line_start": 2690,
+      "manual_line_end": 2718
+    }
+  ],
+  "assumptions_requiring_confirmation": [
+    "The request concerns an ordinary Ethernet data VLAN, not a voice, private or remote-SPAN VLAN.",
+    "Each command block starts at privileged EXEC mode on the intended switch.",
+    "The current device state and VTP configuration permit local VLAN creation."
+  ],
+  "items": [
+    {
+      "requirement": "VLAN 120をスイッチ上に作成する",
+      "status": "partial",
+      "assessment": "The source describes VLAN creation and the requested ID is within the normal configurable range. Device prerequisites and an unusual media-setting step still need review.",
+      "partial_configuration": [
+        {"cli": "configure terminal", "source_id": "vlan_creation", "step": 1, "row_index": 2},
+        {"cli": "vlan 120", "source_id": "vlan_creation", "step": 2, "row_index": 3, "substitution": {"vlan-id": 120, "origin": "user_requirement"}},
+        {"cli": "end", "source_id": "vlan_creation", "step": 5, "row_index": 6}
+      ],
+      "verification": [
+        {"cli": "show vlan id 120", "source_id": "vlan_creation", "step": 7, "row_index": 8, "substitution": {"vlan-id": 120, "origin": "user_requirement"}}
+      ],
+      "missing_information": [
+        "Current VTP version, mode and domain; whether VLANs are centrally managed.",
+        "Whether VLAN 120 already exists and what currently uses it.",
+        "Applicable device capacity and spanning-tree constraints."
+      ],
+      "source_ids": ["vlan_creation", "prerequisites", "normal_range_guidelines"],
+      "withheld_source_steps": [
+        {
+          "step": 4,
+          "cli": "media ethernet",
+          "reason": "The retrieved procedure lists a media-setting step without an optional marker. Its applicability and whether it may be omitted on this target require PDF/command-reference review; the partial block is not a reproduction of the complete procedure."
+        },
+        {
+          "step": 6,
+          "cli": "end",
+          "reason": "The retrieved procedure repeats end in Steps 5 and 6. The duplicate is not presented as a justified additional mode transition."
+        }
+      ],
+      "optional_settings_not_added": ["VLAN name"]
+    },
+    {
+      "requirement": "物理アクセスポートをVLAN 120に割り当てる",
+      "status": "needs_input",
+      "assessment": "The source directly describes static access-port mode and VLAN assignment, but the target interface is unspecified.",
+      "configuration": [],
+      "non_executable_template": [
+        {"cli": "configure terminal", "source_id": "access_assignment", "step": 2, "row_index": 3},
+        {"cli": "interface <INTERFACE_ID>", "source_id": "access_assignment", "step": 3, "row_index": 4, "unresolved_parameters": ["INTERFACE_ID"]},
+        {"cli": "switchport mode access", "source_id": "access_assignment", "step": 4, "row_index": 5},
+        {"cli": "switchport access vlan 120", "source_id": "access_assignment", "step": 5, "row_index": 6, "substitution": {"vlan-id": 120, "origin": "user_requirement"}},
+        {"cli": "end", "source_id": "access_assignment", "step": 6, "row_index": 7}
+      ],
+      "verification_templates": [
+        {"cli": "show running-config interface <INTERFACE_ID>", "source_id": "access_assignment", "step": 7, "row_index": 8, "unresolved_parameters": ["INTERFACE_ID"]},
+        {"cli": "show interfaces <INTERFACE_ID> switchport", "source_id": "access_assignment", "step": 8, "row_index": 9, "unresolved_parameters": ["INTERFACE_ID"]}
+      ],
+      "missing_information": [
+        "Target interface identifier.",
+        "Existing interface configuration and whether changing its role is authorized.",
+        "Whether the interface belongs to a port channel; the source restricts changes to the port channel when interfaces are bundled.",
+        "Confirmation that VLAN 120 is available before assigning the port."
+      ],
+      "source_ids": ["access_assignment", "prerequisites", "restrictions"],
+      "optional_settings_not_added": ["copy running-config startup-config"]
+    }
+  ],
+  "inference_candidates": [],
+  "next_checks": [
+    "Confirm the target interface, current switch configuration and intended VLAN type.",
+    "Check the cited procedures and cautions against the original PDF; resolve the media step and repeated end before treating the draft as a complete procedure.",
+    "Confirm applicable VTP and port-channel constraints without automatically changing them.",
+    "After review, use the cited verification commands to define expected results; no command has been executed on a device."
+  ]
+}

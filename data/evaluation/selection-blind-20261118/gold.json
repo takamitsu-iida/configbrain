@@ -1,0 +1,37 @@
+{
+  "catalog_sha256": "607168b871f1ff73c652609b2b0a95bf82821e8f752f2ed7705a6976817ff288",
+  "chapters": {
+    "I": ["catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f", 2],
+    "D": ["catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d", 4],
+    "R4": ["catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b", 5],
+    "R6": ["catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b", 6],
+    "N": ["catalyst9300-26-x-b-26x-nmgmt-9300-cg-3e060c1d1d52", 7],
+    "S": ["catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f", 2],
+    "L": ["catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f", 8],
+    "T": ["catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc", 2],
+    "V": ["catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc", 3]
+  },
+  "items": {
+    "routed-port-ipv4/routed-port": [["I", "R4"]],
+    "routed-port-ipv4/ipv4": [["I", "R4"]],
+    "interface-description/description": [["I"]],
+    "access-vlan/access": [["V"]],
+    "dhcp-relay/relay": [["D"]],
+    "dhcp-pool/pool": null,
+    "ipv6-interface/routing": [["R6"]],
+    "ipv6-interface/svi-ipv6": [["I"], ["R6"]],
+    "ntp-server/ntp": [["S"]],
+    "syslog-server/syslog": [["L"]],
+    "snmp-community/snmp": [["N"]],
+    "interface-shutdown/shutdown": [["I"]],
+    "minimal-interface-range/range": [["I"]],
+    "minimal-interface-range/access": [["V"]],
+    "vtp-transparent/vtp": [["T"]],
+    "vlan-name/vlan": [["V"]],
+    "parameter-vlan120/vlan": [["V"]],
+    "parameter-vlan120/access": [["V"]],
+    "parameter-vlan120/svi-ipv4": [["I"]],
+    "parameter-vlan120/relay": [["D"]],
+    "stateful-dhcpv6/procedure": [["D"]]
+  }
+}

@@ -1,3 +1,4 @@
+from dataclasses import replace
 from pathlib import Path
 
 import pytest
@@ -5,6 +6,7 @@ from qdrant_client import QdrantClient
 
 from configbrain.index_manuals import (
     COLLECTION_ALIAS,
+    IndexingError,
     ManualChapter,
     ManualDocument,
     _active_collection,
@@ -109,10 +111,87 @@ def test_chunking_keeps_table_columns_and_source_metadata() -> None:
     )
     assert all(len(WordTokenizer().encode(chunk.text)) <= 96 for chunk in chunks)
     assert any(chunk.payload["pdf_page_index"] == 12 for chunk in chunks)
+    assert all(chunk.payload["pdf_page_scope"] == "chapter_start" for chunk in chunks)
+    assert all("PDF chapter start page: 12" in chunk.text for chunk in chunks)
     assert any(
         any(reference.get("table_index") == 1 for reference in chunk.payload["source_refs"])
         for chunk in chunks
     )
+
+
+def test_table_rows_survive_blank_lines_and_nested_tables() -> None:
+    markdown = """## Procedure
+
+<table>
+<thead><tr><th>Step</th><th>Command</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>first</td><td>First step.</td></tr>
+
+<tr><td>2</td><td><pre>second
+
+example</pre></td><td>Second step.
+<!-- </table> -->
+<table><tr><th>Note</th></tr><tr><td>Nested detail</td></tr></table>
+</td></tr>
+
+<tr><td>3</td><td>third</td><td>Third step.</td></tr>
+</tbody>
+</table>
+
+## Next section
+
+After the table.
+"""
+    blocks = extract_text_blocks(markdown)
+    rows = [block for block in blocks if block.kind == "table"]
+    outer = [block for block in rows if block.source_refs[0]["table_index"] == 1]
+    assert [block.source_refs[0]["row_index"] for block in outer] == [2, 3, 4]
+    assert "Command: second example" in outer[1].text
+    assert "Purpose: Second step. Note Nested detail" in outer[1].text
+    assert all(block.section_path == ("Procedure",) for block in outer)
+    assert all(block.source_refs[0]["okf_line_start"] == 3 for block in outer)
+    assert all(block.source_refs[0]["okf_line_end"] == 17 for block in outer)
+    assert any(block.source_refs[0]["table_index"] == 2 for block in rows)
+    assert any(
+        block.section_path[-1:] == ("Next section",) and "After the table." in block.text
+        for block in blocks
+    )
+
+
+def test_unclosed_html_table_fails_instead_of_indexing_partial_rows() -> None:
+    for markdown in (
+        "## Procedure\n\n<table>\n<tr><td>Incomplete</td></tr>\n",
+        "<table>\n</table><table>\n<tr><td>Incomplete</td></tr>\n",
+        "<table\n",
+    ):
+        with pytest.raises(IndexingError, match="Unclosed HTML table"):
+            extract_text_blocks(markdown)
+
+
+def test_table_markup_in_a_code_fence_is_not_treated_as_a_table() -> None:
+    blocks = extract_text_blocks("```html\n<table>\n```\n")
+    assert len(blocks) == 1
+    assert blocks[0].kind == "code"
+
+
+def test_table_in_a_list_preserves_rows_after_a_blank_line() -> None:
+    blocks = extract_text_blocks(
+        "- <table><tr><th>Step</th></tr>\n"
+        "  <tr><td>1</td></tr>\n\n"
+        "  <tr><td>2</td></tr></table>\n"
+    )
+    rows = [block for block in blocks if block.kind == "table"]
+    assert [row.source_refs[0]["row_index"] for row in rows] == [2, 3]
+    assert "Step: 2" in rows[1].text
+
+
+def test_unmapped_chapter_has_no_pdf_page_in_chunk_context() -> None:
+    document = make_document()
+    chapter = replace(document.chapters[0], pdf_page_index=None, pdf_mapping_status="unmapped")
+    document = replace(document, chapters=(chapter,))
+    chunks = build_chunks((document,), WordTokenizer(), 96, "generation")
+    assert all(chunk.payload["pdf_page_scope"] == "unmapped" for chunk in chunks)
+    assert all("PDF chapter start page:" not in chunk.text for chunk in chunks)
 
 
 def test_local_qdrant_index_is_idempotent_and_replaces_active_generation(

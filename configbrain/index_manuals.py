@@ -10,18 +10,20 @@ import re
 import sys
 import uuid
 from dataclasses import dataclass
+from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any, Protocol, Sequence
 
 from bs4 import BeautifulSoup
 from frictionless import Package
 from markdown_it import MarkdownIt
+from markdown_it.rules_block.state_block import StateBlock
 from qdrant_client import QdrantClient, models
 
 EMBEDDING_MODEL = "intfloat/multilingual-e5-small"
 COLLECTION_ALIAS = "c9300_iosxe26_manuals"
 COLLECTION_PREFIX = "cb_c9300_iosxe26_"
-INDEX_FORMAT_VERSION = 1
+INDEX_FORMAT_VERSION = 2
 EMBEDDING_BATCH_SIZE = 32
 UPSERT_BATCH_SIZE = 128
 MAX_SEQUENCE_MARGIN = 4
@@ -136,8 +138,8 @@ def _validate_package(package_dir: Path) -> dict[str, Any]:
     report = Package(str(package_dir / "datapackage.json")).validate()
     if not report.valid:
         details = "; ".join(
-            f"{error.get('code')}: {error.get('message')}"
-            for error in report.flatten(["code", "message"])
+            f"{code}: {message}"
+            for code, message in report.flatten(["code", "message"])
         )
         raise IndexingError(f"Invalid OKF package {package_dir}: {details}")
     return _read_json(package_dir / "datapackage.json", "Data Package descriptor")
@@ -284,6 +286,53 @@ def _visible_html_text(html: str) -> str:
     return " ".join(soup.get_text(" ", strip=True).split())
 
 
+class _TableBoundaryParser(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.depth = 0
+        self.complete = False
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if tag == "table":
+            self.depth += 1
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "table" and self.depth:
+            self.depth -= 1
+            if self.depth == 0:
+                self.complete = True
+
+
+def _html_table_block(
+    state: StateBlock, start_line: int, end_line: int, silent: bool
+) -> bool:
+    if state.is_code_block(start_line) or not state.md.options.get("html"):
+        return False
+    position = state.bMarks[start_line] + state.tShift[start_line]
+    line = state.src[position : state.eMarks[start_line]]
+    if not re.match(r"<table(?=\s|/?>|$)", line, re.IGNORECASE):
+        return False
+    if silent:
+        return True
+
+    boundary = _TableBoundaryParser()
+    next_line = start_line
+    while next_line < end_line:
+        boundary.feed(
+            state.src[state.bMarks[next_line] : state.eMarks[next_line]] + "\n"
+        )
+        next_line += 1
+        if boundary.complete and boundary.depth == 0:
+            break
+    if not boundary.complete or boundary.depth:
+        raise IndexingError(f"Unclosed HTML table at chapter line {start_line + 1}")
+    state.line = next_line
+    token = state.push("html_block", "", 0)
+    token.map = [start_line, next_line]
+    token.content = state.getLines(start_line, next_line, state.blkIndent, True)
+    return True
+
+
 def _table_blocks(
     table: Any,
     table_index: int,
@@ -394,8 +443,14 @@ def _table_blocks(
     return blocks
 
 
-def extract_text_blocks(markdown: str) -> tuple[TextBlock, ...]:
+def manual_markdown_parser() -> MarkdownIt:
     parser = MarkdownIt("commonmark")
+    parser.block.ruler.before("html_block", "complete_html_table", _html_table_block)
+    return parser
+
+
+def extract_text_blocks(markdown: str) -> tuple[TextBlock, ...]:
+    parser = manual_markdown_parser()
     blocks: list[TextBlock] = []
     section_path: list[str] = []
     pending_heading_level: int | None = None
@@ -451,11 +506,16 @@ def extract_text_blocks(markdown: str) -> tuple[TextBlock, ...]:
                     "okf_line_start": token.map[0] + 1,
                     "okf_line_end": token.map[1],
                 }
-            for table in list(soup.find_all("table")):
+            tables = list(soup.find_all("table"))
+            top_level_tables = [
+                table for table in tables if table.find_parent("table") is None
+            ]
+            for table in tables:
                 table_index += 1
                 blocks.extend(
                     _table_blocks(table, table_index, tuple(section_path), source_ref)
                 )
+            for table in top_level_tables:
                 table.decompose()
             text = _visible_html_text(str(soup))
             if text:
@@ -483,7 +543,7 @@ def _context(document: ManualDocument, chapter: ManualChapter, section: tuple[st
         f"Chapter {chapter.order}: {chapter.title}",
     ]
     if chapter.pdf_page_index is not None:
-        parts.append(f"PDF page: {chapter.pdf_page_index}")
+        parts.append(f"PDF chapter start page: {chapter.pdf_page_index}")
     if section:
         parts.append(f"Section: {' > '.join(section)}")
     return "\n".join(parts)
@@ -629,6 +689,11 @@ def build_chunks(
                             "html_content_sha256": chapter.html_content_sha256,
                             "pdf_page_index": chapter.pdf_page_index,
                             "pdf_mapping_status": chapter.pdf_mapping_status,
+                            "pdf_page_scope": (
+                                "chapter_start"
+                                if chapter.pdf_page_index is not None
+                                else "unmapped"
+                            ),
                             "section_path": list(current_section),
                             "source_kind": (
                                 current_kind[0]

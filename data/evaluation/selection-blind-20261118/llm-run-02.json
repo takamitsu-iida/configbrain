@@ -1,0 +1,164 @@
+{
+  "results": [
+    {
+      "case_id": "routed-port-ipv4",
+      "item_id": "routed-port",
+      "candidates": [
+        {"document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f", "chapter_order": 2, "reason": "本文未確認だが、物理インターフェースの特性設定がL3ポートへの切替に最も近い。", "uncertainty": "本文未確認のため、ルーテッドポートへの切替手順の有無は未確定。"},
+        {"document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b", "chapter_order": 5, "reason": "本文未確認だが、IPv4ユニキャストルーティング章にL3物理ポートの準備手順が期待できる。", "uncertainty": "本文未確認であり、ポート種別変更まで扱うかは不明。"}
+      ]
+    },
+    {
+      "case_id": "routed-port-ipv4",
+      "item_id": "ipv4",
+      "candidates": [
+        {"document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b", "chapter_order": 5, "reason": "本文未確認だが、IPv4ユニキャストルーティング章がL3インターフェースへのアドレス設定の第一候補。", "uncertainty": "本文未確認のため、物理ポートへの具体的な設定例は未確認。"},
+        {"document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f", "chapter_order": 2, "reason": "本文未確認だが、インターフェース特性章にルーテッドポートのIPv4設定が含まれる可能性がある。", "uncertainty": "本文未確認であり、アドレス付与まで説明されるかは不明。"}
+      ]
+    },
+    {
+      "case_id": "interface-description",
+      "item_id": "description",
+      "candidates": [
+        {"document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f", "chapter_order": 2, "reason": "本文未確認だが、インターフェースの説明設定は特性設定章の対象と考えられる。", "uncertainty": "本文未確認のため、descriptionの具体的な記述は未確認。"}
+      ]
+    },
+    {
+      "case_id": "access-vlan",
+      "item_id": "access",
+      "candidates": [
+        {"document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc", "chapter_order": 3, "reason": "本文未確認だが、VLAN設定章がアクセスポートのVLAN所属設定に直接対応すると推定。", "uncertainty": "本文未確認のため、アクセスポート設定の手順と前提は未確定。"},
+        {"document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f", "chapter_order": 2, "reason": "本文未確認だが、物理ポートのL2モード指定をインターフェース特性章で補完できる可能性がある。", "uncertainty": "本文未確認であり、VLAN所属まで扱うかは不明。"}
+      ]
+    },
+    {
+      "case_id": "dhcp-relay",
+      "item_id": "relay",
+      "candidates": [
+        {"document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d", "chapter_order": 4, "reason": "本文未確認だが、通常のSVI上のIPv4 DHCP転送には汎用DHCP設定章が最も適合する。", "uncertainty": "本文未確認のため、リレー設定の収録範囲とインターフェースへの適用手順は未確認。"}
+      ]
+    },
+    {
+      "case_id": "dhcp-pool",
+      "item_id": "pool",
+      "candidates": [
+        {"document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d", "chapter_order": 4, "reason": "本文未確認だが、DHCP設定章がローカルプールと配布するデフォルトゲートウェイの設定に最も近い。", "uncertainty": "本文未確認のため、プール作成と配布オプションの詳細は未確認。"},
+        {"document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d", "chapter_order": 6, "reason": "本文未確認だが、DHCPオプション章はゲートウェイ情報の配布を補足する可能性がある。", "uncertainty": "本文未確認であり、通常のデフォルトゲートウェイ配布を扱うか、特殊オプション中心かは不明。"}
+      ]
+    },
+    {
+      "case_id": "ipv6-interface",
+      "item_id": "routing",
+      "candidates": [
+        {"document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b", "chapter_order": 6, "reason": "本文未確認だが、IPv6ユニキャストルーティング設定章がIPv6転送の有効化に直接対応すると推定。", "uncertainty": "本文未確認のため、有効化手順と前提条件は未確認。"}
+      ]
+    },
+    {
+      "case_id": "ipv6-interface",
+      "item_id": "svi-ipv6",
+      "candidates": [
+        {"document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b", "chapter_order": 6, "reason": "本文未確認だが、IPv6ユニキャストルーティング章がインターフェースへのIPv6アドレス設定の第一候補。", "uncertainty": "本文未確認であり、SVIを指定する例があるかは不明。"},
+        {"document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f", "chapter_order": 2, "reason": "本文未確認だが、インターフェース特性章でVLANインターフェースの指定方法を補完できる可能性がある。", "uncertainty": "本文未確認のため、SVI作成とIPv6設定の収録範囲は未確定。"}
+      ]
+    },
+    {
+      "case_id": "ntp-server",
+      "item_id": "ntp",
+      "candidates": [
+        {"document_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f", "chapter_order": 2, "reason": "本文未確認だが、専用NTP章がないため、装置管理章が時刻同期先設定の有力候補。", "uncertainty": "本文未確認で章名も包括的なため、NTP設定を扱うかは不確実。"}
+      ]
+    },
+    {
+      "case_id": "syslog-server",
+      "item_id": "syslog",
+      "candidates": [
+        {"document_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f", "chapter_order": 8, "reason": "本文未確認だが、システムメッセージログ設定章が外部Syslog送信先の設定に最も直接的。", "uncertainty": "本文未確認のため、リモート送信先指定の詳細と既定値は未確認。"}
+      ]
+    },
+    {
+      "case_id": "snmp-community",
+      "item_id": "snmp",
+      "candidates": [
+        {"document_id": "catalyst9300-26-x-b-26x-nmgmt-9300-cg-3e060c1d1d52", "chapter_order": 7, "reason": "本文未確認だが、SNMP設定章がSNMPv2cの読み取り専用コミュニティ設定に直接対応すると推定。", "uncertainty": "本文未確認のため、v2cの対象範囲と権限指定の詳細は未確認。"}
+      ]
+    },
+    {
+      "case_id": "interface-shutdown",
+      "item_id": "shutdown",
+      "candidates": [
+        {"document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f", "chapter_order": 2, "reason": "本文未確認だが、インターフェース特性章がポートの管理的停止操作の第一候補。", "uncertainty": "本文未確認のため、停止操作そのものの説明は未確認。"}
+      ]
+    },
+    {
+      "case_id": "minimal-interface-range",
+      "item_id": "range",
+      "candidates": [
+        {"document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f", "chapter_order": 2, "reason": "本文未確認だが、インターフェース特性章に複数ポートを一括指定する基本操作が期待できる。", "uncertainty": "本文未確認のため、範囲指定の構文と制約は未確認。"}
+      ]
+    },
+    {
+      "case_id": "minimal-interface-range",
+      "item_id": "access",
+      "candidates": [
+        {"document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc", "chapter_order": 3, "reason": "本文未確認だが、VLAN設定章が各アクセスポートのVLAN 100への所属設定に最も近い。", "uncertainty": "本文未確認のため、複数ポートへの一括適用例は未確認。"},
+        {"document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f", "chapter_order": 2, "reason": "本文未確認だが、短い設定に必要なポート一括操作とL2特性の指定を補完できる可能性がある。", "uncertainty": "本文未確認であり、アクセスポートのVLAN所属をどこまで扱うかは不明。"}
+      ]
+    },
+    {
+      "case_id": "vtp-transparent",
+      "item_id": "vtp",
+      "candidates": [
+        {"document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc", "chapter_order": 2, "reason": "本文未確認だが、VTP設定章が既定モードの確認とtransparentへの変更の直接候補。", "uncertainty": "本文未確認のため、26.xの既定モードや条件は断定できない。"}
+      ]
+    },
+    {
+      "case_id": "vlan-name",
+      "item_id": "vlan",
+      "candidates": [
+        {"document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc", "chapter_order": 3, "reason": "本文未確認だが、VLAN設定章がVLAN作成と名前設定に直接対応すると推定。", "uncertainty": "本文未確認のため、作成・命名手順と適用条件は未確認。"}
+      ]
+    },
+    {
+      "case_id": "parameter-vlan120",
+      "item_id": "vlan",
+      "candidates": [
+        {"document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc", "chapter_order": 3, "reason": "本文未確認だが、VLAN設定章が通常のVLAN 120作成に直接対応すると推定。", "uncertainty": "本文未確認のため、作成時の前提条件や制約は未確認。"}
+      ]
+    },
+    {
+      "case_id": "parameter-vlan120",
+      "item_id": "access",
+      "candidates": [
+        {"document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc", "chapter_order": 3, "reason": "本文未確認だが、VLAN設定章が通常のアクセスポートをVLAN 120へ所属させる操作の第一候補。", "uncertainty": "本文未確認のため、モード指定とVLAN割当の具体的手順は未確認。"},
+        {"document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f", "chapter_order": 2, "reason": "本文未確認だが、物理ポートをL2アクセスポートとして扱う基本設定を補完できる可能性がある。", "uncertainty": "本文未確認であり、VLAN割当まで説明されるかは不明。"}
+      ]
+    },
+    {
+      "case_id": "parameter-vlan120",
+      "item_id": "svi-ipv4",
+      "candidates": [
+        {"document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b", "chapter_order": 5, "reason": "本文未確認だが、通常のIPv4ユニキャストルーティング章がデフォルトVRFのSVIへのアドレス設定に適合すると推定。", "uncertainty": "本文未確認のため、SVI指定からアドレス付与までの手順は未確認。"},
+        {"document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f", "chapter_order": 2, "reason": "本文未確認だが、インターフェース特性章でSVIの作成・指定方法を補完できる可能性がある。", "uncertainty": "本文未確認であり、IPv4アドレス設定まで収録されるかは不明。"},
+        {"document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc", "chapter_order": 3, "reason": "本文未確認だが、VLAN設定章にVLANと対応するSVIの扱いが含まれる可能性がある。", "uncertainty": "本文未確認のため、L2 VLAN作成だけでなくSVIのL3設定まで扱うかは不確実。"}
+      ]
+    },
+    {
+      "case_id": "parameter-vlan120",
+      "item_id": "relay",
+      "candidates": [
+        {"document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d", "chapter_order": 4, "reason": "本文未確認だが、デフォルトVRFの通常のIPv4 DHCPリレーには汎用DHCP設定章が最も適合する。", "uncertainty": "本文未確認のため、SVIへの転送先設定と必要条件は未確認。"}
+      ]
+    },
+    {
+      "case_id": "stateful-dhcpv6",
+      "item_id": "procedure",
+      "candidates": [
+        {"document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b", "chapter_order": 6, "reason": "本文未確認だが、IPv6ルーティング章がIPv6アドレス、プレフィックス広告、RAフラグを含む一連の手順の主候補。", "uncertainty": "本文未確認であり、外部Stateful DHCPv6の統合手順やDNS・IPv4設定まで掲載されるかは不明。"},
+        {"document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d", "chapter_order": 4, "reason": "本文未確認だが、DHCP設定章が外部サーバー利用とDHCPv6リレーの手順を補完する可能性がある。", "uncertainty": "本文未確認のため、DHCPv6を扱う範囲とStateful構成例の有無は未確定。"},
+        {"document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d", "chapter_order": 7, "reason": "本文未確認だが、DHCPv6オプション章はDNS・ドメイン情報の配布に関する確認候補。", "uncertainty": "本文未確認であり、外部サーバー利用時のスイッチ側手順ではなく特殊オプションの説明に限られる可能性がある。"},
+        {"document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d", "chapter_order": 8, "reason": "本文未確認だが、DHCPv6リレー送信元設定章がリレー関連の条件を補完する可能性がある。", "uncertainty": "本文未確認であり、送信元指定に特化して通常のリレー設定や全体手順を扱わない可能性がある。"},
+        {"document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f", "chapter_order": 2, "reason": "本文未確認だが、インターフェース特性章がSVI指定とIPv4・IPv6アドレス設定の準備を補完する可能性がある。", "uncertainty": "本文未確認のため、SVIと両アドレス設定の収録範囲は不明で、DHCPv6の一連の手順は期待に留まる。"}
+      ]
+    }
+  ]
+}

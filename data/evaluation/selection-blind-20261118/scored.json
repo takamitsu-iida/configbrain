@@ -1,0 +1,3495 @@
+{
+  "llm-run-01.json": {
+    "aggregates": {
+      "all": {
+        "item_count": 20,
+        "1": {
+          "chapter": 0.925,
+          "document": 0.925,
+          "fully_covered": 18
+        },
+        "2": {
+          "chapter": 1.0,
+          "document": 1.0,
+          "fully_covered": 20
+        },
+        "5": {
+          "chapter": 1.0,
+          "document": 1.0,
+          "fully_covered": 20
+        }
+      },
+      "original": {
+        "item_count": 15,
+        "1": {
+          "chapter": 0.9666666666666667,
+          "document": 0.9666666666666667,
+          "fully_covered": 14
+        },
+        "2": {
+          "chapter": 1.0,
+          "document": 1.0,
+          "fully_covered": 15
+        },
+        "5": {
+          "chapter": 1.0,
+          "document": 1.0,
+          "fully_covered": 15
+        }
+      },
+      "parameter-vlan120": {
+        "item_count": 4,
+        "1": {
+          "chapter": 1.0,
+          "document": 1.0,
+          "fully_covered": 4
+        },
+        "2": {
+          "chapter": 1.0,
+          "document": 1.0,
+          "fully_covered": 4
+        },
+        "5": {
+          "chapter": 1.0,
+          "document": 1.0,
+          "fully_covered": 4
+        }
+      },
+      "stateful-dhcpv6": {
+        "item_count": 1,
+        "1": {
+          "chapter": 0.0,
+          "document": 0.0,
+          "fully_covered": 0
+        },
+        "2": {
+          "chapter": 1.0,
+          "document": 1.0,
+          "fully_covered": 1
+        },
+        "5": {
+          "chapter": 1.0,
+          "document": 1.0,
+          "fully_covered": 1
+        }
+      }
+    },
+    "items": {
+      "routed-port-ipv4/routed-port": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、インターフェース特性の章は物理ポートのL3化を扱う第一候補。",
+            "uncertainty": "本文未確認のため、ルーテッドポートへの切替手順の掲載は未確定。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 5,
+            "reason": "本文未確認だが、IPユニキャストルーティングの前提としてL3ポート設定を扱う可能性がある。",
+            "uncertainty": "本文未確認で、物理ポートのモード切替まで説明するか不明。",
+            "chapter_title": "Configuring IP Unicast Routing",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/configuring_ip_unicast_routing.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "routed-port-ipv4/ipv4": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、物理インターフェースの基本特性としてIPv4アドレス設定を探す候補。",
+            "uncertainty": "本文未確認で、アドレス設定の具体的手順が含まれるか不明。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 5,
+            "reason": "本文未確認だが、IPv4ユニキャストルーティングの基本設定にポートのアドレス指定が期待できる。",
+            "uncertainty": "本文未確認で、物理ポートへの割当手順か概説のみか未確定。",
+            "chapter_title": "Configuring IP Unicast Routing",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/configuring_ip_unicast_routing.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "interface-description/description": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、インターフェースの説明設定は基本特性の章が最も近い。",
+            "uncertainty": "本文未確認のため、descriptionの操作が掲載されているか要確認。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "access-vlan/access": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+            "chapter_order": 3,
+            "reason": "本文未確認だが、VLAN設定の章はアクセスポートのVLAN所属設定に直接対応すると推測。",
+            "uncertainty": "本文未確認で、アクセスモード指定と所属設定の両方を含むか未確定。",
+            "chapter_title": "Configuring VLANs",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg/configuring_vlans.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、物理ポートのL2モードや基本設定を補完する候補。",
+            "uncertainty": "本文未確認で、VLAN所属の詳細手順は別章参照の可能性がある。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "dhcp-relay/relay": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d",
+            "chapter_order": 4,
+            "reason": "本文未確認だが、通常のSVI上で行うDHCP要求転送は汎用DHCP設定の章が第一候補。",
+            "uncertainty": "本文未確認で、DHCPリレーと転送先指定を扱う節の有無は未確定。",
+            "chapter_title": "Configuring DHCP",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip/b_26x_ip_9300_cg/configuring_dhcp.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "dhcp-pool/pool": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d",
+            "chapter_order": 4,
+            "reason": "本文未確認だが、DHCP設定の章はローカルプールと配布ゲートウェイ設定の有力候補。",
+            "uncertainty": "本文未確認で、サーバー機能のプール作成手順が含まれるか要確認。",
+            "chapter_title": "Configuring DHCP",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip/b_26x_ip_9300_cg/configuring_dhcp.html"
+          }
+        ],
+        "scores": null
+      },
+      "ipv6-interface/routing": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 6,
+            "reason": "本文未確認だが、IPv6ユニキャストルーティングの章がIPv6ルーティング有効化に最も直接的。",
+            "uncertainty": "本文未確認で、有効化手順や当該リリースの前提条件は未確認。",
+            "chapter_title": "Configuring IPv6 Unicast Routing",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/configuring_ipv6_unicast_routing.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "ipv6-interface/svi-ipv6": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 6,
+            "reason": "本文未確認だが、IPv6ユニキャスト設定にはインターフェースへのIPv6アドレス割当が期待できる。",
+            "uncertainty": "本文未確認で、VLANインターフェースを指定する例まで含むか不明。",
+            "chapter_title": "Configuring IPv6 Unicast Routing",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/configuring_ipv6_unicast_routing.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、SVIの作成・選択というインターフェース側の操作を補完する候補。",
+            "uncertainty": "本文未確認で、SVIやIPv6アドレス設定の説明範囲は未確定。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 0.5,
+            "document": 0.5
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "ntp-server/ntp": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、専用NTP章がないため、装置管理の章を時刻同期設定の候補とする。",
+            "uncertainty": "本文未確認かつ章名が広く、NTP同期先指定の掲載有無には不確実性がある。",
+            "chapter_title": "Administering the Device",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/sys_mgmt/b_26x_sys_mgmt_9300_cg/administering_the_device.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "syslog-server/syslog": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f",
+            "chapter_order": 8,
+            "reason": "本文未確認だが、システムメッセージログ設定の章は外部Syslog送信先の指定に直結する候補。",
+            "uncertainty": "本文未確認で、外部ホスト指定の構文や既定動作は確認していない。",
+            "chapter_title": "Configuring System Message Logs",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/sys_mgmt/b_26x_sys_mgmt_9300_cg/configuring_system_message_logs.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "snmp-community/snmp": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-nmgmt-9300-cg-3e060c1d1d52",
+            "chapter_order": 7,
+            "reason": "本文未確認だが、SNMP設定の専用章がSNMPv2cの読み取り専用コミュニティ設定に最も近い。",
+            "uncertainty": "本文未確認で、v2cコミュニティと読み取り権限の具体的説明は未確認。",
+            "chapter_title": "Configuring Simple Network Management Protocol",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/nmgmt/b_26x_nmgmt_9300_cg/configuring_simple_network_management_protocol.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "interface-shutdown/shutdown": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、インターフェースの基本特性の章は管理的な停止操作の有力候補。",
+            "uncertainty": "本文未確認で、停止操作そのものを説明する節の有無は未確定。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 5,
+            "reason": "本文未確認だが、ポート状態と接続性の確認章は停止操作や停止後の状態確認を補完し得る。",
+            "uncertainty": "本文未確認で、状態確認のみで管理的停止の手順を含まない可能性がある。",
+            "chapter_title": "Checking Port Status and Connectivity",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/checking_port_status_and_connectivity.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "minimal-interface-range/range": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、複数ポートを一括指定する基本操作はインターフェース特性の章が第一候補。",
+            "uncertainty": "本文未確認で、範囲指定の構文や連続ポートの短縮表記が掲載されるか不明。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "minimal-interface-range/access": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+            "chapter_order": 3,
+            "reason": "本文未確認だが、一括指定したポートをVLAN 100に所属させる操作はVLAN設定章が主候補。",
+            "uncertainty": "本文未確認で、複数ポートへのアクセスVLAN適用例があるか不明。",
+            "chapter_title": "Configuring VLANs",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg/configuring_vlans.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、物理ポートのアクセスモード設定と基本操作を補完する候補。",
+            "uncertainty": "本文未確認で、VLAN所属まで扱うか、一般的なポート設定のみか未確定。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "vtp-transparent/vtp": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、VTP専用章がデフォルト動作の確認とtransparentモードへの変更に直接対応する候補。",
+            "uncertainty": "本文未確認なので、既定モードを断定せず、バージョン等による条件差も要確認。",
+            "chapter_title": "Configuring VTP",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg/configuring_vtp.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "vlan-name/vlan": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+            "chapter_order": 3,
+            "reason": "本文未確認だが、VLAN設定の章はVLAN作成と名前設定の直接的な候補。",
+            "uncertainty": "本文未確認で、作成・命名の具体的手順と制約は未確認。",
+            "chapter_title": "Configuring VLANs",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg/configuring_vlans.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "parameter-vlan120/vlan": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+            "chapter_order": 3,
+            "reason": "本文未確認だが、通常のVLAN 120作成にはVLAN設定章が直接対応する候補。",
+            "uncertainty": "本文未確認で、作成時の前提や既定値は確認していない。",
+            "chapter_title": "Configuring VLANs",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg/configuring_vlans.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "parameter-vlan120/access": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+            "chapter_order": 3,
+            "reason": "本文未確認だが、物理アクセスポートをVLAN 120に所属させる部分にはVLAN設定章が主候補。",
+            "uncertainty": "本文未確認で、アクセスモード指定を含む一連の操作の掲載は未確定。",
+            "chapter_title": "Configuring VLANs",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg/configuring_vlans.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、物理インターフェースのL2設定を補完する候補。",
+            "uncertainty": "本文未確認で、VLAN所属設定の詳細は別章に委ねられている可能性がある。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "parameter-vlan120/svi-ipv4": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、SVIの指定とアドレス設定というインターフェース操作を扱う候補。",
+            "uncertainty": "本文未確認で、VLANインターフェースのIPv4設定手順まで含むか未確定。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 5,
+            "reason": "本文未確認だが、通常のIPv4ルーティング用SVIへのアドレス割当を補完する候補。",
+            "uncertainty": "本文未確認で、SVI指定からの基本操作を説明するか不明。",
+            "chapter_title": "Configuring IP Unicast Routing",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/configuring_ip_unicast_routing.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "parameter-vlan120/relay": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d",
+            "chapter_order": 4,
+            "reason": "本文未確認だが、デフォルトVRFの通常のDHCP要求転送なので汎用DHCP設定章が最も近い。",
+            "uncertainty": "本文未確認で、SVIの転送先指定手順や必要条件は未確認。",
+            "chapter_title": "Configuring DHCP",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip/b_26x_ip_9300_cg/configuring_dhcp.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "stateful-dhcpv6/procedure": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 6,
+            "reason": "本文未確認だが、IPv6ルーティング、SVIアドレス、プレフィックス広告とmanaged・otherフラグを含む手順の主候補。",
+            "uncertainty": "本文未確認で、外部Stateful DHCPv6、DNS、ドメイン名、IPv4設定まで一連の手順として掲載されるか不明。",
+            "chapter_title": "Configuring IPv6 Unicast Routing",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/configuring_ipv6_unicast_routing.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d",
+            "chapter_order": 4,
+            "reason": "本文未確認だが、汎用DHCP設定章が外部サーバーへのDHCPv6リレーやStateful動作を補完し得る。",
+            "uncertainty": "本文未確認で、DHCPv6まで対象とするか、IPv4 DHCP中心か判別できない。",
+            "chapter_title": "Configuring DHCP",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip/b_26x_ip_9300_cg/configuring_dhcp.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、一連の手順に含まれるVLANインターフェース指定とIPv4・IPv6アドレス設定の補助候補。",
+            "uncertainty": "本文未確認で、外部Stateful DHCPv6手順自体を掲載する根拠は章名になく、主にSVI操作の補完。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d",
+            "chapter_order": 8,
+            "reason": "本文未確認だが、DHCPv6リレーを明示した章なので、外部サーバーへの中継に関連する補助候補。",
+            "uncertainty": "本文未確認で、リレー送信元の設定に限定される可能性が高く、要求された全体手順の掲載は不明。",
+            "chapter_title": "DHCPv6 Relay Source Configuration",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip/b_26x_ip_9300_cg/dhcpv6_relay_source_configuration.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 0.0,
+            "document": 0.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      }
+    }
+  },
+  "llm-run-02.json": {
+    "aggregates": {
+      "all": {
+        "item_count": 20,
+        "1": {
+          "chapter": 0.875,
+          "document": 0.875,
+          "fully_covered": 17
+        },
+        "2": {
+          "chapter": 1.0,
+          "document": 1.0,
+          "fully_covered": 20
+        },
+        "5": {
+          "chapter": 1.0,
+          "document": 1.0,
+          "fully_covered": 20
+        }
+      },
+      "original": {
+        "item_count": 15,
+        "1": {
+          "chapter": 0.9666666666666667,
+          "document": 0.9666666666666667,
+          "fully_covered": 14
+        },
+        "2": {
+          "chapter": 1.0,
+          "document": 1.0,
+          "fully_covered": 15
+        },
+        "5": {
+          "chapter": 1.0,
+          "document": 1.0,
+          "fully_covered": 15
+        }
+      },
+      "parameter-vlan120": {
+        "item_count": 4,
+        "1": {
+          "chapter": 0.75,
+          "document": 0.75,
+          "fully_covered": 3
+        },
+        "2": {
+          "chapter": 1.0,
+          "document": 1.0,
+          "fully_covered": 4
+        },
+        "5": {
+          "chapter": 1.0,
+          "document": 1.0,
+          "fully_covered": 4
+        }
+      },
+      "stateful-dhcpv6": {
+        "item_count": 1,
+        "1": {
+          "chapter": 0.0,
+          "document": 0.0,
+          "fully_covered": 0
+        },
+        "2": {
+          "chapter": 1.0,
+          "document": 1.0,
+          "fully_covered": 1
+        },
+        "5": {
+          "chapter": 1.0,
+          "document": 1.0,
+          "fully_covered": 1
+        }
+      }
+    },
+    "items": {
+      "routed-port-ipv4/routed-port": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、物理インターフェースの特性設定がL3ポートへの切替に最も近い。",
+            "uncertainty": "本文未確認のため、ルーテッドポートへの切替手順の有無は未確定。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 5,
+            "reason": "本文未確認だが、IPv4ユニキャストルーティング章にL3物理ポートの準備手順が期待できる。",
+            "uncertainty": "本文未確認であり、ポート種別変更まで扱うかは不明。",
+            "chapter_title": "Configuring IP Unicast Routing",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/configuring_ip_unicast_routing.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "routed-port-ipv4/ipv4": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 5,
+            "reason": "本文未確認だが、IPv4ユニキャストルーティング章がL3インターフェースへのアドレス設定の第一候補。",
+            "uncertainty": "本文未確認のため、物理ポートへの具体的な設定例は未確認。",
+            "chapter_title": "Configuring IP Unicast Routing",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/configuring_ip_unicast_routing.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、インターフェース特性章にルーテッドポートのIPv4設定が含まれる可能性がある。",
+            "uncertainty": "本文未確認であり、アドレス付与まで説明されるかは不明。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "interface-description/description": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、インターフェースの説明設定は特性設定章の対象と考えられる。",
+            "uncertainty": "本文未確認のため、descriptionの具体的な記述は未確認。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "access-vlan/access": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+            "chapter_order": 3,
+            "reason": "本文未確認だが、VLAN設定章がアクセスポートのVLAN所属設定に直接対応すると推定。",
+            "uncertainty": "本文未確認のため、アクセスポート設定の手順と前提は未確定。",
+            "chapter_title": "Configuring VLANs",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg/configuring_vlans.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、物理ポートのL2モード指定をインターフェース特性章で補完できる可能性がある。",
+            "uncertainty": "本文未確認であり、VLAN所属まで扱うかは不明。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "dhcp-relay/relay": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d",
+            "chapter_order": 4,
+            "reason": "本文未確認だが、通常のSVI上のIPv4 DHCP転送には汎用DHCP設定章が最も適合する。",
+            "uncertainty": "本文未確認のため、リレー設定の収録範囲とインターフェースへの適用手順は未確認。",
+            "chapter_title": "Configuring DHCP",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip/b_26x_ip_9300_cg/configuring_dhcp.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "dhcp-pool/pool": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d",
+            "chapter_order": 4,
+            "reason": "本文未確認だが、DHCP設定章がローカルプールと配布するデフォルトゲートウェイの設定に最も近い。",
+            "uncertainty": "本文未確認のため、プール作成と配布オプションの詳細は未確認。",
+            "chapter_title": "Configuring DHCP",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip/b_26x_ip_9300_cg/configuring_dhcp.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d",
+            "chapter_order": 6,
+            "reason": "本文未確認だが、DHCPオプション章はゲートウェイ情報の配布を補足する可能性がある。",
+            "uncertainty": "本文未確認であり、通常のデフォルトゲートウェイ配布を扱うか、特殊オプション中心かは不明。",
+            "chapter_title": "DHCP Options Support",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip/b_26x_ip_9300_cg/dhcp_options_support.html"
+          }
+        ],
+        "scores": null
+      },
+      "ipv6-interface/routing": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 6,
+            "reason": "本文未確認だが、IPv6ユニキャストルーティング設定章がIPv6転送の有効化に直接対応すると推定。",
+            "uncertainty": "本文未確認のため、有効化手順と前提条件は未確認。",
+            "chapter_title": "Configuring IPv6 Unicast Routing",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/configuring_ipv6_unicast_routing.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "ipv6-interface/svi-ipv6": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 6,
+            "reason": "本文未確認だが、IPv6ユニキャストルーティング章がインターフェースへのIPv6アドレス設定の第一候補。",
+            "uncertainty": "本文未確認であり、SVIを指定する例があるかは不明。",
+            "chapter_title": "Configuring IPv6 Unicast Routing",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/configuring_ipv6_unicast_routing.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、インターフェース特性章でVLANインターフェースの指定方法を補完できる可能性がある。",
+            "uncertainty": "本文未確認のため、SVI作成とIPv6設定の収録範囲は未確定。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 0.5,
+            "document": 0.5
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "ntp-server/ntp": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、専用NTP章がないため、装置管理章が時刻同期先設定の有力候補。",
+            "uncertainty": "本文未確認で章名も包括的なため、NTP設定を扱うかは不確実。",
+            "chapter_title": "Administering the Device",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/sys_mgmt/b_26x_sys_mgmt_9300_cg/administering_the_device.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "syslog-server/syslog": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f",
+            "chapter_order": 8,
+            "reason": "本文未確認だが、システムメッセージログ設定章が外部Syslog送信先の設定に最も直接的。",
+            "uncertainty": "本文未確認のため、リモート送信先指定の詳細と既定値は未確認。",
+            "chapter_title": "Configuring System Message Logs",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/sys_mgmt/b_26x_sys_mgmt_9300_cg/configuring_system_message_logs.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "snmp-community/snmp": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-nmgmt-9300-cg-3e060c1d1d52",
+            "chapter_order": 7,
+            "reason": "本文未確認だが、SNMP設定章がSNMPv2cの読み取り専用コミュニティ設定に直接対応すると推定。",
+            "uncertainty": "本文未確認のため、v2cの対象範囲と権限指定の詳細は未確認。",
+            "chapter_title": "Configuring Simple Network Management Protocol",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/nmgmt/b_26x_nmgmt_9300_cg/configuring_simple_network_management_protocol.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "interface-shutdown/shutdown": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、インターフェース特性章がポートの管理的停止操作の第一候補。",
+            "uncertainty": "本文未確認のため、停止操作そのものの説明は未確認。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "minimal-interface-range/range": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、インターフェース特性章に複数ポートを一括指定する基本操作が期待できる。",
+            "uncertainty": "本文未確認のため、範囲指定の構文と制約は未確認。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "minimal-interface-range/access": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+            "chapter_order": 3,
+            "reason": "本文未確認だが、VLAN設定章が各アクセスポートのVLAN 100への所属設定に最も近い。",
+            "uncertainty": "本文未確認のため、複数ポートへの一括適用例は未確認。",
+            "chapter_title": "Configuring VLANs",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg/configuring_vlans.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、短い設定に必要なポート一括操作とL2特性の指定を補完できる可能性がある。",
+            "uncertainty": "本文未確認であり、アクセスポートのVLAN所属をどこまで扱うかは不明。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "vtp-transparent/vtp": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、VTP設定章が既定モードの確認とtransparentへの変更の直接候補。",
+            "uncertainty": "本文未確認のため、26.xの既定モードや条件は断定できない。",
+            "chapter_title": "Configuring VTP",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg/configuring_vtp.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "vlan-name/vlan": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+            "chapter_order": 3,
+            "reason": "本文未確認だが、VLAN設定章がVLAN作成と名前設定に直接対応すると推定。",
+            "uncertainty": "本文未確認のため、作成・命名手順と適用条件は未確認。",
+            "chapter_title": "Configuring VLANs",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg/configuring_vlans.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "parameter-vlan120/vlan": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+            "chapter_order": 3,
+            "reason": "本文未確認だが、VLAN設定章が通常のVLAN 120作成に直接対応すると推定。",
+            "uncertainty": "本文未確認のため、作成時の前提条件や制約は未確認。",
+            "chapter_title": "Configuring VLANs",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg/configuring_vlans.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "parameter-vlan120/access": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+            "chapter_order": 3,
+            "reason": "本文未確認だが、VLAN設定章が通常のアクセスポートをVLAN 120へ所属させる操作の第一候補。",
+            "uncertainty": "本文未確認のため、モード指定とVLAN割当の具体的手順は未確認。",
+            "chapter_title": "Configuring VLANs",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg/configuring_vlans.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、物理ポートをL2アクセスポートとして扱う基本設定を補完できる可能性がある。",
+            "uncertainty": "本文未確認であり、VLAN割当まで説明されるかは不明。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "parameter-vlan120/svi-ipv4": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 5,
+            "reason": "本文未確認だが、通常のIPv4ユニキャストルーティング章がデフォルトVRFのSVIへのアドレス設定に適合すると推定。",
+            "uncertainty": "本文未確認のため、SVI指定からアドレス付与までの手順は未確認。",
+            "chapter_title": "Configuring IP Unicast Routing",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/configuring_ip_unicast_routing.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、インターフェース特性章でSVIの作成・指定方法を補完できる可能性がある。",
+            "uncertainty": "本文未確認であり、IPv4アドレス設定まで収録されるかは不明。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+            "chapter_order": 3,
+            "reason": "本文未確認だが、VLAN設定章にVLANと対応するSVIの扱いが含まれる可能性がある。",
+            "uncertainty": "本文未確認のため、L2 VLAN作成だけでなくSVIのL3設定まで扱うかは不確実。",
+            "chapter_title": "Configuring VLANs",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg/configuring_vlans.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 0.0,
+            "document": 0.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "parameter-vlan120/relay": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d",
+            "chapter_order": 4,
+            "reason": "本文未確認だが、デフォルトVRFの通常のIPv4 DHCPリレーには汎用DHCP設定章が最も適合する。",
+            "uncertainty": "本文未確認のため、SVIへの転送先設定と必要条件は未確認。",
+            "chapter_title": "Configuring DHCP",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip/b_26x_ip_9300_cg/configuring_dhcp.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "stateful-dhcpv6/procedure": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 6,
+            "reason": "本文未確認だが、IPv6ルーティング章がIPv6アドレス、プレフィックス広告、RAフラグを含む一連の手順の主候補。",
+            "uncertainty": "本文未確認であり、外部Stateful DHCPv6の統合手順やDNS・IPv4設定まで掲載されるかは不明。",
+            "chapter_title": "Configuring IPv6 Unicast Routing",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/configuring_ipv6_unicast_routing.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d",
+            "chapter_order": 4,
+            "reason": "本文未確認だが、DHCP設定章が外部サーバー利用とDHCPv6リレーの手順を補完する可能性がある。",
+            "uncertainty": "本文未確認のため、DHCPv6を扱う範囲とStateful構成例の有無は未確定。",
+            "chapter_title": "Configuring DHCP",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip/b_26x_ip_9300_cg/configuring_dhcp.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d",
+            "chapter_order": 7,
+            "reason": "本文未確認だが、DHCPv6オプション章はDNS・ドメイン情報の配布に関する確認候補。",
+            "uncertainty": "本文未確認であり、外部サーバー利用時のスイッチ側手順ではなく特殊オプションの説明に限られる可能性がある。",
+            "chapter_title": "DHCPv6 Options Support",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip/b_26x_ip_9300_cg/dhcpv6_options_support.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d",
+            "chapter_order": 8,
+            "reason": "本文未確認だが、DHCPv6リレー送信元設定章がリレー関連の条件を補完する可能性がある。",
+            "uncertainty": "本文未確認であり、送信元指定に特化して通常のリレー設定や全体手順を扱わない可能性がある。",
+            "chapter_title": "DHCPv6 Relay Source Configuration",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip/b_26x_ip_9300_cg/dhcpv6_relay_source_configuration.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、インターフェース特性章がSVI指定とIPv4・IPv6アドレス設定の準備を補完する可能性がある。",
+            "uncertainty": "本文未確認のため、SVIと両アドレス設定の収録範囲は不明で、DHCPv6の一連の手順は期待に留まる。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 0.0,
+            "document": 0.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      }
+    }
+  },
+  "llm-run-03.json": {
+    "aggregates": {
+      "all": {
+        "item_count": 20,
+        "1": {
+          "chapter": 0.925,
+          "document": 0.925,
+          "fully_covered": 18
+        },
+        "2": {
+          "chapter": 1.0,
+          "document": 1.0,
+          "fully_covered": 20
+        },
+        "5": {
+          "chapter": 1.0,
+          "document": 1.0,
+          "fully_covered": 20
+        }
+      },
+      "original": {
+        "item_count": 15,
+        "1": {
+          "chapter": 0.9666666666666667,
+          "document": 0.9666666666666667,
+          "fully_covered": 14
+        },
+        "2": {
+          "chapter": 1.0,
+          "document": 1.0,
+          "fully_covered": 15
+        },
+        "5": {
+          "chapter": 1.0,
+          "document": 1.0,
+          "fully_covered": 15
+        }
+      },
+      "parameter-vlan120": {
+        "item_count": 4,
+        "1": {
+          "chapter": 1.0,
+          "document": 1.0,
+          "fully_covered": 4
+        },
+        "2": {
+          "chapter": 1.0,
+          "document": 1.0,
+          "fully_covered": 4
+        },
+        "5": {
+          "chapter": 1.0,
+          "document": 1.0,
+          "fully_covered": 4
+        }
+      },
+      "stateful-dhcpv6": {
+        "item_count": 1,
+        "1": {
+          "chapter": 0.0,
+          "document": 0.0,
+          "fully_covered": 0
+        },
+        "2": {
+          "chapter": 1.0,
+          "document": 1.0,
+          "fully_covered": 1
+        },
+        "5": {
+          "chapter": 1.0,
+          "document": 1.0,
+          "fully_covered": 1
+        }
+      }
+    },
+    "items": {
+      "routed-port-ipv4/routed-port": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、物理インターフェースの特性設定としてルーテッドポート化を扱うと推定。",
+            "uncertainty": "本文未確認のため、L2からL3への切り替え手順の収録は未確定。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 5,
+            "reason": "本文未確認だが、IPユニキャストルーティングの前提となるL3ポート設定の候補。",
+            "uncertainty": "本文未確認で、物理ポートのモード変更まで説明するか不明。",
+            "chapter_title": "Configuring IP Unicast Routing",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/configuring_ip_unicast_routing.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "routed-port-ipv4/ipv4": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 5,
+            "reason": "本文未確認だが、通常のIPv4ルーティング用インターフェースへのアドレス設定を期待。",
+            "uncertainty": "本文未確認のため、物理ポートのIPv4設定例の有無は不明。",
+            "chapter_title": "Configuring IP Unicast Routing",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/configuring_ip_unicast_routing.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、ルーテッドポートの基本属性としてIPv4設定も扱う可能性。",
+            "uncertainty": "本文未確認で、アドレス設定が別章への参照だけの可能性がある。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "interface-description/description": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、インターフェースの説明は基本的な特性設定に該当。",
+            "uncertainty": "本文未確認のため、description設定手順の明記は未確認。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "access-vlan/access": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+            "chapter_order": 3,
+            "reason": "本文未確認だが、通常VLANへのアクセスポート割り当てを扱う最も直接的な章名。",
+            "uncertainty": "本文未確認で、アクセスポートモード指定まで含むか未確定。",
+            "chapter_title": "Configuring VLANs",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg/configuring_vlans.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、物理ポートのL2モードと所属VLANの設定を補完し得る。",
+            "uncertainty": "本文未確認のため、VLAN割り当ての具体的な説明範囲は不明。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "dhcp-relay/relay": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d",
+            "chapter_order": 4,
+            "reason": "本文未確認だが、通常のSVI上のIPv4 DHCPリレーはDHCP設定章が第一候補。",
+            "uncertainty": "本文未確認で、リレー宛先の指定とSVIへの適用手順は未確認。",
+            "chapter_title": "Configuring DHCP",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip/b_26x_ip_9300_cg/configuring_dhcp.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "dhcp-pool/pool": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d",
+            "chapter_order": 4,
+            "reason": "本文未確認だが、DHCPプールと配布するデフォルトゲートウェイの設定に直結する章名。",
+            "uncertainty": "本文未確認のため、プール内の具体的な設定項目と制約は未確認。",
+            "chapter_title": "Configuring DHCP",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip/b_26x_ip_9300_cg/configuring_dhcp.html"
+          }
+        ],
+        "scores": null
+      },
+      "ipv6-interface/routing": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 6,
+            "reason": "本文未確認だが、IPv6ユニキャストルーティングの有効化に直接対応する章名。",
+            "uncertainty": "本文未確認で、有効化手順や事前条件は未確認。",
+            "chapter_title": "Configuring IPv6 Unicast Routing",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/configuring_ipv6_unicast_routing.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "ipv6-interface/svi-ipv6": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 6,
+            "reason": "本文未確認だが、SVIを含むL3インターフェースへのIPv6アドレス設定を期待。",
+            "uncertainty": "本文未確認のため、VLANインターフェース指定の実例は未確認。",
+            "chapter_title": "Configuring IPv6 Unicast Routing",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/configuring_ipv6_unicast_routing.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、SVIの作成・指定などインターフェース操作の補完候補。",
+            "uncertainty": "本文未確認で、IPv6アドレス付与まで収録されるか不明。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 0.5,
+            "document": 0.5
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "ntp-server/ntp": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、時刻同期は装置管理の基本機能であり、装置管理章が候補。",
+            "uncertainty": "本文未確認かつ章名にNTPの明示がなく、同期先設定の収録には不確実性がある。",
+            "chapter_title": "Administering the Device",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/sys_mgmt/b_26x_sys_mgmt_9300_cg/administering_the_device.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "syslog-server/syslog": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f",
+            "chapter_order": 8,
+            "reason": "本文未確認だが、システムメッセージログ設定は外部Syslog送信先の指定に直結。",
+            "uncertainty": "本文未確認のため、リモート送信先の設定手順や既定値は未確認。",
+            "chapter_title": "Configuring System Message Logs",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/sys_mgmt/b_26x_sys_mgmt_9300_cg/configuring_system_message_logs.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "snmp-community/snmp": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-nmgmt-9300-cg-3e060c1d1d52",
+            "chapter_order": 7,
+            "reason": "本文未確認だが、SNMP設定章がv2c読み取り専用コミュニティの直接候補。",
+            "uncertainty": "本文未確認で、v2cおよび読み取り権限の具体的な記述は未確認。",
+            "chapter_title": "Configuring Simple Network Management Protocol",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/nmgmt/b_26x_nmgmt_9300_cg/configuring_simple_network_management_protocol.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "interface-shutdown/shutdown": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、物理インターフェースの管理状態変更は基本特性設定に該当。",
+            "uncertainty": "本文未確認のため、管理停止の具体的な操作手順は未確認。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "minimal-interface-range/range": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、複数ポートの一括指定は汎用インターフェース設定章が最も適切と推定。",
+            "uncertainty": "本文未確認で、範囲指定の構文や連続ポートの短縮表記は未確認。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "minimal-interface-range/access": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+            "chapter_order": 3,
+            "reason": "本文未確認だが、一括指定したポートを通常VLANへ所属させる処理の直接候補。",
+            "uncertainty": "本文未確認のため、アクセスポート設定例と範囲指定の併用説明は未確認。",
+            "chapter_title": "Configuring VLANs",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg/configuring_vlans.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、ポートモード設定と複数インターフェース操作を補完し得る。",
+            "uncertainty": "本文未確認で、VLAN所属設定の詳細があるか不明。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "vtp-transparent/vtp": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、VTPの既定動作とtransparentモードを調べる直接的な章。",
+            "uncertainty": "本文未確認のため、26.xの既定モードと変更条件は断定できない。",
+            "chapter_title": "Configuring VTP",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg/configuring_vtp.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "vlan-name/vlan": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+            "chapter_order": 3,
+            "reason": "本文未確認だが、通常VLANの作成と命名はVLAN設定章の中心的な対象と推定。",
+            "uncertainty": "本文未確認で、VLAN名の設定手順や制約の記述は未確認。",
+            "chapter_title": "Configuring VLANs",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg/configuring_vlans.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "parameter-vlan120/vlan": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+            "chapter_order": 3,
+            "reason": "本文未確認だが、通常VLAN 120の作成に直接対応する章名。",
+            "uncertainty": "本文未確認のため、作成手順とVTP等の前提条件は未確認。",
+            "chapter_title": "Configuring VLANs",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg/configuring_vlans.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "parameter-vlan120/access": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+            "chapter_order": 3,
+            "reason": "本文未確認だが、物理アクセスポートのVLAN 120への所属設定を直接扱うと推定。",
+            "uncertainty": "本文未確認で、モード指定を含む手順の収録は未確定。",
+            "chapter_title": "Configuring VLANs",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg/configuring_vlans.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、物理インターフェースのL2モード設定の補完候補。",
+            "uncertainty": "本文未確認のため、所属VLANの指定まで扱うか不明。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "parameter-vlan120/svi-ipv4": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、VLANインターフェースの指定とL3属性の設定に対応すると推定。",
+            "uncertainty": "本文未確認で、SVIのIPv4アドレス設定まで記載されるか不明。",
+            "chapter_title": "Configuring Interface Characteristics",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 5,
+            "reason": "本文未確認だが、通常のIPv4ルーティング用SVIへのアドレス設定を補完し得る。",
+            "uncertainty": "本文未確認のため、SVI指定からの一連の手順があるか未確認。",
+            "chapter_title": "Configuring IP Unicast Routing",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/configuring_ip_unicast_routing.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "parameter-vlan120/relay": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d",
+            "chapter_order": 4,
+            "reason": "本文未確認だが、デフォルトVRFの通常SVIから外部サーバーへのDHCP転送に適する章。",
+            "uncertainty": "本文未確認で、リレー設定の適用箇所や追加条件は未確認。",
+            "chapter_title": "Configuring DHCP",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip/b_26x_ip_9300_cg/configuring_dhcp.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "stateful-dhcpv6/procedure": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 6,
+            "reason": "本文未確認だが、IPv6ルーティング、SVIアドレス、RAのフラグを含む一連のIPv6設定の最有力候補。",
+            "uncertainty": "本文未確認のため、外部Stateful DHCPv6の統合手順やDNS・ドメイン設定の収録は不明。",
+            "chapter_title": "Configuring IPv6 Unicast Routing",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/configuring_ipv6_unicast_routing.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d",
+            "chapter_order": 4,
+            "reason": "本文未確認だが、外部DHCPサーバーを使うリレー動作とアドレス配布の補完候補。",
+            "uncertainty": "本文未確認かつ章名はDHCP一般であり、DHCPv6の対応範囲は不明。",
+            "chapter_title": "Configuring DHCP",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip/b_26x_ip_9300_cg/configuring_dhcp.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d",
+            "chapter_order": 8,
+            "reason": "本文未確認だが、DHCPv6リレーを明示した章であり、リレー送信元の条件確認に有用と推定。",
+            "uncertainty": "本文未確認で、送信元設定に限定され、要求された全体手順は含まない可能性が高い。",
+            "chapter_title": "DHCPv6 Relay Source Configuration",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip/b_26x_ip_9300_cg/dhcpv6_relay_source_configuration.html"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f",
+            "chapter_order": 2,
+            "reason": "本文未確認だが、装置側のDNS参照先やドメイン名など基本管理設定の補完候補。",
+            "uncertainty": "本文未確認で、要求のDNSが端末への配布を意味する場合は適合しない可能性がある。",
+            "chapter_title": "Administering the Device",
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/sys_mgmt/b_26x_sys_mgmt_9300_cg/administering_the_device.html"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 0.0,
+            "document": 0.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      }
+    }
+  },
+  "qdrant-run.json": {
+    "aggregates": {
+      "all": {
+        "item_count": 20,
+        "1": {
+          "chapter": 0.05,
+          "document": 0.25,
+          "fully_covered": 1
+        },
+        "2": {
+          "chapter": 0.15,
+          "document": 0.4,
+          "fully_covered": 3
+        },
+        "5": {
+          "chapter": 0.25,
+          "document": 0.5,
+          "fully_covered": 5
+        }
+      },
+      "original": {
+        "item_count": 15,
+        "1": {
+          "chapter": 0.06666666666666667,
+          "document": 0.26666666666666666,
+          "fully_covered": 1
+        },
+        "2": {
+          "chapter": 0.2,
+          "document": 0.4666666666666667,
+          "fully_covered": 3
+        },
+        "5": {
+          "chapter": 0.3333333333333333,
+          "document": 0.5333333333333333,
+          "fully_covered": 5
+        }
+      },
+      "parameter-vlan120": {
+        "item_count": 4,
+        "1": {
+          "chapter": 0.0,
+          "document": 0.0,
+          "fully_covered": 0
+        },
+        "2": {
+          "chapter": 0.0,
+          "document": 0.0,
+          "fully_covered": 0
+        },
+        "5": {
+          "chapter": 0.0,
+          "document": 0.25,
+          "fully_covered": 0
+        }
+      },
+      "stateful-dhcpv6": {
+        "item_count": 1,
+        "1": {
+          "chapter": 0.0,
+          "document": 1.0,
+          "fully_covered": 0
+        },
+        "2": {
+          "chapter": 0.0,
+          "document": 1.0,
+          "fully_covered": 0
+        },
+        "5": {
+          "chapter": 0.0,
+          "document": 1.0,
+          "fully_covered": 0
+        }
+      }
+    },
+    "items": {
+      "routed-port-ipv4/routed-port": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 11,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/configuring_ospf_local_rib.html",
+            "score": 0.8747425753784636,
+            "first_chunk_rank": 1,
+            "point_id": "31704ac5-ca1d-54ec-b82c-14a4221281c5",
+            "chapter_title": "Configuring OSPF Local RIB"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 25,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/protocol_independent_features.html",
+            "score": 0.8708515048768946,
+            "first_chunk_rank": 3,
+            "point_id": "d5288bcb-b77c-5c3a-88c9-870c441f854a",
+            "chapter_title": "Protocol-Independent Features"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-sec-9300-cg-8e2ad3aabae2",
+            "chapter_order": 30,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/sec/b_26x_sec_9300_cg/configuring_ieee_802_1x_port_based_authentication.html",
+            "score": 0.8683056981530681,
+            "first_chunk_rank": 4,
+            "point_id": "b12c326b-0de3-5782-b22f-299a0e68790b",
+            "chapter_title": "Configuring IEEE 802.1x Port-Based Authentication"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-ip-mcast-rtng-9300-cg-b076db950562",
+            "chapter_order": 9,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip_mcast_rtng/b_26x_ip_mcast_rtng_9300_cg/configuring_pim.html",
+            "score": 0.8669444175223663,
+            "first_chunk_rank": 5,
+            "point_id": "0ae98877-34e7-5a0a-8736-7f84f6c78ed0",
+            "chapter_title": "Configuring Protocol Independent Multicast (PIM)"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 24,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/17-18-multihoming--single-active-mode.html",
+            "score": 0.8667559751252476,
+            "first_chunk_rank": 6,
+            "point_id": "a86b6352-94f5-596f-b880-cc2e238095de",
+            "chapter_title": "Single-Active Mode"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 0.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 0.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 0.0,
+            "document": 1.0
+          }
+        }
+      },
+      "routed-port-ipv4/ipv4": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 11,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/configuring_ospf_local_rib.html",
+            "score": 0.8749698876020835,
+            "first_chunk_rank": 1,
+            "point_id": "31704ac5-ca1d-54ec-b82c-14a4221281c5",
+            "chapter_title": "Configuring OSPF Local RIB"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 25,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/protocol_independent_features.html",
+            "score": 0.8705009376134786,
+            "first_chunk_rank": 3,
+            "point_id": "d5288bcb-b77c-5c3a-88c9-870c441f854a",
+            "chapter_title": "Protocol-Independent Features"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-ip-mcast-rtng-9300-cg-b076db950562",
+            "chapter_order": 9,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip_mcast_rtng/b_26x_ip_mcast_rtng_9300_cg/configuring_pim.html",
+            "score": 0.8681348906054531,
+            "first_chunk_rank": 4,
+            "point_id": "0ae98877-34e7-5a0a-8736-7f84f6c78ed0",
+            "chapter_title": "Configuring Protocol Independent Multicast (PIM)"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 24,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/17-18-multihoming--single-active-mode.html",
+            "score": 0.8678691700868538,
+            "first_chunk_rank": 5,
+            "point_id": "a86b6352-94f5-596f-b880-cc2e238095de",
+            "chapter_title": "Single-Active Mode"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-ip-mcast-rtng-9300-cg-b076db950562",
+            "chapter_order": 7,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip_mcast_rtng/b_26x_ip_mcast_rtng_9300_cg/igmp_explicit_tracking.html",
+            "score": 0.8672947340134665,
+            "first_chunk_rank": 6,
+            "point_id": "6d2af10b-1c05-5c1c-ad78-ba6c41f853c7",
+            "chapter_title": "IGMP Explicit Tracking"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 0.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 0.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 0.0,
+            "document": 1.0
+          }
+        }
+      },
+      "interface-description/description": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 12,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/configuring_optimized_l2_overlay_mutlicast.html",
+            "score": 0.8770058021905858,
+            "first_chunk_rank": 1,
+            "point_id": "5eaf24c0-8a36-536d-b31a-d28113127c6e",
+            "chapter_title": "Configuring Optimized Layer 2 Overlay Multicast"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-lyr2-9300-cg-db110697da80",
+            "chapter_order": 14,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/lyr2/b_26x_lyr2_9300_cg/audio_video_bridging.html",
+            "score": 0.8731094700405544,
+            "first_chunk_rank": 6,
+            "point_id": "b7091c5e-5799-5aa9-815f-97b351449bda",
+            "chapter_title": "Configuring Audio Video Bridging"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 18,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/configuring_tenant_routed_multicast_over_ipv6.html",
+            "score": 0.8721777206972977,
+            "first_chunk_rank": 8,
+            "point_id": "5ffa671a-d3ba-5346-9a17-961e5b323882",
+            "chapter_title": "Configuring Tenant Routed Multicast over BGP EVPN VXLANv6"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-lyr2-9300-cg-db110697da80",
+            "chapter_order": 8,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/lyr2/b_26x_lyr2_9300_cg/configuring_generalized_precision_time_protocol.html",
+            "score": 0.8719572719745129,
+            "first_chunk_rank": 10,
+            "point_id": "7a385b62-b377-53e5-9a72-31836090e2bc",
+            "chapter_title": "Configuring Generalized Precision Time Protocol"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 17,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/configure-bgp-evpn-vxlanv6.html",
+            "score": 0.8712415734991042,
+            "first_chunk_rank": 16,
+            "point_id": "11f3baa4-bcf3-5c22-8245-c48b784b6b80",
+            "chapter_title": "Configuring BGP EVPN VXLANv6"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 0.0,
+            "document": 0.0
+          },
+          "2": {
+            "chapter": 0.0,
+            "document": 0.0
+          },
+          "5": {
+            "chapter": 0.0,
+            "document": 0.0
+          }
+        }
+      },
+      "access-vlan/access": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-lyr2-9300-cg-db110697da80",
+            "chapter_order": 12,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/lyr2/b_26x_lyr2_9300_cg/configuring_ieee_802_1q_tunneling.html",
+            "score": 0.8668387885941709,
+            "first_chunk_rank": 1,
+            "point_id": "a16bce53-0ae0-5f27-9faa-a936b7f11a54",
+            "chapter_title": "Configuring IEEE 802.1Q Tunneling"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 17,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/configure-bgp-evpn-vxlanv6.html",
+            "score": 0.8625272818500063,
+            "first_chunk_rank": 2,
+            "point_id": "deaf392e-9790-588a-87fe-f687e221888a",
+            "chapter_title": "Configuring BGP EVPN VXLANv6"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-sec-9300-cg-8e2ad3aabae2",
+            "chapter_order": 13,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/sec/b_26x_sec_9300_cg/configuring_vlan_radius_attributes.html",
+            "score": 0.8616302415475657,
+            "first_chunk_rank": 7,
+            "point_id": "5933937c-66d3-501b-aa55-e98c781c34e0",
+            "chapter_title": "Configuring VLAN RADIUS Attributes"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-lyr2-9300-cg-db110697da80",
+            "chapter_order": 13,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/lyr2/b_26x_lyr2_9300_cg/configuring_vlan_mapping.html",
+            "score": 0.8599223116399357,
+            "first_chunk_rank": 13,
+            "point_id": "109e41fc-79c0-5ec6-9a43-ae89d9167401",
+            "chapter_title": "Configuring VLAN Mapping"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-lyr2-9300-cg-db110697da80",
+            "chapter_order": 14,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/lyr2/b_26x_lyr2_9300_cg/audio_video_bridging.html",
+            "score": 0.8590777154125934,
+            "first_chunk_rank": 18,
+            "point_id": "b7091c5e-5799-5aa9-815f-97b351449bda",
+            "chapter_title": "Configuring Audio Video Bridging"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 0.0,
+            "document": 0.0
+          },
+          "2": {
+            "chapter": 0.0,
+            "document": 0.0
+          },
+          "5": {
+            "chapter": 0.0,
+            "document": 0.0
+          }
+        }
+      },
+      "dhcp-relay/relay": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d",
+            "chapter_order": 17,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip/b_26x_ip_9300_cg/configuring_tcp_mss_adjustment.html",
+            "score": 0.8578451765029561,
+            "first_chunk_rank": 1,
+            "point_id": "8aeae08c-10f0-5000-b11e-be07fc4329d3",
+            "chapter_title": "Configuring TCP MSS Adjustment"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 7,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/configuring_evpn_vxlan_integrated_routing_and_bridging.html",
+            "score": 0.8522958260958577,
+            "first_chunk_rank": 2,
+            "point_id": "c6a292be-1a6c-5608-89a4-9885f4ce4cf7",
+            "chapter_title": "Configuring EVPN VXLAN Integrated Routing and Bridging"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 13,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/configuring_tenant_routed_multicast.html",
+            "score": 0.8521188792828165,
+            "first_chunk_rank": 3,
+            "point_id": "daae9bc5-a32f-5cc5-8b34-ea5be0b55c67",
+            "chapter_title": "Configuring Tenant Routed Multicast"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 9,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/configuring_dhcp_relay_in_a_bgp_evpn_vxlan_fabric.html",
+            "score": 0.8520742701566713,
+            "first_chunk_rank": 4,
+            "point_id": "64c7301a-c6e6-5d0c-81e9-1c1bb78ccec7",
+            "chapter_title": "Configuring DHCP Relay in a BGP EVPN VXLAN Fabric"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 23,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/troubleshooting_bgp_evpn_vxlan.html",
+            "score": 0.8516081378590413,
+            "first_chunk_rank": 5,
+            "point_id": "63d49a43-971b-5fb0-b6af-56b7f4470689",
+            "chapter_title": "Troubleshooting BGP EVPN VXLAN"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 0.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 0.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 0.0,
+            "document": 1.0
+          }
+        }
+      },
+      "dhcp-pool/pool": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-mpls-9300-cg-b8c1ee43d3e9",
+            "chapter_order": 26,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/mpls/b_26x_mpls_9300_cg/configuring_seamless_mpls.html",
+            "score": 0.8593418219283606,
+            "first_chunk_rank": 1,
+            "point_id": "8510be37-7430-504d-a8b0-83c1c340cc43",
+            "chapter_title": "Configuring Seamless MPLS"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 11,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/configuring_ospf_local_rib.html",
+            "score": 0.8574021138327218,
+            "first_chunk_rank": 3,
+            "point_id": "31704ac5-ca1d-54ec-b82c-14a4221281c5",
+            "chapter_title": "Configuring OSPF Local RIB"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d",
+            "chapter_order": 13,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip/b_26x_ip_9300_cg/configuring_network_address_translation.html",
+            "score": 0.855075189609407,
+            "first_chunk_rank": 5,
+            "point_id": "79bb1a28-2f4f-5e9b-aaa6-9ce85f98b8cd",
+            "chapter_title": "Configuring Network Address Translation"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 29,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/1718-esi-mh-dag-routed-overlay.html",
+            "score": 0.8532144826037814,
+            "first_chunk_rank": 8,
+            "point_id": "5c601248-c269-5a00-a290-fc9d4d29580e",
+            "chapter_title": "Overlay: Distributed Anycast Gateway Routed"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-nmgmt-9300-cg-3e060c1d1d52",
+            "chapter_order": 11,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/nmgmt/b_26x_nmgmt_9300_cg/configuring_packet_capture.html",
+            "score": 0.8526902996998804,
+            "first_chunk_rank": 9,
+            "point_id": "9a508d8a-8865-5e75-b2f9-7fcd270cd0ab",
+            "chapter_title": "Configuring Packet Capture"
+          }
+        ],
+        "scores": null
+      },
+      "ipv6-interface/routing": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d",
+            "chapter_order": 3,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip/b_26x_ip_9300_cg/configuring_ipv6_client_ip_address_learning.html",
+            "score": 0.8694400047714271,
+            "first_chunk_rank": 1,
+            "point_id": "563a71c6-b8fa-5bdf-b354-e432180a8d30",
+            "chapter_title": "IPv6 Client IP Address Learning"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 17,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/configure-bgp-evpn-vxlanv6.html",
+            "score": 0.8668440023645329,
+            "first_chunk_rank": 2,
+            "point_id": "d131edad-a658-5fca-8b39-aebce8df00d1",
+            "chapter_title": "Configuring BGP EVPN VXLANv6"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-sec-9300-cg-8e2ad3aabae2",
+            "chapter_order": 28,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/sec/b_26x_sec_9300_cg/configuring_ipv6_first_hop_security.html",
+            "score": 0.8667944191540603,
+            "first_chunk_rank": 3,
+            "point_id": "5e417823-f92a-55dd-8090-c3262155993c",
+            "chapter_title": "Configuring IPv6 First Hop Security"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 12,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/configuring_optimized_l2_overlay_mutlicast.html",
+            "score": 0.8662757595107318,
+            "first_chunk_rank": 6,
+            "point_id": "66d80a97-4249-5ebe-a9aa-40a232c70348",
+            "chapter_title": "Configuring Optimized Layer 2 Overlay Multicast"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d",
+            "chapter_order": 19,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip/b_26x_ip_9300_cg/enhanced_ipv6_neighbor_discovery_cache_management.html",
+            "score": 0.8624629117710595,
+            "first_chunk_rank": 25,
+            "point_id": "550db076-279a-5829-b316-b23dd27128e9",
+            "chapter_title": "Enhanced IPv6 Neighbor Discovery Cache Management"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 0.0,
+            "document": 0.0
+          },
+          "2": {
+            "chapter": 0.0,
+            "document": 0.0
+          },
+          "5": {
+            "chapter": 0.0,
+            "document": 0.0
+          }
+        }
+      },
+      "ipv6-interface/svi-ipv6": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d",
+            "chapter_order": 3,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip/b_26x_ip_9300_cg/configuring_ipv6_client_ip_address_learning.html",
+            "score": 0.8810164365959912,
+            "first_chunk_rank": 1,
+            "point_id": "563a71c6-b8fa-5bdf-b354-e432180a8d30",
+            "chapter_title": "IPv6 Client IP Address Learning"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-sec-9300-cg-8e2ad3aabae2",
+            "chapter_order": 28,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/sec/b_26x_sec_9300_cg/configuring_ipv6_first_hop_security.html",
+            "score": 0.8707319888601593,
+            "first_chunk_rank": 5,
+            "point_id": "5e417823-f92a-55dd-8090-c3262155993c",
+            "chapter_title": "Configuring IPv6 First Hop Security"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 12,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/configuring_optimized_l2_overlay_mutlicast.html",
+            "score": 0.8690906207648221,
+            "first_chunk_rank": 8,
+            "point_id": "d79c4d4f-71df-5e4a-9b38-dc31b8c4f6c2",
+            "chapter_title": "Configuring Optimized Layer 2 Overlay Multicast"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d",
+            "chapter_order": 19,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip/b_26x_ip_9300_cg/enhanced_ipv6_neighbor_discovery_cache_management.html",
+            "score": 0.8687774712186687,
+            "first_chunk_rank": 11,
+            "point_id": "550db076-279a-5829-b316-b23dd27128e9",
+            "chapter_title": "Enhanced IPv6 Neighbor Discovery Cache Management"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d",
+            "chapter_order": 20,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip/b_26x_ip_9300_cg/ipv6_neighbor_discovery_proxy.html",
+            "score": 0.8685839478360601,
+            "first_chunk_rank": 12,
+            "point_id": "30937f2b-aecb-58c4-817d-a28a0cd09ff6",
+            "chapter_title": "IPv6 Neighbor Discovery Proxy"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 0.0,
+            "document": 0.0
+          },
+          "2": {
+            "chapter": 0.0,
+            "document": 0.0
+          },
+          "5": {
+            "chapter": 0.0,
+            "document": 0.0
+          }
+        }
+      },
+      "ntp-server/ntp": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-lyr2-9300-cg-db110697da80",
+            "chapter_order": 8,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/lyr2/b_26x_lyr2_9300_cg/configuring_generalized_precision_time_protocol.html",
+            "score": 0.8637502219183111,
+            "first_chunk_rank": 1,
+            "point_id": "405c5035-6709-5198-ba66-fd1d17aab896",
+            "chapter_title": "Configuring Generalized Precision Time Protocol"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f",
+            "chapter_order": 2,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/sys_mgmt/b_26x_sys_mgmt_9300_cg/administering_the_device.html",
+            "score": 0.8561027763139459,
+            "first_chunk_rank": 3,
+            "point_id": "00f08bac-d179-5181-9fcf-547c0905405c",
+            "chapter_title": "Administering the Device"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-lyr2-9300-cg-db110697da80",
+            "chapter_order": 7,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/lyr2/b_26x_lyr2_9300_cg/configuring_precision_time_protocol__ptp_.html",
+            "score": 0.8558381365904736,
+            "first_chunk_rank": 4,
+            "point_id": "1d4f11a2-4fe5-5f55-bad6-743ca9c1d0de",
+            "chapter_title": "Configuring Precision Time Protocol (PTP)"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 25,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/protocol_independent_features.html",
+            "score": 0.8552516230212626,
+            "first_chunk_rank": 8,
+            "point_id": "d5288bcb-b77c-5c3a-88c9-870c441f854a",
+            "chapter_title": "Protocol-Independent Features"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-nmgmt-9300-cg-3e060c1d1d52",
+            "chapter_order": 7,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/nmgmt/b_26x_nmgmt_9300_cg/configuring_simple_network_management_protocol.html",
+            "score": 0.8550572858813182,
+            "first_chunk_rank": 9,
+            "point_id": "62635f58-e911-534b-9f93-45338d640cd9",
+            "chapter_title": "Configuring Simple Network Management Protocol"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 0.0,
+            "document": 0.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "syslog-server/syslog": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 25,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/protocol_independent_features.html",
+            "score": 0.8555842401044407,
+            "first_chunk_rank": 1,
+            "point_id": "d5288bcb-b77c-5c3a-88c9-870c441f854a",
+            "chapter_title": "Protocol-Independent Features"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f",
+            "chapter_order": 8,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/sys_mgmt/b_26x_sys_mgmt_9300_cg/configuring_system_message_logs.html",
+            "score": 0.8555799009064502,
+            "first_chunk_rank": 2,
+            "point_id": "35f5b3e7-e525-5365-b65d-10d7b1fafa64",
+            "chapter_title": "Configuring System Message Logs"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-lyr2-9300-cg-db110697da80",
+            "chapter_order": 8,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/lyr2/b_26x_lyr2_9300_cg/configuring_generalized_precision_time_protocol.html",
+            "score": 0.8528143346048387,
+            "first_chunk_rank": 5,
+            "point_id": "405c5035-6709-5198-ba66-fd1d17aab896",
+            "chapter_title": "Configuring Generalized Precision Time Protocol"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 4,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/configuring_msdp.html",
+            "score": 0.8524930816338745,
+            "first_chunk_rank": 7,
+            "point_id": "82216adb-522f-5fb8-ad81-2e7c15a89e1d",
+            "chapter_title": "Configuring MSDP"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f",
+            "chapter_order": 22,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/sys_mgmt/b_26x_sys_mgmt_9300_cg/troubleshooting_the_software_configuration.html",
+            "score": 0.850052484709221,
+            "first_chunk_rank": 12,
+            "point_id": "50054266-ebf8-5038-8cfb-d6dec9342f1f",
+            "chapter_title": "Troubleshooting the Software Configuration"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 0.0,
+            "document": 0.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "snmp-community/snmp": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f",
+            "chapter_order": 3,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/sys_mgmt/b_26x_sys_mgmt_9300_cg/boot_integrity_visibility.html",
+            "score": 0.8603286890507251,
+            "first_chunk_rank": 1,
+            "point_id": "f9a544c5-2a82-5d56-a6b0-ffd290bf14f3",
+            "chapter_title": "Boot Integrity Visibility"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-nmgmt-9300-cg-3e060c1d1d52",
+            "chapter_order": 12,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/nmgmt/b_26x_nmgmt_9300_cg/configuring_flexible_netflow.html",
+            "score": 0.8591366049771243,
+            "first_chunk_rank": 3,
+            "point_id": "a94f6af2-434a-5d2d-82be-f49928ee0f3b",
+            "chapter_title": "Configuring Flexible NetFlow"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f",
+            "chapter_order": 2,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/sys_mgmt/b_26x_sys_mgmt_9300_cg/administering_the_device.html",
+            "score": 0.8580110173583858,
+            "first_chunk_rank": 4,
+            "point_id": "6adf31e8-95f0-54d3-abff-e9580e02333d",
+            "chapter_title": "Administering the Device"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 19,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/configuring_bgp_monitoring_protocol.html",
+            "score": 0.8573488519596126,
+            "first_chunk_rank": 7,
+            "point_id": "ebc6ae71-b023-5cde-a852-9a4fa5508a80",
+            "chapter_title": "Configuring BGP Monitoring Protocol"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-nmgmt-9300-cg-3e060c1d1d52",
+            "chapter_order": 7,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/nmgmt/b_26x_nmgmt_9300_cg/configuring_simple_network_management_protocol.html",
+            "score": 0.857041550243126,
+            "first_chunk_rank": 10,
+            "point_id": "a1791085-abcf-5227-a779-11553947eef8",
+            "chapter_title": "Configuring Simple Network Management Protocol"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 0.0,
+            "document": 0.0
+          },
+          "2": {
+            "chapter": 0.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "interface-shutdown/shutdown": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-lyr2-9300-cg-db110697da80",
+            "chapter_order": 14,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/lyr2/b_26x_lyr2_9300_cg/audio_video_bridging.html",
+            "score": 0.8847997300210519,
+            "first_chunk_rank": 1,
+            "point_id": "b7091c5e-5799-5aa9-815f-97b351449bda",
+            "chapter_title": "Configuring Audio Video Bridging"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-lyr2-9300-cg-db110697da80",
+            "chapter_order": 8,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/lyr2/b_26x_lyr2_9300_cg/configuring_generalized_precision_time_protocol.html",
+            "score": 0.8815835327533001,
+            "first_chunk_rank": 2,
+            "point_id": "7a385b62-b377-53e5-9a72-31836090e2bc",
+            "chapter_title": "Configuring Generalized Precision Time Protocol"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-ip-mcast-rtng-9300-cg-b076db950562",
+            "chapter_order": 7,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip_mcast_rtng/b_26x_ip_mcast_rtng_9300_cg/igmp_explicit_tracking.html",
+            "score": 0.8802398511381642,
+            "first_chunk_rank": 3,
+            "point_id": "6d2af10b-1c05-5c1c-ad78-ba6c41f853c7",
+            "chapter_title": "IGMP Explicit Tracking"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 18,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/configuring_tenant_routed_multicast_over_ipv6.html",
+            "score": 0.8749042903381805,
+            "first_chunk_rank": 4,
+            "point_id": "5ffa671a-d3ba-5346-9a17-961e5b323882",
+            "chapter_title": "Configuring Tenant Routed Multicast over BGP EVPN VXLANv6"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 13,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/configuring_tenant_routed_multicast.html",
+            "score": 0.8744754548805855,
+            "first_chunk_rank": 5,
+            "point_id": "9650b2bd-c388-5ac8-95fc-92afdd426766",
+            "chapter_title": "Configuring Tenant Routed Multicast"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 0.0,
+            "document": 0.0
+          },
+          "2": {
+            "chapter": 0.0,
+            "document": 0.0
+          },
+          "5": {
+            "chapter": 0.0,
+            "document": 0.0
+          }
+        }
+      },
+      "minimal-interface-range/range": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 12,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/configuring_optimized_l2_overlay_mutlicast.html",
+            "score": 0.8606994758457556,
+            "first_chunk_rank": 1,
+            "point_id": "14c05591-93a3-5a9e-8d94-07f064e3bcda",
+            "chapter_title": "Configuring Optimized Layer 2 Overlay Multicast"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 11,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/configuring_ospf_local_rib.html",
+            "score": 0.8592140868226451,
+            "first_chunk_rank": 3,
+            "point_id": "31704ac5-ca1d-54ec-b82c-14a4221281c5",
+            "chapter_title": "Configuring OSPF Local RIB"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-lyr2-9300-cg-db110697da80",
+            "chapter_order": 14,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/lyr2/b_26x_lyr2_9300_cg/audio_video_bridging.html",
+            "score": 0.8592074135740355,
+            "first_chunk_rank": 4,
+            "point_id": "b7091c5e-5799-5aa9-815f-97b351449bda",
+            "chapter_title": "Configuring Audio Video Bridging"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 13,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/configuring_tenant_routed_multicast.html",
+            "score": 0.8582445847714621,
+            "first_chunk_rank": 5,
+            "point_id": "bced06c5-1f9f-5142-85f7-c66c2c0b1796",
+            "chapter_title": "Configuring Tenant Routed Multicast"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 28,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/1718-esi-mh-dag-bridged-overlay.html",
+            "score": 0.8576433910650874,
+            "first_chunk_rank": 7,
+            "point_id": "2fe030b2-743e-591c-818a-05df9c136a62",
+            "chapter_title": "Overlay: Distributed Anycast Bridged"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 0.0,
+            "document": 0.0
+          },
+          "2": {
+            "chapter": 0.0,
+            "document": 0.0
+          },
+          "5": {
+            "chapter": 0.0,
+            "document": 0.0
+          }
+        }
+      },
+      "minimal-interface-range/access": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 12,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/configuring_optimized_l2_overlay_mutlicast.html",
+            "score": 0.8532035357575695,
+            "first_chunk_rank": 1,
+            "point_id": "14c05591-93a3-5a9e-8d94-07f064e3bcda",
+            "chapter_title": "Configuring Optimized Layer 2 Overlay Multicast"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-lyr2-9300-cg-db110697da80",
+            "chapter_order": 14,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/lyr2/b_26x_lyr2_9300_cg/audio_video_bridging.html",
+            "score": 0.8522185563202831,
+            "first_chunk_rank": 2,
+            "point_id": "b7091c5e-5799-5aa9-815f-97b351449bda",
+            "chapter_title": "Configuring Audio Video Bridging"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-lyr2-9300-cg-db110697da80",
+            "chapter_order": 13,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/lyr2/b_26x_lyr2_9300_cg/configuring_vlan_mapping.html",
+            "score": 0.8519142208097135,
+            "first_chunk_rank": 3,
+            "point_id": "109e41fc-79c0-5ec6-9a43-ae89d9167401",
+            "chapter_title": "Configuring VLAN Mapping"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-sec-9300-cg-8e2ad3aabae2",
+            "chapter_order": 13,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/sec/b_26x_sec_9300_cg/configuring_vlan_radius_attributes.html",
+            "score": 0.85105363182934,
+            "first_chunk_rank": 4,
+            "point_id": "5933937c-66d3-501b-aa55-e98c781c34e0",
+            "chapter_title": "Configuring VLAN RADIUS Attributes"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-lyr2-9300-cg-db110697da80",
+            "chapter_order": 8,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/lyr2/b_26x_lyr2_9300_cg/configuring_generalized_precision_time_protocol.html",
+            "score": 0.8509112173149574,
+            "first_chunk_rank": 5,
+            "point_id": "7a385b62-b377-53e5-9a72-31836090e2bc",
+            "chapter_title": "Configuring Generalized Precision Time Protocol"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 0.0,
+            "document": 0.0
+          },
+          "2": {
+            "chapter": 0.0,
+            "document": 0.0
+          },
+          "5": {
+            "chapter": 0.0,
+            "document": 0.0
+          }
+        }
+      },
+      "vtp-transparent/vtp": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+            "chapter_order": 2,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg/configuring_vtp.html",
+            "score": 0.8631517945062313,
+            "first_chunk_rank": 1,
+            "point_id": "f86582be-25ca-5146-8503-ecf85d12ab42",
+            "chapter_title": "Configuring VTP"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+            "chapter_order": 3,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg/configuring_vlans.html",
+            "score": 0.8483354083439735,
+            "first_chunk_rank": 11,
+            "point_id": "ad5de247-d39c-5a39-bef6-7abdefef51a6",
+            "chapter_title": "Configuring VLANs"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-lyr2-9300-cg-db110697da80",
+            "chapter_order": 14,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/lyr2/b_26x_lyr2_9300_cg/audio_video_bridging.html",
+            "score": 0.8477134880515095,
+            "first_chunk_rank": 16,
+            "point_id": "75e72976-b450-5cb8-8655-38cf3929d5e1",
+            "chapter_title": "Configuring Audio Video Bridging"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 12,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/configuring_optimized_l2_overlay_mutlicast.html",
+            "score": 0.8472151333392282,
+            "first_chunk_rank": 19,
+            "point_id": "862e9c51-840f-580d-a403-9ac8b4a0d527",
+            "chapter_title": "Configuring Optimized Layer 2 Overlay Multicast"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-sec-9300-cg-8e2ad3aabae2",
+            "chapter_order": 51,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/sec/b_26x_sec_9300_cg/secure_operation_in_fips_mode.html",
+            "score": 0.8455640255808305,
+            "first_chunk_rank": 22,
+            "point_id": "19880d09-7102-58c0-af51-629c3c227924",
+            "chapter_title": "Secure Operation in FIPS Mode"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 1.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "vlan-name/vlan": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-bonjour-9300-cg-ee5da72ad5b7",
+            "chapter_order": 4,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/bonjour/b_26x_bonjour_9300_cg/configuring_local_area_bonjour_in_unicast_mode.html",
+            "score": 0.8677346850433371,
+            "first_chunk_rank": 1,
+            "point_id": "b85b98b4-1d28-5c25-8b66-4bbb2ed27bb6",
+            "chapter_title": "Configuring Local Area Bonjour in Unicast Mode for LAN Networks"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-sec-9300-cg-8e2ad3aabae2",
+            "chapter_order": 30,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/sec/b_26x_sec_9300_cg/configuring_ieee_802_1x_port_based_authentication.html",
+            "score": 0.8624094927952799,
+            "first_chunk_rank": 3,
+            "point_id": "9311816c-069c-5d63-a931-96758dd76e9e",
+            "chapter_title": "Configuring IEEE 802.1x Port-Based Authentication"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+            "chapter_order": 3,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg/configuring_vlans.html",
+            "score": 0.8619189129984458,
+            "first_chunk_rank": 4,
+            "point_id": "126be480-69bd-5a89-90fc-b64651c51b7d",
+            "chapter_title": "Configuring VLANs"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+            "chapter_order": 7,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg/configuring_layer_3_subinterfaces.html",
+            "score": 0.8619136873659796,
+            "first_chunk_rank": 5,
+            "point_id": "ec2c3c23-87af-51f2-928e-98a64746b8c2",
+            "chapter_title": "Configuring Layer 3 Subinterfaces"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 12,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/configuring_optimized_l2_overlay_mutlicast.html",
+            "score": 0.8609202376736225,
+            "first_chunk_rank": 6,
+            "point_id": "68f0ca5c-95c6-53c9-b317-86b30402d9f8",
+            "chapter_title": "Configuring Optimized Layer 2 Overlay Multicast"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 0.0,
+            "document": 0.0
+          },
+          "2": {
+            "chapter": 0.0,
+            "document": 0.0
+          },
+          "5": {
+            "chapter": 1.0,
+            "document": 1.0
+          }
+        }
+      },
+      "parameter-vlan120/vlan": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 11,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/configuring_ospf_local_rib.html",
+            "score": 0.888722988522537,
+            "first_chunk_rank": 1,
+            "point_id": "31704ac5-ca1d-54ec-b82c-14a4221281c5",
+            "chapter_title": "Configuring OSPF Local RIB"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 24,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/17-18-multihoming--single-active-mode.html",
+            "score": 0.8839819621544385,
+            "first_chunk_rank": 3,
+            "point_id": "a86b6352-94f5-596f-b880-cc2e238095de",
+            "chapter_title": "Single-Active Mode"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 17,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/configure-bgp-evpn-vxlanv6.html",
+            "score": 0.8838363792542921,
+            "first_chunk_rank": 4,
+            "point_id": "11f3baa4-bcf3-5c22-8245-c48b784b6b80",
+            "chapter_title": "Configuring BGP EVPN VXLANv6"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 13,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/configuring_tenant_routed_multicast.html",
+            "score": 0.8820444955355138,
+            "first_chunk_rank": 11,
+            "point_id": "65dc529f-38fe-5275-a568-8d12fc4c619c",
+            "chapter_title": "Configuring Tenant Routed Multicast"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 12,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/configuring_optimized_l2_overlay_mutlicast.html",
+            "score": 0.8818140466170657,
+            "first_chunk_rank": 12,
+            "point_id": "e6903de0-437b-55e5-a5b1-9ee628d1da61",
+            "chapter_title": "Configuring Optimized Layer 2 Overlay Multicast"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 0.0,
+            "document": 0.0
+          },
+          "2": {
+            "chapter": 0.0,
+            "document": 0.0
+          },
+          "5": {
+            "chapter": 0.0,
+            "document": 0.0
+          }
+        }
+      },
+      "parameter-vlan120/access": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 11,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/configuring_ospf_local_rib.html",
+            "score": 0.8855266523819302,
+            "first_chunk_rank": 1,
+            "point_id": "31704ac5-ca1d-54ec-b82c-14a4221281c5",
+            "chapter_title": "Configuring OSPF Local RIB"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 24,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/17-18-multihoming--single-active-mode.html",
+            "score": 0.8811381582465132,
+            "first_chunk_rank": 3,
+            "point_id": "a86b6352-94f5-596f-b880-cc2e238095de",
+            "chapter_title": "Single-Active Mode"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 17,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/configure-bgp-evpn-vxlanv6.html",
+            "score": 0.8803183338255683,
+            "first_chunk_rank": 4,
+            "point_id": "11f3baa4-bcf3-5c22-8245-c48b784b6b80",
+            "chapter_title": "Configuring BGP EVPN VXLANv6"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-sec-9300-cg-8e2ad3aabae2",
+            "chapter_order": 30,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/sec/b_26x_sec_9300_cg/configuring_ieee_802_1x_port_based_authentication.html",
+            "score": 0.8795317352076116,
+            "first_chunk_rank": 5,
+            "point_id": "5ad798a1-c9e5-561b-9556-dba540f4407e",
+            "chapter_title": "Configuring IEEE 802.1x Port-Based Authentication"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 25,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/protocol_independent_features.html",
+            "score": 0.8787830577267024,
+            "first_chunk_rank": 8,
+            "point_id": "d5288bcb-b77c-5c3a-88c9-870c441f854a",
+            "chapter_title": "Protocol-Independent Features"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 0.0,
+            "document": 0.0
+          },
+          "2": {
+            "chapter": 0.0,
+            "document": 0.0
+          },
+          "5": {
+            "chapter": 0.0,
+            "document": 0.0
+          }
+        }
+      },
+      "parameter-vlan120/svi-ipv4": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 11,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/configuring_ospf_local_rib.html",
+            "score": 0.8894378228607991,
+            "first_chunk_rank": 1,
+            "point_id": "31704ac5-ca1d-54ec-b82c-14a4221281c5",
+            "chapter_title": "Configuring OSPF Local RIB"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 12,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/configuring_optimized_l2_overlay_mutlicast.html",
+            "score": 0.8834244945100269,
+            "first_chunk_rank": 3,
+            "point_id": "9618c622-b807-56b3-86c4-b8ef3d362a33",
+            "chapter_title": "Configuring Optimized Layer 2 Overlay Multicast"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 13,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/configuring_tenant_routed_multicast.html",
+            "score": 0.8829378340476225,
+            "first_chunk_rank": 5,
+            "point_id": "65dc529f-38fe-5275-a568-8d12fc4c619c",
+            "chapter_title": "Configuring Tenant Routed Multicast"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 17,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/configure-bgp-evpn-vxlanv6.html",
+            "score": 0.8826841222069783,
+            "first_chunk_rank": 6,
+            "point_id": "6a8846e7-5e0a-5a7c-8703-f3aaf2015c6c",
+            "chapter_title": "Configuring BGP EVPN VXLANv6"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 24,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/17-18-multihoming--single-active-mode.html",
+            "score": 0.8823618004272568,
+            "first_chunk_rank": 8,
+            "point_id": "a86b6352-94f5-596f-b880-cc2e238095de",
+            "chapter_title": "Single-Active Mode"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 0.0,
+            "document": 0.0
+          },
+          "2": {
+            "chapter": 0.0,
+            "document": 0.0
+          },
+          "5": {
+            "chapter": 0.0,
+            "document": 0.0
+          }
+        }
+      },
+      "parameter-vlan120/relay": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 11,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/configuring_ospf_local_rib.html",
+            "score": 0.8866028448893555,
+            "first_chunk_rank": 1,
+            "point_id": "31704ac5-ca1d-54ec-b82c-14a4221281c5",
+            "chapter_title": "Configuring OSPF Local RIB"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 25,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/protocol_independent_features.html",
+            "score": 0.8802260847246848,
+            "first_chunk_rank": 3,
+            "point_id": "d5288bcb-b77c-5c3a-88c9-870c441f854a",
+            "chapter_title": "Protocol-Independent Features"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 24,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/17-18-multihoming--single-active-mode.html",
+            "score": 0.8802210624563815,
+            "first_chunk_rank": 4,
+            "point_id": "a86b6352-94f5-596f-b880-cc2e238095de",
+            "chapter_title": "Single-Active Mode"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 17,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/configure-bgp-evpn-vxlanv6.html",
+            "score": 0.8789468031445042,
+            "first_chunk_rank": 5,
+            "point_id": "11f3baa4-bcf3-5c22-8245-c48b784b6b80",
+            "chapter_title": "Configuring BGP EVPN VXLANv6"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d",
+            "chapter_order": 17,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip/b_26x_ip_9300_cg/configuring_tcp_mss_adjustment.html",
+            "score": 0.8782001288913537,
+            "first_chunk_rank": 8,
+            "point_id": "8aeae08c-10f0-5000-b11e-be07fc4329d3",
+            "chapter_title": "Configuring TCP MSS Adjustment"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 0.0,
+            "document": 0.0
+          },
+          "2": {
+            "chapter": 0.0,
+            "document": 0.0
+          },
+          "5": {
+            "chapter": 0.0,
+            "document": 1.0
+          }
+        }
+      },
+      "stateful-dhcpv6/procedure": {
+        "candidates": [
+          {
+            "document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d",
+            "chapter_order": 3,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip/b_26x_ip_9300_cg/configuring_ipv6_client_ip_address_learning.html",
+            "score": 0.8815470214397063,
+            "first_chunk_rank": 1,
+            "point_id": "1f33fd2b-9fff-51e4-8cba-fcbd1acb8651",
+            "chapter_title": "IPv6 Client IP Address Learning"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d",
+            "chapter_order": 7,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip/b_26x_ip_9300_cg/dhcpv6_options_support.html",
+            "score": 0.8660112395324017,
+            "first_chunk_rank": 7,
+            "point_id": "79540a25-2c8f-51d6-8f05-aed26b8ef849",
+            "chapter_title": "DHCPv6 Options Support"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-mpls-9300-cg-b8c1ee43d3e9",
+            "chapter_order": 6,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/mpls/b_26x_mpls_9300_cg/configuring_ipv6___provider_edge_over_mpls__6pe_.html",
+            "score": 0.8648427109097339,
+            "first_chunk_rank": 9,
+            "point_id": "7152c2bc-336f-5662-9231-9f6b914a73de",
+            "chapter_title": "Configuring IPv6 Provider Edge over MPLS (6PE)"
+          },
+          {
+            "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+            "chapter_order": 11,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/configuring_ospf_local_rib.html",
+            "score": 0.8625141752777609,
+            "first_chunk_rank": 11,
+            "point_id": "31704ac5-ca1d-54ec-b82c-14a4221281c5",
+            "chapter_title": "Configuring OSPF Local RIB"
+          },
+          {
+            "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+            "chapter_order": 17,
+            "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/configure-bgp-evpn-vxlanv6.html",
+            "score": 0.8620539612882465,
+            "first_chunk_rank": 12,
+            "point_id": "19583716-4cf0-55ed-b30c-83a97af4316c",
+            "chapter_title": "Configuring BGP EVPN VXLANv6"
+          }
+        ],
+        "scores": {
+          "1": {
+            "chapter": 0.0,
+            "document": 1.0
+          },
+          "2": {
+            "chapter": 0.0,
+            "document": 1.0
+          },
+          "5": {
+            "chapter": 0.0,
+            "document": 1.0
+          }
+        }
+      }
+    }
+  }
+}

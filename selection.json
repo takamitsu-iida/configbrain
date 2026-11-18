@@ -1,0 +1,61 @@
+{
+  "product": "catalyst9300",
+  "release": "26.x",
+  "catalog_sha256": "607168b871f1ff73c652609b2b0a95bf82821e8f752f2ed7705a6976817ff288",
+  "model": "gpt-5.1-2025-11-13",
+  "requirement": "VLAN 120を作成し、アクセスポートに割り当てる",
+  "items": [
+    {
+      "requirement": "VLAN 120 をスイッチ上に作成する",
+      "uncertainty": "標準 VLAN か Voice VLAN か、あるいは PVLAN などの特殊 VLAN かが指定されていない。また、VTP ドメインの有無や VLAN をどのスイッチ群で共有するかも不明。",
+      "candidates": [
+        {
+          "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+          "chapter_order": 3,
+          "chapter_title": "Configuring VLANs",
+          "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg/configuring_vlans.html",
+          "reason": "VLAN の作成や基本的な VLAN 設定に直接対応していると推測できるため、VLAN 120 の作成手順を確認する際の最優先候補。",
+          "uncertainty": "章タイトルから VLAN 作成方法を扱うと推測しているが、具体的な CLI や手順内容は確認していない。"
+        },
+        {
+          "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+          "chapter_order": 2,
+          "chapter_title": "Configuring VTP",
+          "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg/configuring_vtp.html",
+          "reason": "VTP を使用している環境では VLAN 作成が VTP の設定に依存する可能性があるため、必要に応じて参照する候補。",
+          "uncertainty": "VTP を使用しているかどうかが要件からは分からないため、この章が必須かどうかは不明。"
+        }
+      ]
+    },
+    {
+      "requirement": "物理アクセスポートを VLAN 120 に割り当てる",
+      "uncertainty": "どのインターフェースをアクセスポートにするか、既存のポート設定（Voice VLAN、ポートセキュリティ、QoS など）との関係が不明。また、ポートが既にトランクとして使用されている可能性もある。",
+      "candidates": [
+        {
+          "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+          "chapter_order": 3,
+          "chapter_title": "Configuring VLANs",
+          "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg/configuring_vlans.html",
+          "reason": "VLAN のポート割り当てやアクセスポート設定を含む基本 VLAN 設定に最も関連すると考えられるため、VLAN 120 へのポート割り当ての主要な参照先。",
+          "uncertainty": "アクセスポート設定の詳細（switchport mode access など）をこの章がどこまで扱うかは未確認。"
+        },
+        {
+          "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+          "chapter_order": 4,
+          "chapter_title": "Configuring Voice VLANs",
+          "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg/configuring_voice_vlans.html",
+          "reason": "対象ポートが音声端末用で Voice VLAN を併用する場合、この章の設定内容が関係する可能性があるため補助的な候補。",
+          "uncertainty": "要件では通常データ用アクセスポートか Voice VLAN 併用ポートかが明示されていない。"
+        },
+        {
+          "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+          "chapter_order": 2,
+          "chapter_title": "Configuring Interface Characteristics",
+          "chapter_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/configuring_interface_characteristics.html",
+          "reason": "インターフェースの基本特性（管理状態、速度・デュプレックスなど）を設定する際に参照する可能性があり、アクセスポート運用の補助情報として関連するため。",
+          "uncertainty": "VLAN 割り当て自体は VLAN ガイド側で扱われると推測されるため、この章が必須かどうかは不明。"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "product": "catalyst9300",
+  "release": "26.x",
+  "cases": [
+    {"id": "routed-port-ipv4", "requirement": "Catalyst 9300のGigabitEthernet1/0/1をルーテッドポートにし、IPv4アドレス192.0.2.1/24を設定してください。", "items": [{"id": "routed-port", "focus": "物理ポートをルーテッドポートにする"}, {"id": "ipv4", "focus": "物理ポートにIPv4アドレスを設定する"}]},
+    {"id": "interface-description", "requirement": "GigabitEthernet1/0/10に Uplink-to-Core というdescriptionを設定してください。", "items": [{"id": "description", "focus": "インターフェースの説明を設定する"}]},
+    {"id": "access-vlan", "requirement": "GigabitEthernet1/0/20をアクセスポートにしてVLAN 120へ所属させてください。", "items": [{"id": "access", "focus": "アクセスポートをVLANに所属させる"}]},
+    {"id": "dhcp-relay", "requirement": "Vlan100で受信するDHCP要求をDHCPサーバー192.0.2.50へ転送してください。", "items": [{"id": "relay", "focus": "DHCP要求をサーバーへ転送する"}]},
+    {"id": "dhcp-pool", "requirement": "10.10.20.0/24向けに名前 USERS のDHCPプールを作り、デフォルトゲートウェイを10.10.20.1にしてください。", "items": [{"id": "pool", "focus": "DHCPプールとデフォルトゲートウェイを設定する"}]},
+    {"id": "ipv6-interface", "requirement": "IPv6ルーティングを有効化し、Vlan200へ2001:db8:200::1/64を設定してください。", "items": [{"id": "routing", "focus": "IPv6ルーティングを有効化する"}, {"id": "svi-ipv6", "focus": "VLANインターフェースを指定してIPv6アドレスを設定する"}]},
+    {"id": "ntp-server", "requirement": "NTPサーバー192.0.2.123を時刻同期先として設定してください。", "items": [{"id": "ntp", "focus": "NTP同期先を指定する"}]},
+    {"id": "syslog-server", "requirement": "Syslogメッセージを192.0.2.200へ送信する設定を生成してください。", "items": [{"id": "syslog", "focus": "外部Syslog送信先を指定する"}]},
+    {"id": "snmp-community", "requirement": "SNMPv2cの読み取り専用コミュニティ名 MONITOR を設定してください。", "items": [{"id": "snmp", "focus": "SNMP読み取り専用コミュニティを設定する"}]},
+    {"id": "interface-shutdown", "requirement": "GigabitEthernet1/0/48を管理的に停止してください。", "items": [{"id": "shutdown", "focus": "インターフェースを管理的に停止する"}]},
+    {"id": "minimal-interface-range", "requirement": "GigabitEthernet1/0/10と1/0/11と1/0/12をVLAN 100のアクセスポートにしてください。できるだけ短い設定でお願いします。", "items": [{"id": "range", "focus": "複数インターフェースをまとめて指定する"}, {"id": "access", "focus": "アクセスポートをVLANに所属させる"}]},
+    {"id": "vtp-transparent", "requirement": "VTPのデフォルト動作を確認して、デフォルトがtransparentでなければ、設定をtransparentに変更してください。", "items": [{"id": "vtp", "focus": "VTPのデフォルトとtransparentモードを確認する"}]},
+    {"id": "vlan-name", "requirement": "VLAN 100を作成し、名前をUSERSに設定してください。", "items": [{"id": "vlan", "focus": "VLANを作成して名前を設定する"}]},
+    {"id": "parameter-vlan120", "requirement": "Catalyst 9300 / IOS XE 26.x。VLAN 120を作成し、GigabitEthernet1/0/20をアクセスポートとして所属させ、SVIに192.0.2.1/24を設定し、DHCP要求を198.51.100.50へ転送する。SVIとDHCPサーバーの経路はデフォルトVRF。IPルーティングとDHCPサービスは有効済み。", "items": [{"id": "vlan", "focus": "VLANを作成する"}, {"id": "access", "focus": "アクセスポートをVLANに所属させる"}, {"id": "svi-ipv4", "focus": "VLANインターフェースを指定してIPv4アドレスを設定する"}, {"id": "relay", "focus": "DHCP要求をサーバーへ転送する"}]},
+    {"id": "stateful-dhcpv6", "requirement": "外部DHCPサーバーを使うStateful DHCPv6について、IPv6ルーティング、DNS、ドメイン名、VLANインターフェース、IPv4とIPv6のアドレス、プレフィックス広告、managedおよびotherフラグ、DHCPv6リレーを含む一連の手順を確認したい。", "items": [{"id": "procedure", "focus": "外部Stateful DHCPv6の一連の手順"}]}
+  ]
+}

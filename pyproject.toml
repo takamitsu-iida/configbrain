@@ -10,7 +10,9 @@ dependencies = [
     "markdown-it-py>=4.3.0",
     "markdownify>=1.2.0",
     "pypdfium2>=4.30.0",
+    "python-dotenv>=1.0",
     "qdrant-client>=1.20.0",
+    "requests>=2.32",
     "sentence-transformers>=6.3.0",
 ]
 

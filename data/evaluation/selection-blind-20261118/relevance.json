@@ -1,0 +1,32 @@
+{
+  "method": "選定済みの章候補を対象項目とのトピック・用途で事後に判定。R=関連、X=要求と明らかに異なる用途、?=未判定。一般的な設定に対する特殊構成専用章はXとするが、章名から確実に判断できない場合は?とする。Qdrantは対応チャンクの節名も参照した。正解章以外も関連になり得る。Rは根拠として十分であることを保証しない。",
+  "item_order": [
+    "routed-port-ipv4/routed-port",
+    "routed-port-ipv4/ipv4",
+    "interface-description/description",
+    "access-vlan/access",
+    "dhcp-relay/relay",
+    "dhcp-pool/pool",
+    "ipv6-interface/routing",
+    "ipv6-interface/svi-ipv6",
+    "ntp-server/ntp",
+    "syslog-server/syslog",
+    "snmp-community/snmp",
+    "interface-shutdown/shutdown",
+    "minimal-interface-range/range",
+    "minimal-interface-range/access",
+    "vtp-transparent/vtp",
+    "vlan-name/vlan",
+    "parameter-vlan120/vlan",
+    "parameter-vlan120/access",
+    "parameter-vlan120/svi-ipv4",
+    "parameter-vlan120/relay",
+    "stateful-dhcpv6/procedure"
+  ],
+  "runs": {
+    "llm-run-01.json": ["RR", "RR", "R", "RR", "R", "R", "R", "RR", "R", "R", "R", "R?", "R", "RR", "R", "R", "R", "RR", "RR", "R", "RRRR"],
+    "llm-run-02.json": ["RR", "RR", "R", "RR", "R", "RR", "R", "RR", "R", "R", "R", "R", "R", "RR", "R", "R", "R", "RR", "RRR", "R", "RRRRR"],
+    "llm-run-03.json": ["RR", "RR", "R", "RR", "R", "R", "R", "RR", "R", "R", "R", "R", "R", "RR", "R", "R", "R", "RR", "RR", "R", "RRR?"],
+    "qdrant-run.json": ["X?XXX", "X?XXX", "XXXXX", "XXXXX", "XXXXX", "XXXXX", "?XXX?", "R?X??", "XRX??", "?RXX?", "X??XR", "XXXXX", "XXXXX", "XXXXX", "RRXXX", "XXRXX", "XXXXX", "XXXXX", "XXXXX", "X?XXX", "RRXXX"]
+  }
+}
