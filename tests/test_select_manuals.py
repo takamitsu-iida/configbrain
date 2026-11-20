@@ -87,11 +87,23 @@ def selection() -> dict:
     }
 
 
+def model_selection() -> dict:
+    result = selection()
+    for index, item in enumerate(result["items"], 1):
+        original = item["candidates"][0]
+        item["candidates"] = [{
+            "chapter_id": f"c{index}",
+            "reason": original["reason"],
+            "uncertainty": original["uncertainty"],
+        }]
+    return result
+
+
 class FakeResponse:
     status_code = 200
 
     def __init__(self, value: dict | None = None, finish_reason: str = "stop") -> None:
-        self.value = value if value is not None else selection()
+        self.value = value if value is not None else model_selection()
         self.finish_reason = finish_reason
 
     def json(self) -> dict:
@@ -117,8 +129,12 @@ def test_full_catalog_is_sent_and_multiple_requirements_are_resolved(
         assert payload["response_format"] == {"type": "json_object"}
         sent = json.loads(payload["messages"][1]["content"])
         assert sent["requirement"] == "VLAN 120とDHCPリレーを設定"
-        assert [x["document_id"] for x in sent["documents"]] == ["vlan-guide", "ip-guide"]
-        assert [len(x["chapters"]) for x in sent["documents"]] == [1, 1]
+        assert [x["title"] for x in sent["documents"]] == ["VLAN guide", "IP guide"]
+        assert all("document_id" not in document for document in sent["documents"])
+        assert [x["chapters"] for x in sent["documents"]] == [
+            [{"chapter_id": "c1", "title": "Configuring VLANs"}],
+            [{"chapter_id": "c2", "title": "Configuring DHCP"}],
+        ]
         return FakeResponse()
 
     monkeypatch.setattr("configbrain.select_manuals.requests.post", post)
@@ -136,7 +152,146 @@ def test_full_catalog_is_sent_and_multiple_requirements_are_resolved(
         "Configure DHCP relay",
     ]
     assert result["items"][0]["candidates"][0]["chapter_url"] == "https://www.cisco.com/vlan.html"
+    assert result["items"][0]["candidates"][0]["document_id"] == "vlan-guide"
+    assert result["items"][1]["candidates"][0]["document_id"] == "ip-guide"
+    assert result["items"][1]["candidates"][0]["chapter_order"] == 3
     assert result["items"][1]["candidates"][0]["chapter_title"] == "Configuring DHCP"
+
+
+def test_invalid_chapter_id_is_repaired_using_full_catalog_and_feedback(
+    catalog_file: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    invalid = model_selection()
+    invalid["items"][0]["candidates"][0].update(chapter_id="c999")
+    prompts = []
+
+    def post(url: str, **kwargs: Any) -> FakeResponse:
+        prompt = json.loads(kwargs["json"]["messages"][1]["content"])
+        prompts.append(prompt)
+        assert prompt["requirement"] == "VLAN 120とDHCPリレーを設定"
+        assert prompt["product"] == "catalyst9300"
+        assert prompt["release"] == "26.x"
+        if len(prompts) == 1:
+            assert "validation_feedback" not in prompt
+            return FakeResponse(invalid)
+        assert prompt["documents"] == prompts[0]["documents"]
+        feedback = prompt["validation_feedback"]
+        assert feedback["previous_response"] == invalid
+        assert "chapter_id='c999'" in feedback["error"]
+        assert "Copy a chapter_id from the supplied catalog" in feedback["error"]
+        return FakeResponse()
+
+    monkeypatch.setattr("configbrain.select_manuals.requests.post", post)
+    result = select_manuals(
+        "VLAN 120とDHCPリレーを設定", catalog_file, "catalyst9300", "26.x",
+        CloudConfig("https://cloud.example.test/chat", "test-key", None),
+    )
+    assert len(prompts) == result["selection_attempts"] == 2
+    assert len(result["selection_validation_errors"]) == 1
+    assert result["items"][0]["candidates"][0]["chapter_order"] == 1
+    assert len(result["items"]) == 2
+
+
+def test_repeated_out_of_catalog_selection_stops_without_accepting_a_substitute(
+    catalog_file: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    invalid = model_selection()
+    invalid["items"][0]["candidates"][0].update(chapter_id="c999")
+    calls = []
+
+    def post(*args, **kwargs) -> FakeResponse:
+        calls.append(kwargs)
+        return FakeResponse(invalid)
+
+    monkeypatch.setattr("configbrain.select_manuals.requests.post", post)
+    with pytest.raises(SelectionError, match="failed validation after 3 attempts") as error:
+        select_manuals(
+            "VLAN 120", catalog_file, "catalyst9300", "26.x",
+            CloudConfig("https://cloud.example.test/chat", "test-key", None),
+        )
+    assert len(calls) == 3
+    assert "chapter_id='c999'" in str(error.value)
+    assert "item 1, candidate 1" in str(error.value)
+
+
+def test_model_cannot_override_a_chapter_choice_with_document_or_order_fields(
+    catalog_file: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    invalid = model_selection()
+    invalid["items"][0]["candidates"][0].update(document_id="ip-guide", chapter_order=3)
+    monkeypatch.setattr(
+        "configbrain.select_manuals.requests.post", lambda *args, **kwargs: FakeResponse(invalid),
+    )
+    with pytest.raises(SelectionError, match="must contain exactly chapter_id"):
+        select_manuals(
+            "VLAN 120", catalog_file, "catalyst9300", "26.x",
+            CloudConfig("https://cloud.example.test/chat", "test-key", None),
+        )
+
+
+def test_actual_reference_is_resolved_without_model_copying_its_long_document_id(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    path = Path("data/catalog/c9300-iosxe26.json")
+    source = json.loads(path.read_text(encoding="utf-8"))
+    reference = next(
+        document for document in source["documents"]
+        if document["document_type"] == "command_reference"
+    )
+    expected_chapter = next(chapter for chapter in reference["chapters"] if chapter["order"] == 16)
+
+    def post(url: str, **kwargs: Any) -> FakeResponse:
+        prompt = json.loads(kwargs["json"]["messages"][1]["content"])
+        assert len(prompt["documents"]) == len(source["documents"])
+        choices = [
+            chapter["chapter_id"] for document in prompt["documents"]
+            for chapter in document["chapters"]
+        ]
+        assert len(choices) == len(set(choices)) == sum(
+            len(document["chapters"]) for document in source["documents"]
+        )
+        document = next(
+            document for document in prompt["documents"] if document["title"] == reference["title"]
+        )
+        assert document["document_type"] == "command_reference"
+        choice = next(
+            choice for choice in document["chapters"]
+            if choice["title"] == expected_chapter["title"]
+        )
+        response = model_selection()
+        response["items"] = response["items"][:1]
+        response["items"][0]["candidates"][0]["chapter_id"] = choice["chapter_id"]
+        return FakeResponse(response)
+
+    monkeypatch.setattr("configbrain.select_manuals.requests.post", post)
+    result = select_manuals(
+        "VLAN 120", path, "catalyst9300", "26.x",
+        CloudConfig("https://cloud.example.test/chat", "test-key", None),
+    )
+    selected = result["items"][0]["candidates"][0]
+    assert selected["document_id"] == reference["document_id"]
+    assert selected["chapter_order"] == expected_chapter["order"]
+    assert selected["chapter_url"] == expected_chapter["url"]
+
+
+def test_api_failure_is_not_retried_as_a_selection_validation_error(
+    catalog_file: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    calls = []
+
+    def post(*args, **kwargs) -> FakeResponse:
+        calls.append(kwargs)
+        response = FakeResponse()
+        response.status_code = 401
+        return response
+
+    monkeypatch.setattr("configbrain.select_manuals.requests.post", post)
+    with pytest.raises(SelectionError, match="HTTP 401"):
+        select_manuals(
+            "VLAN 120", catalog_file, "catalyst9300", "26.x",
+            CloudConfig("https://cloud.example.test/chat", "test-key", None),
+        )
+    assert len(calls) == 1
 
 
 @pytest.mark.parametrize(
@@ -295,6 +450,7 @@ def test_current_catalog_includes_every_document_and_chapter() -> None:
             "document_id": document["document_id"],
             "title": document["title"],
             "category": document["category"],
+            "document_type": document["document_type"],
             "chapters": [
                 {"order": chapter["order"], "title": chapter["title"]}
                 for chapter in document["chapters"]

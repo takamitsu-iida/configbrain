@@ -1,4 +1,4 @@
-"""Convert one Cisco manual's HTML chapters into a provenance-aware OKF package."""
+"""Convert Cisco HTML into a guide OKF package or searchable command records."""
 
 from __future__ import annotations
 
@@ -22,11 +22,10 @@ from bs4 import BeautifulSoup
 from frictionless import Package
 from markdownify import MarkdownConverter
 
-from scripts.discover_manuals import DiscoveryError, is_for_release, normalize_cisco_url
-
-
-class ConversionError(RuntimeError):
-    """Raised when a source manual cannot be converted into a valid package."""
+from configbrain.manual_errors import ConversionError
+from scripts.discover_manuals import (
+    DiscoveryError, is_for_release, normalize_cisco_url, validate_catalog_metadata,
+)
 
 
 class MissingImageError(ConversionError):
@@ -83,8 +82,12 @@ def load_document(
         catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as error:
         raise ConversionError(f"Could not read catalog: {catalog_path}") from error
-    if not isinstance(catalog, dict) or catalog.get("schema_version") != 1:
-        raise ConversionError("Catalog schema_version must be 1")
+    if not isinstance(catalog, dict):
+        raise ConversionError("Catalog must be a JSON object")
+    try:
+        validate_catalog_metadata(catalog)
+    except DiscoveryError as error:
+        raise ConversionError(str(error)) from error
     if not isinstance(catalog.get("product"), str) or not isinstance(
         catalog.get("release"), str
     ):
@@ -449,13 +452,13 @@ def packages_match(first: Path, second: Path) -> bool:
 
 def promote_package(staged_dir: Path, output_dir: Path) -> None:
     if output_dir.is_symlink() or (output_dir.exists() and not output_dir.is_dir()):
-        raise ConversionError(f"OKF output path is not a directory: {output_dir}")
+        raise ConversionError(f"Package output path is not a directory: {output_dir}")
     backup_dir: Path | None = None
     backup_is_copy = False
     if output_dir.exists():
         backup_dir = output_dir.with_name(f".{output_dir.name}.backup")
         if backup_dir.exists():
-            raise ConversionError(f"OKF backup path already exists: {backup_dir}")
+            raise ConversionError(f"Package backup path already exists: {backup_dir}")
         try:
             os.replace(output_dir, backup_dir)
         except OSError as rename_error:
@@ -465,7 +468,7 @@ def promote_package(staged_dir: Path, output_dir: Path) -> None:
                 if backup_dir.exists():
                     shutil.rmtree(backup_dir)
                 raise ConversionError(
-                    f"Could not preserve existing OKF package by rename "
+                    f"Could not preserve existing package by rename "
                     f"({rename_error}) or copy ({copy_error}): {output_dir}"
                 ) from copy_error
             backup_is_copy = True
@@ -474,7 +477,7 @@ def promote_package(staged_dir: Path, output_dir: Path) -> None:
             except OSError as remove_error:
                 shutil.rmtree(backup_dir)
                 raise ConversionError(
-                    f"Could not replace existing OKF package; it remains at {output_dir}"
+                    f"Could not replace existing package; it remains at {output_dir}"
                 ) from remove_error
     try:
         os.replace(staged_dir, output_dir)
@@ -506,7 +509,7 @@ def promote_package(staged_dir: Path, output_dir: Path) -> None:
                             f"{backup_dir}"
                         ) from cleanup_error
             raise ConversionError(
-                f"Could not promote OKF package by rename ({rename_error}) or copy "
+                f"Could not promote package by rename ({rename_error}) or copy "
                 f"({copy_error}): {output_dir}"
             ) from copy_error
     if backup_dir is not None:
@@ -514,7 +517,7 @@ def promote_package(staged_dir: Path, output_dir: Path) -> None:
             shutil.rmtree(backup_dir)
         except OSError as error:
             raise ConversionError(
-                f"OKF package was updated but the previous package could not be removed: "
+                f"Package was updated but the previous package could not be removed: "
                 f"{backup_dir}"
             ) from error
 
@@ -524,8 +527,14 @@ def convert_manual(
     document_id: str,
     source_dir: Path,
     output_root: Path,
+    *,
+    reference_output_root: Path = Path("data/command_references"),
 ) -> dict[str, Any]:
     catalog, document = load_document(catalog_path, document_id)
+    if document.get("document_type") == "command_reference":
+        from configbrain.command_references import convert_command_reference
+
+        return convert_command_reference(catalog, document, reference_output_root)
     pdf_path = source_dir / document_id / document["filename"]
     if not pdf_path.is_file():
         raise ConversionError(f"Source PDF does not exist: {pdf_path}")
@@ -763,7 +772,7 @@ def convert_manual(
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Convert one catalogued Cisco manual into a validated OKF package."
+        description="Convert a Cisco guide to OKF or a command reference to command records."
     )
     parser.add_argument("--catalog", type=Path, required=True)
     parser.add_argument("--document-id", required=True)
@@ -779,6 +788,12 @@ def build_parser() -> argparse.ArgumentParser:
         default=Path("data/okf"),
         help="Directory for generated OKF packages.",
     )
+    parser.add_argument(
+        "--reference-output",
+        type=Path,
+        default=Path("data/command_references"),
+        help="Directory for command reference HTML and command records; no PDF required.",
+    )
     return parser
 
 
@@ -790,10 +805,20 @@ def main(argv: list[str] | None = None) -> int:
             args.document_id,
             args.source_dir,
             args.output,
+            reference_output_root=args.reference_output,
         )
-    except (ConversionError, DiscoveryError) as error:
-        print(f"OKF conversion failed: {error}", file=sys.stderr)
+    except (ConversionError, DiscoveryError, OSError) as error:
+        print(f"Manual conversion failed: {error}", file=sys.stderr)
         return 1
+
+    if result.get("document_type") == "command_reference":
+        print(
+            f"Command reference {result['status']}: {result['output']} — "
+            f"{result['chapter_count']} chapters, {result['command_count']} commands, "
+            f"{result['subcommand_count']} subcommands, "
+            f"{result['unparsed_count']} unparsed, {result['warning_count']} warnings."
+        )
+        return 0
 
     print(
         f"OKF {result['status']}: {result['output']} — "

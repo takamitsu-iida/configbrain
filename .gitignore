@@ -9,6 +9,7 @@ __pycache__/
 certs/*.pem
 data/source_manuals/
 data/okf/
+data/command_references/
 data/qdrant/
 data/runs/
 *.pdf

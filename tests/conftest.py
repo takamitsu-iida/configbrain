@@ -2,10 +2,44 @@ import pytest
 
 
 @pytest.fixture
+def mock_semantic_reviewer(monkeypatch: pytest.MonkeyPatch) -> list[dict]:
+    """Keep earlier generation tests offline while running the new review path."""
+    from configbrain.semantic_review import REVIEW_SYSTEM_PROMPT
+
+    calls = []
+
+    def request(system_prompt, prompt, config):
+        calls.append(prompt)
+        if system_prompt != REVIEW_SYSTEM_PROMPT:
+            return {
+                "replacements": [],
+                "unresolved_target_ids": prompt["requested_target_ids"],
+            }, "mock-semantic-reviewer"
+        reviews = []
+        for unit in prompt["units"]:
+            ids = unit["cited_evidence_ids"]
+            proofs = [
+                {"evidence_id": ids[0], "quote": prompt["evidence_atoms"][ids[0]]["text"]},
+            ] if ids else []
+            reviews.append({"unit_id": unit["unit_id"], "claims": [{
+                "text": unit["text"], "target": "Test target", "operation": "Test operation",
+                "support": "supported" if proofs else "insufficient_evidence",
+                "applicability": "confirmed", "conditions": [],
+                "reason": "Mock judgment; not an evaluation of model quality.",
+                "evidence": proofs,
+            }]})
+        return {"reviews": reviews}, "mock-semantic-reviewer"
+
+    monkeypatch.setattr("configbrain.semantic_review.request_json", request)
+    return calls
+
+
+@pytest.fixture
 def report_draft() -> dict:
     citation = {
         "source_id": "source-1", "step_label": "Step 2",
         "table_index_in_context": 1, "row_index": 3,
+        "evidence_id": "evidence-v1-" + "a" * 64,
     }
 
     def command(cli: str) -> dict:

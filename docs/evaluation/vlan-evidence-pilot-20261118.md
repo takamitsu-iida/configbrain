@@ -2,6 +2,9 @@
 
 実施日: 2026-11-18
 
+履歴評価。現在の構成・課題は[進捗管理](../progress.md)を参照。
+以下の原本・OKFはローカル資料のため、別環境には存在しない場合がある。
+
 ## 対象と方法
 
 READMEの例を実行した`selection.json`を使用した。入力はVLAN 120の作成と
@@ -15,7 +18,7 @@ VLAN Configuration Guideの「Configuring VLANs」章を選択した。
 `query:`、各章の検索件数は最大20件。対象はローカル別名
 `c9300_iosxe26_manuals`。LLM選定時に本文やQdrantで事前に章を絞ってはいない。
 
-照合対象の[PDF原本](../source_manuals/catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc/b_26x_vlan_9300_cg.pdf)の
+照合対象の[PDF原本](../../data/source_manuals/catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc/b_26x_vlan_9300_cg.pdf)の
 SHA-256は`47bc77c74d68871e1941b3d7f8bd94ef46453c30d0f5a4443a68ce03022f47d4`で、
 OKFの記録と一致した。PDFのページ番号は**1始まりの物理ページ番号**とする。
 
@@ -41,7 +44,7 @@ OKFの記録と一致した。PDFのページ番号は**1始まりの物理ペ�
    索引用Markdownパーサーが表を空行で複数のHTMLブロックに分割する。
    Step 4・5の断片には親`table`がなく、`source_refs`では表の行ではなく
    `text`として記録されていた。具体的には章本文内の行874〜894、897〜918で、
-   [OKF本文](../okf/catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc/manual.md)
+   [OKF本文](../../data/okf/catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc/manual.md)
    の行3338付近・3361付近に対応する。検索テキストにコマンドが含まれることと、
    表のStep・列の対応を追跡できることは異なる。
 

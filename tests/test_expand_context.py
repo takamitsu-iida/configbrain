@@ -145,7 +145,9 @@ def test_recovers_full_task_and_context_from_a_single_middle_step(
     assert chapter["pdf_page_index"] == 5
     assert expanded["pdf_verification_status"] == "not_verified"
     assert expanded["evidence_status"] == "candidates_only"
-    assert expanded["items"][1] == original["items"][1]
+    assert expanded["items"][1] == {
+        **original["items"][1], "command_references": {"status": "unavailable", "queries": []},
+    }
 
 
 def test_deduplicates_task_contexts_but_retains_all_search_hit_links(
@@ -237,7 +239,15 @@ def test_cli_stdout_and_protected_output_paths(
     capsys.readouterr()
     assert main(args) == 0
     assert json.loads(capsys.readouterr().out)["pdf_verification_status"] == "not_verified"
-    for protected in (results, catalog, okf / "vlan-guide" / "manual.md", pdf / "vlan-guide" / "guide.pdf"):
+    references = results.parent / "references"
+    references.mkdir()
+    commands = references / "commands.json"
+    commands.write_text("existing reference")
+    args += ["--reference-root", str(references)]
+    for protected in (
+        results, catalog, okf / "vlan-guide" / "manual.md",
+        pdf / "vlan-guide" / "guide.pdf", commands,
+    ):
         saved = protected.read_bytes()
         assert main(args + ["--output", str(protected)]) == 1
         assert protected.read_bytes() == saved

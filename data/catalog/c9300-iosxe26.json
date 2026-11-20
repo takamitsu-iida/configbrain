@@ -1,12 +1,24 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "product": "catalyst9300",
   "release": "26.x",
-  "seed_url": "https://www.cisco.com/c/en/us/support/switches/catalyst-9300-series-switches/products-installation-and-configuration-guides-list.html",
-  "discovered_at": "2026-11-17T08:08:35.991816+00:00",
+  "sources": [
+    {
+      "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/command_reference/b_26x_9300_cr.html",
+      "document_type": "command_reference",
+      "page_type": "book"
+    },
+    {
+      "url": "https://www.cisco.com/c/en/us/support/switches/catalyst-9300-series-switches/products-installation-and-configuration-guides-list.html",
+      "document_type": "configuration_guide",
+      "page_type": "listing"
+    }
+  ],
+  "discovered_at": "2026-11-19T10:31:16.653252+00:00",
   "documents": [
     {
       "document_id": "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+      "document_type": "configuration_guide",
       "title": "BGP EVPN VXLAN Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9300 Switches)",
       "category": "Configuration Guides",
       "filename": "26x-bgp-evpn-vxlan-9300-cg.pdf",
@@ -179,10 +191,114 @@
           "title": "Feature History for BGP EVPN VXLAN",
           "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vxlan/26x-bgp-evpn-vxlan-9300-cg/feature_history_and_information_for_bgp_evpn_vxlan.html"
         }
+      ],
+      "discovery_sources": [
+        "https://www.cisco.com/c/en/us/support/switches/catalyst-9300-series-switches/products-installation-and-configuration-guides-list.html"
+      ]
+    },
+    {
+      "document_id": "catalyst9300-26-x-b-26x-9300-cr-ee0d2de4d607",
+      "document_type": "command_reference",
+      "title": "Command Reference, Cisco IOS XE 26.x.x (Catalyst 9300 Switches)",
+      "category": "Command References",
+      "filename": "b_26x_9300_cr.pdf",
+      "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/command_reference/b_26x_9300_cr.pdf",
+      "html_book_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/command_reference/b_26x_9300_cr.html",
+      "html_status": "available",
+      "chapters": [
+        {
+          "order": 1,
+          "title": "Using the Command-Line Interface",
+          "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/command_reference/b_26x_9300_cr/using_the_command_line_interface.html"
+        },
+        {
+          "order": 2,
+          "title": "Cisco SD-Access Commands",
+          "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/command_reference/b_26x_9300_cr/cisco_sd_access_commands.html"
+        },
+        {
+          "order": 3,
+          "title": "Cisco TrustSec Commands",
+          "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/command_reference/b_26x_9300_cr/cisco_trustsec_commands.html"
+        },
+        {
+          "order": 4,
+          "title": "Interface and Hardware Commands",
+          "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/command_reference/b_26x_9300_cr/interface_and_hardware_commands.html"
+        },
+        {
+          "order": 5,
+          "title": "IP Addressing Services Commands",
+          "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/command_reference/b_26x_9300_cr/ip_addressing_services_commands.html"
+        },
+        {
+          "order": 6,
+          "title": "IP Multicast Routing Commands",
+          "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/command_reference/b_26x_9300_cr/ip_multicast_routing.html"
+        },
+        {
+          "order": 7,
+          "title": "Layer 2/3 Commands",
+          "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/command_reference/b_26x_9300_cr/layer_2_3_commands.html"
+        },
+        {
+          "order": 8,
+          "title": "Multiprotocol Label Switching",
+          "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/command_reference/b_26x_9300_cr/mpls_commands.html"
+        },
+        {
+          "order": 9,
+          "title": "Network Management Commands",
+          "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/command_reference/b_26x_9300_cr/network_management_commands.html"
+        },
+        {
+          "order": 10,
+          "title": "QoS Commands",
+          "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/command_reference/b_26x_9300_cr/qos_commands.html"
+        },
+        {
+          "order": 11,
+          "title": "IP Routing Commands",
+          "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/command_reference/b_26x_9300_cr/unicast_routing_commands.html"
+        },
+        {
+          "order": 12,
+          "title": "Security",
+          "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/command_reference/b_26x_9300_cr/security_commands.html"
+        },
+        {
+          "order": 13,
+          "title": "Stack Manager and High Availability Commands",
+          "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/command_reference/b_26x_9300_cr/stack_manager_and_high_availability_commands.html"
+        },
+        {
+          "order": 14,
+          "title": "System Management Commands",
+          "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/command_reference/b_26x_9300_cr/system_management_commands.html"
+        },
+        {
+          "order": 15,
+          "title": "Tracing Commands",
+          "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/command_reference/b_26x_9300_cr/tracing.html"
+        },
+        {
+          "order": 16,
+          "title": "VLAN Commands",
+          "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/command_reference/b_26x_9300_cr/vlan_commands.html"
+        },
+        {
+          "order": 17,
+          "title": "Index",
+          "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/command_reference/b_26x_9300_cr/26x_9300_cr_CLT_chapter.html"
+        }
+      ],
+      "discovery_sources": [
+        "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/command_reference/b_26x_9300_cr.html"
       ]
     },
     {
       "document_id": "catalyst9300-26-x-b-26x-bonjour-9300-cg-ee5da72ad5b7",
+      "document_type": "configuration_guide",
       "title": "Cisco DNA Service for Bonjour Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9300 Switches)",
       "category": "Configuration Guides",
       "filename": "b_26x_bonjour_9300_cg.pdf",
@@ -230,10 +346,14 @@
           "title": "Feature History for Cisco DNA Service for Bonjour",
           "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/bonjour/b_26x_bonjour_9300_cg/feature_history_for_dna_service_for_bonjour.html"
         }
+      ],
+      "discovery_sources": [
+        "https://www.cisco.com/c/en/us/support/switches/catalyst-9300-series-switches/products-installation-and-configuration-guides-list.html"
       ]
     },
     {
       "document_id": "catalyst9300-26-x-b-26x-cts-9300-cg-5f2b2b664dea",
+      "document_type": "configuration_guide",
       "title": "Cisco TrustSec Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9300 Switches)",
       "category": "Configuration Guides",
       "filename": "b_26x_cts_9300_cg.pdf",
@@ -301,10 +421,14 @@
           "title": "Configuring Endpoint Admission Control",
           "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/cts/b_26x_cts_9300_cg/configuring_endpoint_admission_control.html"
         }
+      ],
+      "discovery_sources": [
+        "https://www.cisco.com/c/en/us/support/switches/catalyst-9300-series-switches/products-installation-and-configuration-guides-list.html"
       ]
     },
     {
       "document_id": "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+      "document_type": "configuration_guide",
       "title": "Interface and Hardware Components Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9300 Switches)",
       "category": "Configuration Guides",
       "filename": "b_26x_int_and_hw_9300_cg.pdf",
@@ -407,10 +531,14 @@
           "title": "Troubleshooting Interface and Hardware Components",
           "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/int_hw/b_26x_int_and_hw_9300_cg/troubleshooting_for_interface_and_hardware_components.html"
         }
+      ],
+      "discovery_sources": [
+        "https://www.cisco.com/c/en/us/support/switches/catalyst-9300-series-switches/products-installation-and-configuration-guides-list.html"
       ]
     },
     {
       "document_id": "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d",
+      "document_type": "configuration_guide",
       "title": "IP Addressing Services Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9300 Switches)",
       "category": "Configuration Guides",
       "filename": "b_26x_ip_9300_cg.pdf",
@@ -523,10 +651,14 @@
           "title": "Troubleshooting IP Addressing Services",
           "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip/b_26x_ip_9300_cg/troubleshooting_for_ip_addressing_services.html"
         }
+      ],
+      "discovery_sources": [
+        "https://www.cisco.com/c/en/us/support/switches/catalyst-9300-series-switches/products-installation-and-configuration-guides-list.html"
       ]
     },
     {
       "document_id": "catalyst9300-26-x-b-26x-ip-mcast-rtng-9300-cg-b076db950562",
+      "document_type": "configuration_guide",
       "title": "IP Multicast Routing Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9300 Switches)",
       "category": "Configuration Guides",
       "filename": "b_26x_ip_mcast_rtng_9300_cg.pdf",
@@ -659,10 +791,14 @@
           "title": "Troubleshooting IP Multicast",
           "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/ip_mcast_rtng/b_26x_ip_mcast_rtng_9300_cg/troubleshooting_ip_multicast.html"
         }
+      ],
+      "discovery_sources": [
+        "https://www.cisco.com/c/en/us/support/switches/catalyst-9300-series-switches/products-installation-and-configuration-guides-list.html"
       ]
     },
     {
       "document_id": "catalyst9300-26-x-b-26x-lyr2-9300-cg-db110697da80",
+      "document_type": "configuration_guide",
       "title": "Layer 2 Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9300 Switches)",
       "category": "Configuration Guides",
       "filename": "b_26x_lyr2_9300_cg.pdf",
@@ -750,10 +886,14 @@
           "title": "Troubleshooting Layer 2",
           "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/lyr2/b_26x_lyr2_9300_cg/troubleshooting_for_layer_2.html"
         }
+      ],
+      "discovery_sources": [
+        "https://www.cisco.com/c/en/us/support/switches/catalyst-9300-series-switches/products-installation-and-configuration-guides-list.html"
       ]
     },
     {
       "document_id": "catalyst9300-26-x-b-26x-mpls-9300-cg-b8c1ee43d3e9",
+      "document_type": "configuration_guide",
       "title": "Multiprotocol Label Switching Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9300 Switches)",
       "category": "Configuration Guides",
       "filename": "b_26x_mpls_9300_cg.pdf",
@@ -896,10 +1036,14 @@
           "title": "Troubleshooting Multiprotocol Label Switching",
           "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/mpls/b_26x_mpls_9300_cg/troubleshooting_for_multiprotocol_label_switching.html"
         }
+      ],
+      "discovery_sources": [
+        "https://www.cisco.com/c/en/us/support/switches/catalyst-9300-series-switches/products-installation-and-configuration-guides-list.html"
       ]
     },
     {
       "document_id": "catalyst9300-26-x-b-26x-nmgmt-9300-cg-3e060c1d1d52",
+      "document_type": "configuration_guide",
       "title": "Network Management Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9300 Switches)",
       "category": "Configuration Guides",
       "filename": "b_26x_nmgmt_9300_cg.pdf",
@@ -982,10 +1126,14 @@
           "title": "Troubleshooting Network Management",
           "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/nmgmt/b_26x_nmgmt_9300_cg/troubleshooting_nmgmt.html"
         }
+      ],
+      "discovery_sources": [
+        "https://www.cisco.com/c/en/us/support/switches/catalyst-9300-series-switches/products-installation-and-configuration-guides-list.html"
       ]
     },
     {
       "document_id": "catalyst9300-26-x-b-26x-qos-9300-cg-4e21dc6d1e2a",
+      "document_type": "configuration_guide",
       "title": "Quality of Service Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9300 Switches)",
       "category": "Configuration Guides",
       "filename": "b_26x_qos_9300_cg.pdf",
@@ -1018,10 +1166,14 @@
           "title": "Troubleshooting QoS",
           "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/qos/b_26x_qos_9300_cg/troubleshooting_qos.html"
         }
+      ],
+      "discovery_sources": [
+        "https://www.cisco.com/c/en/us/support/switches/catalyst-9300-series-switches/products-installation-and-configuration-guides-list.html"
       ]
     },
     {
       "document_id": "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+      "document_type": "configuration_guide",
       "title": "IP Routing Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9300 Switches)",
       "category": "Configuration Guides",
       "filename": "b_26x_rtng_9300_cg.pdf",
@@ -1179,10 +1331,14 @@
           "title": "Troubleshooting IP Routing",
           "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/rtng/b_26x_rtng_9300_cg/troubleshooting_ip_routing.html"
         }
+      ],
+      "discovery_sources": [
+        "https://www.cisco.com/c/en/us/support/switches/catalyst-9300-series-switches/products-installation-and-configuration-guides-list.html"
       ]
     },
     {
       "document_id": "catalyst9300-26-x-b-26x-sec-9300-cg-8e2ad3aabae2",
+      "document_type": "configuration_guide",
       "title": "Security Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9300 Switches)",
       "category": "Configuration Guides",
       "filename": "b_26x_sec_9300_cg.pdf",
@@ -1450,10 +1606,14 @@
           "title": "Troubleshooting Security",
           "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/sec/b_26x_sec_9300_cg/troubleshooting_for_security.html"
         }
+      ],
+      "discovery_sources": [
+        "https://www.cisco.com/c/en/us/support/switches/catalyst-9300-series-switches/products-installation-and-configuration-guides-list.html"
       ]
     },
     {
       "document_id": "catalyst9300-26-x-b-26x-stck-mgr-ha-9300-cg-b916a4af4da2",
+      "document_type": "configuration_guide",
       "title": "Stacking and High Availability Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9300 Switches)",
       "category": "Configuration Guides",
       "filename": "b_26x_stck_mgr_ha_9300_cg.pdf",
@@ -1501,10 +1661,14 @@
           "title": "Troubleshooting Stacking and High Availability",
           "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/stck_mgr_ha/b_26x_stck_mgr_ha_9300_cg/troubleshooting_for_stacking_and_high_availability.html"
         }
+      ],
+      "discovery_sources": [
+        "https://www.cisco.com/c/en/us/support/switches/catalyst-9300-series-switches/products-installation-and-configuration-guides-list.html"
       ]
     },
     {
       "document_id": "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f",
+      "document_type": "configuration_guide",
       "title": "System Management Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9300 Switches)",
       "category": "Configuration Guides",
       "filename": "b_26x_sys_mgmt_9300_cg.pdf",
@@ -1632,10 +1796,14 @@
           "title": "Troubleshooting System Management",
           "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/sys_mgmt/b_26x_sys_mgmt_9300_cg/troubleshooting_for_system_management.html"
         }
+      ],
+      "discovery_sources": [
+        "https://www.cisco.com/c/en/us/support/switches/catalyst-9300-series-switches/products-installation-and-configuration-guides-list.html"
       ]
     },
     {
       "document_id": "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc",
+      "document_type": "configuration_guide",
       "title": "VLAN Configuration Guide, Cisco IOS XE 26.x.x (Catalyst 9300 Switches)",
       "category": "Configuration Guides",
       "filename": "b_26x_vlan_9300_cg.pdf",
@@ -1683,11 +1851,31 @@
           "title": "Configuring Wired Dynamic PVLAN",
           "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/26-x/configuration_guide/vlan/b_26x_vlan_9300_cg/configuring_wired_dynamic_pvlan.html"
         }
+      ],
+      "discovery_sources": [
+        "https://www.cisco.com/c/en/us/support/switches/catalyst-9300-series-switches/products-installation-and-configuration-guides-list.html"
       ]
     }
   ],
   "differences": {
-    "new": [],
+    "new": [
+      "catalyst9300-26-x-26x-bgp-evpn-vxlan-9300-cg-0082138a0321",
+      "catalyst9300-26-x-b-26x-9300-cr-ee0d2de4d607",
+      "catalyst9300-26-x-b-26x-bonjour-9300-cg-ee5da72ad5b7",
+      "catalyst9300-26-x-b-26x-cts-9300-cg-5f2b2b664dea",
+      "catalyst9300-26-x-b-26x-int-and-hw-9300-cg-2a392382640f",
+      "catalyst9300-26-x-b-26x-ip-9300-cg-a541d83b236d",
+      "catalyst9300-26-x-b-26x-ip-mcast-rtng-9300-cg-b076db950562",
+      "catalyst9300-26-x-b-26x-lyr2-9300-cg-db110697da80",
+      "catalyst9300-26-x-b-26x-mpls-9300-cg-b8c1ee43d3e9",
+      "catalyst9300-26-x-b-26x-nmgmt-9300-cg-3e060c1d1d52",
+      "catalyst9300-26-x-b-26x-qos-9300-cg-4e21dc6d1e2a",
+      "catalyst9300-26-x-b-26x-rtng-9300-cg-e1501a58353b",
+      "catalyst9300-26-x-b-26x-sec-9300-cg-8e2ad3aabae2",
+      "catalyst9300-26-x-b-26x-stck-mgr-ha-9300-cg-b916a4af4da2",
+      "catalyst9300-26-x-b-26x-sys-mgmt-9300-cg-c8b91f2a412f",
+      "catalyst9300-26-x-b-26x-vlan-9300-cg-b64b1bc78dbc"
+    ],
     "updated": [],
     "removed": []
   }

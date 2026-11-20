@@ -131,6 +131,25 @@ def test_search_filters_each_selected_chapter_and_preserves_provenance(
     }
 
 
+def test_ipv4_cidr_adds_addressing_terms_to_search_query(
+    search_data: tuple[Path, Path, Path],
+) -> None:
+    selection, catalog, database = search_data
+    data = json.loads(selection.read_text())
+    data["items"][0]["requirement"] = (
+        "FortyGigabitEthernet1/0/1にIPv4アドレス192.0.2.1/24を設定する"
+    )
+    selection.write_text(json.dumps(data), encoding="utf-8")
+    model = FakeModel()
+
+    search_manuals(selection, catalog, database, limit=1, model=model)
+
+    assert model.queries == [
+        "query: FortyGigabitEthernet1/0/1にIPv4アドレス192.0.2.1/24を設定する "
+        "IP address interface subnet mask",
+    ]
+
+
 @pytest.mark.parametrize("change", ["hash", "url", "order", "items", "product"])
 def test_invalid_selection_fails_before_loading_model(
     search_data: tuple[Path, Path, Path], monkeypatch: pytest.MonkeyPatch, change: str,
@@ -208,7 +227,12 @@ def test_cli_outputs_json_and_preserves_output_on_failure(
     assert main(args + ["--output", str(output), "--limit", "0"]) == 1
     assert output.read_bytes() == saved
     assert "positive integer" in capsys.readouterr().err
-    for protected in (selection, catalog, database / "meta.json"):
+    references = tmp_path / "references"
+    references.mkdir()
+    commands = references / "commands.json"
+    commands.write_text("existing reference")
+    args += ["--reference-root", str(references)]
+    for protected in (selection, catalog, database / "meta.json", commands):
         original = protected.read_bytes()
         assert main(args + ["--output", str(protected)]) == 1
         assert protected.read_bytes() == original

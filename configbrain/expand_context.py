@@ -12,6 +12,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
+from configbrain.command_references import CommandReferenceIndex, normalized_name
+from configbrain.guide_commands import command_contexts
 from configbrain.index_manuals import (
     CHAPTER_MARKER,
     EMBEDDING_MODEL,
@@ -20,10 +22,12 @@ from configbrain.index_manuals import (
     ManualDocument,
     _dataset_fingerprint,
     _visible_html_text,
-    load_validated_manuals,
+    load_validated_corpus,
     manual_markdown_parser,
 )
-from configbrain.search_manuals import SearchError, _validate_payload
+from configbrain.search_manuals import (
+    SearchError, _item_status, _reference_chapter, _validate_payload,
+)
 from configbrain.select_manuals import (
     SelectionError,
     _write_output,
@@ -37,6 +41,7 @@ class ContextError(RuntimeError):
 
 
 PROCEDURE_TITLES = {"procedure", "summary steps", "detailed steps"}
+CONTEXT_POLICY_VERSION = 3
 CAUTION_TITLE = re.compile(
     r"\b(prerequisites?|restrictions?|guidelines?|limitations?|cautions?|"
     r"warnings?|notes?|important|considerations?)\b|^before you begin$",
@@ -208,11 +213,102 @@ def _validate_hit(
         raise ContextError("Search hit score is invalid.")
 
 
+def _supplement_commands(
+    chapters: list[dict[str, Any]], references: tuple[CommandReferenceIndex, ...],
+    selected: set[tuple[str, int]],
+) -> dict[str, Any]:
+    if not references:
+        return {"status": "unavailable", "queries": []}
+    names = {name for index in references for name in index.names}
+
+    def reference_name(prefix: str) -> str:
+        prefix = normalized_name(prefix)
+        return max(
+            (name for name in names if prefix == name or prefix.startswith(name + " ")),
+            key=len, default=prefix,
+        )
+
+    queries = []
+    for chapter in chapters:
+        for context in chapter["contexts"]:
+            for guide in command_contexts(context["markdown"]):
+                source_guide = {
+                    **guide, "document_id": chapter["document_id"],
+                    "chapter_order": chapter["chapter_order"],
+                    "context_id": context["context_id"],
+                    "manual_line_start": context["manual_line_start"],
+                    "manual_line_end": context["manual_line_end"],
+                }
+                parent = reference_name(guide["parent"]) if guide["parent"] else None
+                source_guide["parent"] = parent
+                name = reference_name(guide["literal_prefix"])
+                if not name:
+                    queries.append({
+                        "guide": source_guide, "name": None, "status": "unparsed",
+                        "results": [], "adopted": [],
+                        "reason": "No literal command prefix in the guide syntax.",
+                    })
+                    continue
+                results = []
+                for index in references:
+                    result = index.search(name, mode=guide["mode"])
+                    if parent and not any(
+                        match["matched_subcommand"] is None for match in result["matches"]
+                    ):
+                        result = index.search(
+                            name, mode=guide["mode"], parent=parent,
+                        )
+                    results.append(result)
+                matches = [
+                    (result, match)
+                    for result in results for match in result["matches"]
+                ]
+                if any(result["status"] == "unparsed" for result in results):
+                    status = "unparsed"
+                elif len(matches) > 1:
+                    status = "ambiguous"
+                elif not matches:
+                    status = "not_found"
+                elif not guide["mode"] or any(
+                    result["status"] == "candidate" for result in results
+                ):
+                    status = "candidate"
+                else:
+                    status = "unique_match"
+                adopted = []
+                if status == "unique_match":
+                    result, match = matches[0]
+                    command = match["command"]
+                    key = (result["document_id"], command["source"]["chapter_order"])
+                    adopted.append({
+                        "document_id": result["document_id"],
+                        "command_id": command["command_id"],
+                        "source": command["source"],
+                        "subcommand_source": (
+                            match["matched_subcommand"]["source"]
+                            if match["matched_subcommand"] is not None else None
+                        ),
+                        "retrieval_reason": (
+                            "selected_reference_chapter" if key in selected
+                            else "guide_command_supplement"
+                        ),
+                    })
+                queries.append({
+                    "guide": source_guide,
+                    "name": name, "status": status, "results": results, "adopted": adopted,
+                })
+    return {
+        "status": "queried" if queries else "no_guide_commands",
+        "evidence_type": "stored_html", "queries": queries,
+    }
+
+
 def expand_context(
     results_path: Path,
     catalog_path: Path = Path("data/catalog/c9300-iosxe26.json"),
     okf_root: Path = Path("data/okf"),
     source_pdf_root: Path = Path("data/source_manuals"),
+    reference_root: Path = Path("data/command_references"),
 ) -> dict[str, Any]:
     try:
         raw = results_path.read_bytes()
@@ -242,10 +338,20 @@ def expand_context(
             raise ContextError("Search item must contain a chapters array.")
         selection_items.append({**item, "candidates": item["chapters"]})
     validated = validate_selection({"items": selection_items}, catalog)
-    documents = load_validated_manuals(catalog_path, okf_root, source_pdf_root)
-    generation = _dataset_fingerprint(documents, EMBEDDING_MODEL)
-    has_candidates = any(item["chapters"] for item in items)
-    if search.get("dataset_fingerprint") != (generation if has_candidates else None):
+    corpus = load_validated_corpus(
+        catalog_path, okf_root, source_pdf_root, reference_root
+    )
+    documents = corpus.guides
+    generation = _dataset_fingerprint(documents, EMBEDDING_MODEL, corpus.references)
+    reference_by_id = {index.data["document_id"]: index for index in corpus.references}
+    reference_metadata = {
+        document_id: index.fingerprint_metadata() for document_id, index in reference_by_id.items()
+    }
+    has_guide_candidates = any(
+        candidate["document_id"] not in reference_by_id
+        for item in items for candidate in item["chapters"]
+    )
+    if search.get("dataset_fingerprint") != (generation if has_guide_candidates else None):
         raise ContextError("Search index generation differs from the current corpus; rerun indexing/search.")
     by_id = {document.document_id: document for document in documents}
     pdf_filenames = {
@@ -256,15 +362,28 @@ def expand_context(
     expanded_items = []
     for item, validated_item in zip(items, validated, strict=True):
         expanded_chapters = []
-        for candidate, validated_candidate in zip(
-            item["chapters"], validated_item["candidates"], strict=True
-        ):
+        for rank, (candidate, validated_candidate) in enumerate(zip(
+            item["chapters"], validated_item["candidates"], strict=True,
+        ), 1):
             if any(
                 candidate.get(key) != validated_candidate[key]
                 for key in ("chapter_title", "chapter_url")
             ):
                 raise ContextError("Search chapter does not match the catalog.")
-            document = by_id[candidate["document_id"]]
+            document = by_id.get(candidate["document_id"])
+            if document is None:
+                expected_reference = _reference_chapter(
+                    validated_candidate, rank,
+                    reference_metadata[candidate["document_id"]],
+                )
+                if (
+                    type(candidate.get("selection_rank")) is not int
+                    or candidate["selection_rank"] < 1
+                    or any(candidate.get(key) != value for key, value in expected_reference.items())
+                ):
+                    raise ContextError("Selected reference metadata or lookup state differs from current sources.")
+                expanded_chapters.append({**expected_reference, "contexts": []})
+                continue
             chapter = next(
                 (chapter for chapter in document.chapters if chapter.order == candidate["chapter_order"]),
                 None,
@@ -305,21 +424,30 @@ def expand_context(
                 "source_pdf_path": str((source_pdf_root / document_id / filename).resolve()),
                 "matches": matches, "contexts": contexts,
             })
-        expected_status = (
-            "no_candidates" if not expanded_chapters else
-            "retrieved" if any(chapter["matches"] for chapter in expanded_chapters) else "no_matches"
-        )
+        expected_status = _item_status(expanded_chapters)
         if item.get("status") != expected_status:
             raise ContextError("Search item status does not match its chapters.")
-        expanded_items.append({**item, "chapters": expanded_chapters})
+        selected = {
+            (chapter["document_id"], chapter["chapter_order"])
+            for chapter in expanded_chapters
+            if chapter.get("document_type") == "command_reference"
+        }
+        expanded_items.append({
+            **item, "chapters": expanded_chapters,
+            "command_references": _supplement_commands(
+                expanded_chapters, corpus.references, selected,
+            ),
+        })
     return {
         **search, "search_results_sha256": hashlib.sha256(raw).hexdigest(),
         "context_policy": "full_task_with_ancestor_introductions_and_chapter_caution_candidates",
+        "context_policy_version": CONTEXT_POLICY_VERSION,
         "pdf_verification_status": "not_verified",
         "limitations": [
             "Chapter caution headings identify review candidates, not proven applicability or completeness.",
             "Cross-references outside the retrieved sections are not followed automatically.",
             "PDF hashes are checked, but PDF content and exact procedure pages are not verified.",
+            "Reference retrieval validates source structure; meaning and applicability require separate review.",
         ],
         "items": expanded_items,
     }
@@ -331,6 +459,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--catalog", type=Path, default=Path("data/catalog/c9300-iosxe26.json"))
     parser.add_argument("--okf-root", type=Path, default=Path("data/okf"))
     parser.add_argument("--source-pdf-root", type=Path, default=Path("data/source_manuals"))
+    parser.add_argument("--reference-root", type=Path, default=Path("data/command_references"))
     parser.add_argument("--output", type=Path)
     args = parser.parse_args(argv)
     try:
@@ -339,11 +468,14 @@ def main(argv: list[str] | None = None) -> int:
             if (
                 output in {args.search_results.resolve(), args.catalog.resolve(), Path(".env").resolve()}
                 or any(output.is_relative_to(root.resolve()) for root in (
-                    args.okf_root, args.source_pdf_root, Path("data/qdrant"),
+                    args.okf_root, args.source_pdf_root, args.reference_root, Path("data/qdrant"),
                 ))
             ):
                 raise ContextError("Output must not overwrite an input, source, configuration or database file.")
-        result = expand_context(args.search_results, args.catalog, args.okf_root, args.source_pdf_root)
+        result = expand_context(
+            args.search_results, args.catalog, args.okf_root,
+            args.source_pdf_root, args.reference_root,
+        )
         content = json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False) + "\n"
         if args.output:
             _write_output(args.output, content)

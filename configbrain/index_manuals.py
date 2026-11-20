@@ -1,4 +1,4 @@
-"""Index validated OKF manual packages in a persistent local Qdrant database."""
+"""Validate guide/reference sources and index guide OKF packages in local Qdrant."""
 
 from __future__ import annotations
 
@@ -20,10 +20,14 @@ from markdown_it import MarkdownIt
 from markdown_it.rules_block.state_block import StateBlock
 from qdrant_client import QdrantClient, models
 
+from configbrain.command_references import CommandReferenceIndex
+from configbrain.manual_errors import ConversionError
+from scripts.discover_manuals import DiscoveryError, validate_catalog_metadata
+
 EMBEDDING_MODEL = "intfloat/multilingual-e5-small"
 COLLECTION_ALIAS = "c9300_iosxe26_manuals"
 COLLECTION_PREFIX = "cb_c9300_iosxe26_"
-INDEX_FORMAT_VERSION = 2
+INDEX_FORMAT_VERSION = 3
 EMBEDDING_BATCH_SIZE = 32
 UPSERT_BATCH_SIZE = 128
 MAX_SEQUENCE_MARGIN = 4
@@ -85,6 +89,13 @@ class ManualDocument:
     release: str
     source_pdf_sha256: str
     chapters: tuple[ManualChapter, ...]
+    document_type: str | None = None
+
+
+@dataclass(frozen=True)
+class ManualCorpus:
+    guides: tuple[ManualDocument, ...]
+    references: tuple[CommandReferenceIndex, ...]
 
 
 @dataclass(frozen=True)
@@ -191,25 +202,46 @@ def _chapter_bodies(
     return tuple(sorted(chapters, key=lambda chapter: chapter.order))
 
 
-def load_validated_manuals(
+def load_validated_corpus(
     catalog_path: Path,
     okf_root: Path = Path("data/okf"),
     source_pdf_root: Path = Path("data/source_manuals"),
-) -> tuple[ManualDocument, ...]:
+    reference_root: Path = Path("data/command_references"),
+) -> ManualCorpus:
     catalog = _read_json(catalog_path, "manual catalog")
-    if catalog.get("schema_version") != 1:
-        raise IndexingError("Manual catalog schema_version must be 1")
+    try:
+        validate_catalog_metadata(catalog)
+    except DiscoveryError as error:
+        raise IndexingError(str(error)) from error
     documents = catalog.get("documents")
     if not isinstance(documents, list) or not documents:
         raise IndexingError("Manual catalog contains no documents")
 
     loaded: list[ManualDocument] = []
+    references: list[CommandReferenceIndex] = []
     seen_ids: set[str] = set()
     for entry in documents:
         document_id = entry.get("document_id")
-        if not isinstance(document_id, str) or document_id in seen_ids:
+        if (
+            not isinstance(document_id, str)
+            or not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", document_id)
+            or document_id in seen_ids
+        ):
             raise IndexingError(f"Invalid or duplicate catalog document ID: {document_id}")
         seen_ids.add(document_id)
+        if entry.get("document_type") == "command_reference":
+            directory = reference_root / document_id
+            if not directory.is_dir() or directory.is_symlink():
+                raise IndexingError(f"Command reference is missing or unsafe: {directory}")
+            try:
+                references.append(
+                    CommandReferenceIndex.load(catalog_path, document_id, reference_root)
+                )
+            except ConversionError as error:
+                raise IndexingError(
+                    f"Invalid command reference {document_id}: {error}"
+                ) from error
+            continue
         package_dir = okf_root / document_id
         if not package_dir.is_dir() or package_dir.is_symlink():
             raise IndexingError(f"OKF package is missing or unsafe: {package_dir}")
@@ -273,9 +305,25 @@ def load_validated_manuals(
                 release=catalog["release"],
                 source_pdf_sha256=pdf_sha256,
                 chapters=chapters,
+                document_type=entry.get("document_type"),
             )
         )
-    return tuple(sorted(loaded, key=lambda document: document.document_id))
+    return ManualCorpus(
+        guides=tuple(sorted(loaded, key=lambda document: document.document_id)),
+        references=tuple(sorted(references, key=lambda index: index.data["document_id"])),
+    )
+
+
+def load_validated_manuals(
+    catalog_path: Path,
+    okf_root: Path = Path("data/okf"),
+    source_pdf_root: Path = Path("data/source_manuals"),
+    reference_root: Path = Path("data/command_references"),
+) -> tuple[ManualDocument, ...]:
+    """Validate all catalog sources and return only the guide OKF documents."""
+    return load_validated_corpus(
+        catalog_path, okf_root, source_pdf_root, reference_root
+    ).guides
 
 
 def _visible_html_text(html: str) -> str:
@@ -610,7 +658,8 @@ def _split_long_text(
 
 
 def _dataset_fingerprint(
-    documents: Sequence[ManualDocument], model_name: str
+    documents: Sequence[ManualDocument], model_name: str,
+    references: Sequence[CommandReferenceIndex] = (),
 ) -> str:
     value = {
         "index_format_version": INDEX_FORMAT_VERSION,
@@ -618,6 +667,7 @@ def _dataset_fingerprint(
         "documents": [
             {
                 "document_id": document.document_id,
+                "document_type": document.document_type,
                 "source_pdf_sha256": document.source_pdf_sha256,
                 "chapters": [
                     {
@@ -630,6 +680,7 @@ def _dataset_fingerprint(
             }
             for document in documents
         ],
+        "command_references": [index.fingerprint_metadata() for index in references],
     }
     encoded = json.dumps(value, ensure_ascii=False, sort_keys=True).encode("utf-8")
     return hashlib.sha256(encoded).hexdigest()
@@ -678,6 +729,7 @@ def build_chunks(
                         text=text,
                         payload={
                             "dataset_fingerprint": generation,
+                            "document_type": document.document_type,
                             "document_id": document.document_id,
                             "document_title": document.title,
                             "product": document.product,
@@ -827,6 +879,8 @@ def _index_documents(
     documents: Sequence[ManualDocument],
     database_path: Path,
     model: EmbeddingModel | None = None,
+    *,
+    references: Sequence[CommandReferenceIndex] = (),
 ) -> IndexResult:
     if not documents:
         raise IndexingError("No validated OKF documents were supplied")
@@ -836,7 +890,7 @@ def _index_documents(
     if dimension < 1 or max_tokens < 16:
         raise IndexingError("The embedding model reports invalid dimensions or context size")
 
-    generation = _dataset_fingerprint(documents, EMBEDDING_MODEL)
+    generation = _dataset_fingerprint(documents, EMBEDDING_MODEL, references)
     chunks = build_chunks(
         documents,
         embedding_model.tokenizer,
@@ -967,19 +1021,24 @@ def index_manuals(
     okf_root: Path = Path("data/okf"),
     source_pdf_root: Path = Path("data/source_manuals"),
     database_path: Path = Path("data/qdrant/db"),
+    reference_root: Path = Path("data/command_references"),
 ) -> IndexResult:
-    documents = load_validated_manuals(catalog_path, okf_root, source_pdf_root)
-    model = _load_embedding_model(EMBEDDING_MODEL)
-    return _index_documents(documents, database_path, model)
+    corpus = load_validated_corpus(
+        catalog_path, okf_root, source_pdf_root, reference_root
+    )
+    return _index_documents(
+        corpus.guides, database_path, references=corpus.references
+    )
 
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Index validated Cisco OKF packages in local persistent Qdrant."
+        description="Validate the mixed catalog and index guide OKF packages in local Qdrant."
     )
     parser.add_argument("--catalog", type=Path, default=Path("data/catalog/c9300-iosxe26.json"))
     parser.add_argument("--okf-root", type=Path, default=Path("data/okf"))
     parser.add_argument("--source-pdf-root", type=Path, default=Path("data/source_manuals"))
+    parser.add_argument("--reference-root", type=Path, default=Path("data/command_references"))
     parser.add_argument("--database", type=Path, default=Path("data/qdrant/db"))
     return parser
 
@@ -992,6 +1051,7 @@ def main(argv: list[str] | None = None) -> int:
             args.okf_root,
             args.source_pdf_root,
             args.database,
+            args.reference_root,
         )
     except (IndexingError, OSError) as error:
         print(f"Qdrant indexing failed: {error}", file=sys.stderr)

@@ -2,6 +2,13 @@
 
 実施日: 2026-11-18
 
+履歴評価。現在の構成・課題は[進捗管理](../../progress.md)を参照。
+文書整理に伴い本書と評価手順をdocs配下へ移したが、
+入力・正解・生出力・プログラムは元の`data/evaluation/selection-blind-20261118/`に保持している。
+評価手順の本文バイト列は変更しておらず、当時のハッシュを維持している。
+再計算には正解ファイルのハッシュと一致する当時のガイド専用カタログが必要で、
+現在の混在カタログでは採点プログラムが停止する。ハッシュ検証を無効化して再計算しない。
+
 ## 結論
 
 固定した代表正解に対し、独立した3回のLLM選定は章Recall@2でいずれも
@@ -12,7 +19,8 @@ VLAN 120の4項目はLLMの3回とも上位2章までで全項目を網羅した
 
 ## 方法
 
-- 先に[入力](inputs.json)、[正解](gold.json)、[採点ルール](protocol.md)を固定し、
+- 先に[入力](../../../data/evaluation/selection-blind-20261118/inputs.json)、
+  [正解](../../../data/evaluation/selection-blind-20261118/gold.json)、[採点ルール](protocol.md)を固定し、
   ハッシュと、全21項目・303章の参照整合性を検証した。
 - 13件の既存要件は元の文章を保持し、複合要件を項目に分割した。VLAN 120の
   4項目と外部Stateful DHCPv6の1項目を加えて、合計15ケース・21項目とした。
@@ -27,7 +35,7 @@ VLAN 120の4項目はLLMの3回とも上位2章までで全項目を網羅した
   3試行の具体的なモデルIDは取得できなかったため、モデル間比較や完全な再現はできない。
 - LLMには文書IDとカタログ内の章番号を出力させ、採点時に章URLへ解決した。
   全試行で21項目が揃い、文書ID・章番号の不正、重複、理由・不確実性の欠落はなかった。
-  [採点結果](scored.json)にはURL付きの候補と項目別スコアを保存した。
+  [採点結果](../../../data/evaluation/selection-blind-20261118/scored.json)にはURL付きの候補と項目別スコアを保存した。
 - Qdrantは各項目について要件全文とfocusを連結し、既存の
   `intfloat/multilingual-e5-small`で検索した。上位1000チャンクを取得し、
   スコア順を維持して章単位で重複除去、上位5章を採点した。各項目とも5章揃い、
@@ -66,7 +74,7 @@ Stateful DHCPv6の対象章には、前回確認した14手順の表がある。
 正解集合以外を一律に不正解や無関係とはせず、章名・用途を事後に確認した。
 Qdrantは代表チャンクの節名も参照した。特殊構成専用章を一般的な要件に使う場合は
 用途違いとして無関係に数え、判断できないものは未判定とした。
-[候補ごとの判定](relevance.json)は同一評価者によるものであり、
+[候補ごとの判定](../../../data/evaluation/selection-blind-20261118/relevance.json)は同一評価者によるものであり、
 LLMは目次、Qdrantは対応チャンクの節名も見ている点に注意する。
 
 | 方式 | 候補数 | 関連 | 無関係 | 未判定 | 無関係 / 全候補 |
@@ -88,11 +96,13 @@ LLMは目次、Qdrantは対応チャンクの節名も見ている点に注意�
   正解 `efd26926326200c22de21a6f0d3480852a22f80f1a9910237b0453e393925f9b`、
   手順 `260cefe0cb909ba15272d4b6c3a9657410997917b791f25b3917dfbe04ee00c4`。
   カタログのハッシュは正解ファイルに記録。
-- 生の選定: [LLM 1](llm-run-01.json)、[LLM 2](llm-run-02.json)、
-  [LLM 3](llm-run-03.json)、[Qdrant](qdrant-run.json)。
+- 生の選定: [LLM 1](../../../data/evaluation/selection-blind-20261118/llm-run-01.json)、
+  [LLM 2](../../../data/evaluation/selection-blind-20261118/llm-run-02.json)、
+  [LLM 3](../../../data/evaluation/selection-blind-20261118/llm-run-03.json)、
+  [Qdrant](../../../data/evaluation/selection-blind-20261118/qdrant-run.json)。
 - Qdrantは別名 `c9300_iosxe26_manuals`、
   コレクション `cb_c9300_iosxe26_5a05fcbb184628479d6ff343`、13,113点を使用。
-  同じコレクションを用いて[検索プログラム](qdrant_baseline.py)を再実行できる。
+  同じコレクションを用いて[検索プログラム](../../../data/evaluation/selection-blind-20261118/qdrant_baseline.py)を再実行できる。
   ローカルDBのため、別プロセスが使用中の場合はロックされる。
 - 集計の再実行: `uv run python data/evaluation/selection-blind-20261118/score.py`。
 

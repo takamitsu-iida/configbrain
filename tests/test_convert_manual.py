@@ -12,12 +12,15 @@ from configbrain.convert_manual import (
     is_pdf_chapter_heading,
     promote_package,
 )
+from configbrain.download_manuals import load_catalog_documents
+from configbrain.index_manuals import load_validated_manuals
+from configbrain.select_manuals import load_catalog
 
 
 DOCUMENT_ID = "catalyst9300-26-x-test-guide"
 PDF_URL = (
     "https://www.cisco.com/c/en/us/td/docs/switches/catalyst9300/"
-    "release/26-x/test/guide.pdf"
+    "release/26-x/configuration_guide/test/guide.pdf"
 )
 BOOK_URL = PDF_URL.removesuffix(".pdf") + ".html"
 CHAPTER_URL = BOOK_URL.removesuffix(".html") + "/configuring_dhcp.html"
@@ -41,28 +44,33 @@ CHAPTER_HTML = b"""
 """
 
 
-def write_catalog_and_pdf(tmp_path: Path) -> tuple[Path, Path, Path]:
+def write_catalog_and_pdf(
+    tmp_path: Path, version: int = 1, document_type: str = "configuration_guide",
+) -> tuple[Path, Path, Path]:
     catalog_path = tmp_path / "catalog.json"
+    pdf_url = PDF_URL.replace("/configuration_guide/", f"/{document_type}/")
+    book_url = pdf_url.removesuffix(".pdf") + ".html"
     catalog_path.write_text(
         json.dumps(
             {
-                "schema_version": 1,
+                "schema_version": version,
                 "product": "catalyst9300",
                 "release": "26.x",
                 "documents": [
                     {
                         "document_id": DOCUMENT_ID,
+                        **({"document_type": document_type} if version == 2 else {}),
                         "title": "Test Configuration Guide",
                         "category": "Configuration Guides",
                         "filename": "guide.pdf",
-                        "url": PDF_URL,
-                        "html_book_url": BOOK_URL,
+                        "url": pdf_url,
+                        "html_book_url": book_url,
                         "html_status": "available",
                         "chapters": [
                             {
                                 "order": 1,
                                 "title": "Configuring DHCP",
-                                "url": CHAPTER_URL,
+                                "url": book_url.removesuffix(".html") + "/configuring_dhcp.html",
                             }
                         ],
                     }
@@ -138,10 +146,13 @@ def test_missing_cisco_image_is_recorded_and_keeps_source_link(
     assert assets[image_url]["error"] == "HTTP 404"
 
 
+@pytest.mark.parametrize(("version", "document_type"), [
+    (1, "configuration_guide"), (2, "configuration_guide"),
+])
 def test_convert_manual_builds_valid_package_and_is_idempotent(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, version: int, document_type: str,
 ) -> None:
-    catalog_path, source_dir, pdf_path = write_catalog_and_pdf(tmp_path)
+    catalog_path, source_dir, pdf_path = write_catalog_and_pdf(tmp_path, version, document_type)
     monkeypatch.setattr(
         "configbrain.convert_manual.fetch_chapter_page",
         lambda url, release: CHAPTER_HTML,
@@ -178,6 +189,13 @@ def test_convert_manual_builds_valid_package_and_is_idempotent(
 
     assert second["status"] == "unchanged"
     assert pdf_path.is_file()
+    assert load_catalog_documents(catalog_path)[0]["document_id"] == DOCUMENT_ID
+    selected_catalog = load_catalog(catalog_path, "catalyst9300", "26.x")
+    assert selected_catalog.documents[0]["document_id"] == DOCUMENT_ID
+    if version == 2:
+        assert selected_catalog.documents[0]["document_type"] == document_type
+    loaded = load_validated_manuals(catalog_path, output_root, source_dir)
+    assert loaded[0].document_id == DOCUMENT_ID
 
 
 def test_failed_conversion_keeps_previous_package(
