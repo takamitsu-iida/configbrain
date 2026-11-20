@@ -1,4 +1,5 @@
 import json
+import hashlib
 from collections.abc import Callable
 from pathlib import Path
 from typing import Any
@@ -12,6 +13,7 @@ from configbrain.select_manuals import (
     load_catalog,
     load_cloud_config,
     main,
+    request_json,
     select_manuals,
     validate_selection,
 )
@@ -101,6 +103,7 @@ def model_selection() -> dict:
 
 class FakeResponse:
     status_code = 200
+    headers: dict[str, str] = {}
 
     def __init__(self, value: dict | None = None, finish_reason: str = "stop") -> None:
         self.value = value if value is not None else model_selection()
@@ -156,6 +159,117 @@ def test_full_catalog_is_sent_and_multiple_requirements_are_resolved(
     assert result["items"][1]["candidates"][0]["document_id"] == "ip-guide"
     assert result["items"][1]["candidates"][0]["chapter_order"] == 3
     assert result["items"][1]["candidates"][0]["chapter_title"] == "Configuring DHCP"
+
+
+def test_request_displays_quota_headers_for_each_response(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture,
+) -> None:
+    response = FakeResponse()
+    response.headers = {
+        "x-ratelimit-remaining-requests": "12",
+        "x-ratelimit-remaining-tokens": "4500",
+    }
+    monkeypatch.setattr(
+        "configbrain.select_manuals.requests.post",
+        lambda *args, **kwargs: response,
+    )
+
+    request_json(
+        "system",
+        {},
+        CloudConfig("https://cloud.example.test/chat", "test-key", None),
+    )
+
+    output = capsys.readouterr().err
+    assert "[LLM quota]" in output
+    assert "x-ratelimit-remaining-requests=12" in output
+    assert "x-ratelimit-remaining-tokens=4500" in output
+
+
+def test_fresh_metadata_is_sent_as_a_hint_and_missing_metadata_is_reported(
+    tmp_path: Path, catalog_file: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    manual = b"Converted manual source.\n"
+    source_pdf_sha256 = "a" * 64
+    html_sha256 = "b" * 64
+    source_url = "https://www.cisco.com/vlan.html"
+    okf_root = tmp_path / "okf"
+    package_dir = okf_root / "vlan-guide"
+    package_dir.mkdir(parents=True)
+    (package_dir / "manual.md").write_bytes(manual)
+    (package_dir / "provenance.json").write_text(json.dumps({
+        "source_pdf": {"sha256": source_pdf_sha256},
+        "chapters": [{
+            "order": 1,
+            "title": "Configuring VLANs",
+            "html_url": source_url,
+            "html_content_sha256": html_sha256,
+        }],
+    }), encoding="utf-8")
+    metadata_root = tmp_path / "selection_metadata"
+    metadata_root.mkdir()
+    (metadata_root / "vlan-guide.json").write_text(json.dumps({
+        "schema_version": 1,
+        "document_id": "vlan-guide",
+        "source_manual_sha256": hashlib.sha256(manual).hexdigest(),
+        "source_pdf_sha256": source_pdf_sha256,
+        "model": "test-model",
+        "chapters": [{
+            "order": 1,
+            "title": "Configuring VLANs",
+            "source_url": source_url,
+            "html_content_sha256": html_sha256,
+            "summary": "Explains VLAN creation and assignment.",
+            "operations": [{
+                "text": "Create a VLAN",
+                "section_ids": ["c1-s1"],
+            }],
+            "answerable_questions": [{
+                "text": "How can a VLAN be created?",
+                "section_ids": ["c1-s1"],
+            }],
+            "sections": [{
+                "section_id": "c1-s1",
+                "section_path": ["VLAN configuration"],
+                "heading_locations": [],
+                "source_range": {
+                    "chapter_line_start": 2,
+                    "chapter_line_end": 4,
+                },
+                "source_refs": [{
+                    "kind": "text",
+                    "chapter_line_start": 2,
+                    "chapter_line_end": 4,
+                }],
+                "summary": "Describes VLAN creation.",
+                "operations": ["Create a VLAN"],
+                "answerable_questions": ["How can a VLAN be created?"],
+            }],
+        }],
+    }), encoding="utf-8")
+
+    def post(url: str, **kwargs: Any) -> FakeResponse:
+        prompt = json.loads(kwargs["json"]["messages"][1]["content"])
+        metadata = prompt["documents"][0]["chapters"][0]["selection_metadata"]
+        assert metadata["summary"] == "Explains VLAN creation and assignment."
+        assert metadata["operations"][0]["text"] == "Create a VLAN"
+        assert prompt["documents"][1]["chapters"][0]["title"] == "Configuring DHCP"
+        return FakeResponse()
+
+    monkeypatch.setattr("configbrain.select_manuals.requests.post", post)
+    result = select_manuals(
+        "VLAN 120とDHCPリレーを設定",
+        catalog_file,
+        "catalyst9300",
+        "26.x",
+        CloudConfig("https://cloud.example.test/chat", "test-key", None),
+        okf_root=okf_root,
+        metadata_root=metadata_root,
+    )
+
+    assert result["selection_metadata_warnings"] == [
+        "Selection metadata is missing for ip-guide; chapter titles only."
+    ]
 
 
 def test_invalid_chapter_id_is_repaired_using_full_catalog_and_feedback(

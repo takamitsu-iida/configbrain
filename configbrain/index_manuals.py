@@ -104,6 +104,7 @@ class TextBlock:
     kind: str
     section_path: tuple[str, ...]
     source_refs: tuple[dict[str, Any], ...]
+    source_range: dict[str, int] | None = None
 
 
 @dataclass(frozen=True)
@@ -502,12 +503,16 @@ def extract_text_blocks(markdown: str) -> tuple[TextBlock, ...]:
     blocks: list[TextBlock] = []
     section_path: list[str] = []
     pending_heading_level: int | None = None
+    pending_block_map: list[int] | None = None
     table_index = 0
     code_block_index = 0
 
     for token in parser.parse(markdown):
         if token.type == "heading_open":
             pending_heading_level = int(token.tag.removeprefix("h"))
+            continue
+        if token.type == "paragraph_open":
+            pending_block_map = token.map
             continue
         if token.type == "inline":
             text = _visible_html_text(parser.renderInline(token.content))
@@ -519,30 +524,48 @@ def extract_text_blocks(markdown: str) -> tuple[TextBlock, ...]:
                 pending_heading_level = None
                 continue
             if text:
+                source_range = (
+                    {
+                        "okf_line_start": pending_block_map[0] + 1,
+                        "okf_line_end": pending_block_map[1],
+                    }
+                    if pending_block_map
+                    else None
+                )
                 blocks.append(
                     TextBlock(
                         text=text,
                         kind="text",
                         section_path=tuple(section_path),
                         source_refs=({"kind": "text"},),
+                        source_range=source_range,
                     )
                 )
+            pending_block_map = None
             continue
         if token.type in ("fence", "code_block"):
             text = token.content.rstrip("\n")
             if text.strip():
                 code_block_index += 1
+                source_ref: dict[str, Any] = {
+                    "kind": "code",
+                    "code_block_index": code_block_index,
+                }
+                source_range = (
+                    {
+                        "okf_line_start": token.map[0] + 1,
+                        "okf_line_end": token.map[1],
+                    }
+                    if token.map
+                    else None
+                )
                 blocks.append(
                     TextBlock(
                         text=text,
                         kind="code",
                         section_path=tuple(section_path),
-                        source_refs=(
-                            {
-                                "kind": "code",
-                                "code_block_index": code_block_index,
-                            },
-                        ),
+                        source_refs=(source_ref,),
+                        source_range=source_range,
                     )
                 )
             continue

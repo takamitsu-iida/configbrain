@@ -89,7 +89,7 @@ PDFページ番号は1始まりの物理ページである。
 
 | ファイル | 主な内容・接続情報 |
 | --- | --- |
-| `selection.json` | 製品・リリース、全体要件、モデル、カタログハッシュ、項目別候補章、選定試行・エラー |
+| `selection.json` | 製品・リリース、全体要件、モデル、カタログハッシュ、項目別候補章、選定試行・エラー、メタデータ警告 |
 | `search-results.json` | schema 1、選定ハッシュ、索引世代、モデル、項目・章・ヒット・スコア・来歴 |
 | `contexts.json` | 検索結果を拡張し、検索ハッシュ、文脈方針版、ガイド全文脈、リファレンス照合結果を追加 |
 | `config-draft.json` | schema 1、根拠台帳版、状態、項目、引用、依存グラフ、生成・補足・意味審査履歴 |
@@ -98,6 +98,25 @@ PDFページ番号は1始まりの物理ページである。
 
 選定JSONには他の段階と共通の`schema_version`があると仮定しない。
 生成JSONは全`evidence_atoms`をそのまま保存せず、採用引用と審査用根拠等を保存する。
+
+### 3.6 選定メタデータ
+
+選定メタデータは`data/selection_metadata/<document_id>.json`へOKFとは別に保存する。
+schema 1は文書ごとの`manual.md` SHA-256・原本PDF SHA-256・モデルIDと章配列を持つ。
+各章には、公式HTML由来の章URL・HTML内容ハッシュ、節／手順ごとの短いID・見出し階層・
+章内行範囲・抽出元参照・LLM生成の短い説明を保存する。章集約には操作・回答可能な質問を
+短く保存し、各説明から節IDへ戻れるようにする。集約説明は200文字以内とし、
+空でない一意な節ID配列だけを許可する。
+
+利用前に、OKF本文ハッシュ・PDFハッシュ・カタログの章タイトル／URL・provenanceの章HTML
+ハッシュを照合する。いずれかが一致しなければ、その文書のメタデータ全体を選定入力から
+除外し、`selection.json`に警告を記録する。ファイルがない場合も同様に警告し、章タイトル
+だけの既存選定へフォールバックする。不正なJSON・schema・ID参照は黙って無視せず停止する。
+再生成は一時ファイルから置換し、失敗時に以前のメタデータを壊さない。
+
+本文変更後はその文書のメタデータを再生成する。パイプライン再開時はメタデータ一式の
+ハッシュも入力条件に含め、生成後に既存の選定結果だけを再利用しない。
+メタデータは候補発見専用であり、CLI・適用条件・引用の根拠には使わない。
 
 ## 4. 取り込み処理
 
@@ -183,8 +202,9 @@ LLM設定読み込みより前に、次を検査する。
 
 全カタログの文書・章情報を渡す。ベクトル検索で事前に章候補を削らない。
 入力は製品・リリース・要件、文書のタイトル・分類・種別、
-章の短いID・タイトル。節・手順の見出し、本文要約、収録コマンドは含まない。
-所在付きの意味メタデータによる強化は[進捗管理](./progress.md)の未実装計画である。
+章の短いID・タイトル。鮮度検証済みメタデータがあれば、章集約の短い説明・操作・
+回答可能な質問も候補発見用ヒントとして渡す。候補のない文書・章はタイトルのみとなり、
+未生成・古い文書は選定JSONに警告を残す。メタデータの内容を根拠や適用性の証明に使わない。
 LLMの章指定は、呼び出し時に割り当てた`c1`等の短いIDを用いる。
 応答は要件、非空の不確実性、候補の`chapter_id`・理由・不確実性に制限する。
 存在するIDか厳密に検査し、正規の文書ID・章番号・URLへ変換する。
@@ -467,7 +487,8 @@ Markdown・HTMLとして解釈され得るテキストをエスケープする�
 温度0、JSON object形式、system/userメッセージ、api-keyヘッダーを使用する。
 既定タイムアウト180秒、HTTPリダイレクト不許可。
 非2xx、stop以外の終了理由、JSON不正、不正なモデル情報はエラーにする。
-共有通信関数に自動バックオフや総API予算・トークン予算の制御はない。
+各応答後に`ratelimit`／`quota`を含むHTTPヘッダーを標準エラーへ出す。該当ヘッダーがない場合も
+その旨を表示する。自動停止の閾値、自動バックオフ、総API予算・トークン予算の制御はない。
 再試行の範囲は選定・生成・補足・意味審査の各ループによって異なる。
 
 項目数M、補足対象R、上限Nに対し、選定は最大3回、
@@ -478,6 +499,9 @@ N=3で全項目が補足対象なら概算上限は3+11M回であり、「3ラ�
 
 検索用埋め込みには要件長の検査があるが、LLM処理全体を入力トークン量で自動分割する仕組みはない。
 大きな根拠集合を一括送信する現状は、応答欠落・遅延・費用の改善対象である。
+全ガイドのメタデータ生成は文書ごとに保存し、完了済み文書をスキップする。
+文書内でも完了した章をチェックポイントへ保存するため、中断時は未完了の章から再開する。
+処理中の章は再実行される。
 
 ## 11. チェックポイント・失敗処理・互換性
 
@@ -521,13 +545,14 @@ N=3で全項目が補足対象なら概算上限は3+11M回であり、「3ラ�
 | `uv run python -m configbrain.download_manuals` | catalog | destination=`data/source_manuals`、document-id（対象限定） |
 | `uv run python -m configbrain.convert_manual` | catalog、document-id | source-dir=`data/source_manuals`、output=`data/okf`、reference-output=`data/command_references` |
 | `uv run python -m configbrain.index_manuals` | なし | catalog・資料各root、database=`data/qdrant/db` |
+| `uv run python -m configbrain.generate_selection_metadata` | document-idまたはall-guides | catalog、資料各root、metadata-root=`data/selection_metadata`。全ガイドは完了済みをスキップして再開 |
 | `uv run python -m configbrain.select_manuals` | requirementまたはrequirement-file | catalog、product、release、output |
 | `uv run python -m configbrain.search_manuals` | selection | catalog、database、reference-root、limit=20、output |
 | `uv run python -m configbrain.expand_context` | search-results | catalog、okf-root、source-pdf-root、reference-root、output |
 | `uv run python -m configbrain.generate_config` | contexts | search-results、catalog、資料各root、generation-rounds=3、output |
 | `uv run python -m configbrain.report` | draft、output | 保存JSONの表示のみ |
 | `uv run python -m configbrain.search_commands` | catalog、document-id、command | reference-root、mode、parent |
-| `uv run python -m configbrain.pipeline` | requirementまたはrequirement-file、output-dir | catalog、database、資料各root、limit=20、generation-rounds=3、resume |
+| `uv run python -m configbrain.pipeline` | requirementまたはrequirement-file、output-dir | catalog、database、資料各root、selection-metadata-root、limit=20、generation-rounds=3、resume |
 
 表の引数名には実行時に`--`を付ける。
 生成パイプラインの既定catalogは`data/catalog/c9300-iosxe26.json`。

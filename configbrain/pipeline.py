@@ -48,6 +48,25 @@ def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def _selection_metadata_fingerprint(metadata_root: Path) -> str:
+    if metadata_root.is_symlink():
+        raise PipelineError(f"Selection metadata root must not be a symlink: {metadata_root}")
+    digest = hashlib.sha256()
+    if not metadata_root.exists():
+        return digest.hexdigest()
+    if not metadata_root.is_dir():
+        raise PipelineError(f"Selection metadata root is not a directory: {metadata_root}")
+    try:
+        for path in sorted(metadata_root.glob("*.json")):
+            if path.is_symlink() or not path.is_file():
+                raise PipelineError(f"Invalid selection metadata file: {path}")
+            digest.update(path.name.encode("utf-8"))
+            digest.update(path.read_bytes())
+    except OSError as error:
+        raise PipelineError(f"Could not read selection metadata in {metadata_root}") from error
+    return digest.hexdigest()
+
+
 def _read_json(path: Path) -> dict[str, Any]:
     result = json.loads(path.read_bytes())
     if not isinstance(result, dict):
@@ -120,6 +139,7 @@ def run_pipeline(
     okf_root: Path = Path("data/okf"),
     source_pdf_root: Path = Path("data/source_manuals"),
     reference_root: Path = Path("data/command_references"),
+    selection_metadata_root: Path = Path("data/selection_metadata"),
     limit: int = 20,
     generation_rounds: int = DEFAULT_GENERATION_ROUNDS,
     resume: bool = False,
@@ -133,7 +153,7 @@ def run_pipeline(
         raise PipelineError("Generation rounds must be a positive integer.")
     output_dir = output_dir.resolve()
     if any(output_dir.is_relative_to(root.resolve()) for root in (
-        database_path, okf_root, source_pdf_root, reference_root,
+        database_path, okf_root, source_pdf_root, reference_root, selection_metadata_root,
     )):
         raise PipelineError("Output directory must not be inside sources or the database.")
     paths = {stage: output_dir / filename for stage, filename in STAGES}
@@ -148,12 +168,15 @@ def run_pipeline(
     except OSError as error:
         catalog_sha256 = None
         catalog_error = error
+    metadata_sha256 = _selection_metadata_fingerprint(selection_metadata_root)
     inputs = {
         "requirement": requirement,
         "catalog_path": str(catalog_path.resolve()), "catalog_sha256": catalog_sha256,
         "database_path": str(database_path.resolve()), "okf_root": str(okf_root.resolve()),
         "source_pdf_root": str(source_pdf_root.resolve()), "limit": limit,
         "reference_root": str(reference_root.resolve()),
+        "selection_metadata_root": str(selection_metadata_root.resolve()),
+        "selection_metadata_sha256": metadata_sha256,
         "product": "catalyst9300", "release": "26.x",
     }
     if resume:
@@ -314,7 +337,10 @@ def run_pipeline(
             result = None
             if stage == "selection":
                 config = config or load_cloud_config()
-                result = select_manuals(requirement, catalog_path, "catalyst9300", "26.x", config)
+                result = select_manuals(
+                    requirement, catalog_path, "catalyst9300", "26.x", config,
+                    okf_root=okf_root, metadata_root=selection_metadata_root,
+                )
             elif stage == "search":
                 result = search_manuals(
                     paths["selection"], catalog_path, database_path, limit,
@@ -342,14 +368,17 @@ def run_pipeline(
             if result is not None:
                 _save_json(paths[stage], result)
             state["completed"][stage] = {"filename": filename, "sha256": _sha256(paths[stage])}
-            state["stage_statuses"][stage] = (
-                "completed_with_warnings"
-                if stage == "generation" and (
+            stage_has_warnings = (
+                stage == "selection" and bool(result.get("selection_metadata_warnings"))
+            ) or (
+                stage == "generation" and (
                     result.get("generation_status") == "partial"
                     or result.get("pdf_verification_status") != "verified"
                     or any(item.get("semantic_review_pending") for item in result.get("items", []))
                 )
-                else "completed"
+            )
+            state["stage_statuses"][stage] = (
+                "completed_with_warnings" if stage_has_warnings else "completed"
             )
             _save_json(state_path, state)
         except (
@@ -363,6 +392,10 @@ def run_pipeline(
         for item in generation.get("items", [])
         if isinstance(item, dict) and item.get("generation_error")
     ]
+    warnings.extend(
+        {"stage": "selection", "error": warning}
+        for warning in _read_json(paths["selection"]).get("selection_metadata_warnings", [])
+    )
     warnings.extend(
         {"item_id": item["item_id"], "error": item["reference_generation_error"]}
         for item in generation.get("items", [])
@@ -418,6 +451,9 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--okf-root", type=Path, default=Path("data/okf"))
     parser.add_argument("--source-pdf-root", type=Path, default=Path("data/source_manuals"))
     parser.add_argument("--reference-root", type=Path, default=Path("data/command_references"))
+    parser.add_argument(
+        "--selection-metadata-root", type=Path, default=Path("data/selection_metadata")
+    )
     parser.add_argument("--limit", type=int, default=20)
     parser.add_argument(
         "--generation-rounds", type=int, default=DEFAULT_GENERATION_ROUNDS,
@@ -438,6 +474,7 @@ def main(argv: list[str] | None = None) -> int:
             requirement, args.output_dir, catalog_path=args.catalog, database_path=args.database,
             okf_root=args.okf_root, source_pdf_root=args.source_pdf_root,
             reference_root=args.reference_root,
+            selection_metadata_root=args.selection_metadata_root,
             limit=args.limit, generation_rounds=args.generation_rounds,
             resume=args.resume,
         )

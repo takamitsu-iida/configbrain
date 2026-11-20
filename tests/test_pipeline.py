@@ -20,8 +20,10 @@ def pipeline_case(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, report_draft:
     catalog.write_text('{"test_catalog": true}\n')
     case = {
         "catalog_path": catalog, "output_dir": tmp_path / "run",
+        "selection_metadata_root": tmp_path / "selection-metadata",
         "calls": [], "fail_generation": False, "partial_generation": False,
         "partial_pdf_verification": False, "consistency_warning": False,
+        "selection_metadata_warnings": [],
         "corpus": "original", "fail_stage": None,
         "preflight_error": None,
     }
@@ -31,13 +33,21 @@ def pipeline_case(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, report_draft:
             raise pipeline.PipelineError(case["preflight_error"])
         return {"status": "completed", "configuration_guide_count": 1, "command_reference_count": 1}
 
-    def select(requirement, catalog_path, product, release, config):
+    def select(
+        requirement, catalog_path, product, release, config, *, okf_root, metadata_root,
+    ):
         case["calls"].append("selection")
         if case["fail_stage"] == "selection":
             raise SelectionError("selection failed")
         assert catalog_path == catalog
         assert (product, release) == ("catalyst9300", "26.x")
-        return {"requirement": requirement, "catalog": "test"}
+        assert okf_root == Path("data/okf")
+        assert metadata_root == case["selection_metadata_root"]
+        return {
+            "requirement": requirement,
+            "catalog": "test",
+            "selection_metadata_warnings": case["selection_metadata_warnings"],
+        }
 
     def search(selection_path, catalog_path, database_path, limit, *, reference_root):
         case["calls"].append("search")
@@ -137,6 +147,7 @@ def pipeline_case(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, report_draft:
 
 
 def run(case: dict, **kwargs) -> Path:
+    kwargs.setdefault("selection_metadata_root", case["selection_metadata_root"])
     return pipeline.run_pipeline(
         "VLAN 120を作成してポートに割り当てる",
         case["output_dir"], catalog_path=case["catalog_path"], **kwargs,
@@ -161,6 +172,26 @@ def test_pipeline_writes_all_stages_and_report(pipeline_case: dict) -> None:
     for stage, filename in pipeline.STAGES:
         assert state["completed"][stage]["sha256"] == pipeline._sha256(case["output_dir"] / filename)
     assert "test-key" not in json.dumps(state)
+
+
+def test_missing_selection_metadata_warning_reaches_pipeline_state(
+    pipeline_case: dict,
+) -> None:
+    case = pipeline_case
+    case["selection_metadata_warnings"] = [
+        "Selection metadata is missing for vlan-guide; chapter titles only.",
+    ]
+
+    report = run(case)
+    state = json.loads((case["output_dir"] / pipeline.STATE_FILE).read_bytes())
+
+    assert state["status"] == "completed_with_warnings"
+    assert state["stage_statuses"]["selection"] == "completed_with_warnings"
+    assert state["warnings"] == [{
+        "stage": "selection",
+        "error": "Selection metadata is missing for vlan-guide; chapter titles only.",
+    }]
+    assert "警告あり" in report.read_text(encoding="utf-8")
 
 
 def test_preflight_failure_reports_missing_sources_before_any_llm_calls(
@@ -467,7 +498,10 @@ def test_resume_regenerates_drafts_without_canonical_evidence_ids(
 
 
 @pytest.mark.parametrize(
-    "change", ["requirement", "catalog", "limit", "reference_root", "output", "missing_output", "corpus"],
+    "change", [
+        "requirement", "catalog", "limit", "reference_root", "selection_metadata",
+        "output", "missing_output", "corpus",
+    ],
 )
 def test_resume_rejects_changed_inputs_outputs_and_sources(pipeline_case: dict, change: str) -> None:
     case = pipeline_case
@@ -487,6 +521,9 @@ def test_resume_rejects_changed_inputs_outputs_and_sources(pipeline_case: dict, 
         kwargs["limit"] = 5
     elif change == "reference_root":
         kwargs["reference_root"] = case["output_dir"].parent / "other-references"
+    elif change == "selection_metadata":
+        case["selection_metadata_root"].mkdir()
+        (case["selection_metadata_root"] / "vlan-guide.json").write_text('{"updated": true}')
     elif change == "output":
         (case["output_dir"] / "selection.json").write_text("{}")
     elif change == "missing_output":
@@ -607,6 +644,7 @@ def test_cli_requirement_file_and_resume(
     args = [
         "--requirement-file", str(requirement), "--output-dir", str(case["output_dir"]),
         "--catalog", str(case["catalog_path"]), "--generation-rounds", "2",
+        "--selection-metadata-root", str(case["selection_metadata_root"]),
     ]
     assert pipeline.main(args) == 0
     captured = capsys.readouterr()

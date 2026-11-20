@@ -10,6 +10,7 @@ certs/*.pem
 data/source_manuals/
 data/okf/
 data/command_references/
+data/selection_metadata/
 data/qdrant/
 data/runs/
 *.pdf

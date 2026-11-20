@@ -81,12 +81,23 @@ UTF-8の要件ファイルを使う場合は、`--requirement`の代わりに
 | `--okf-root` | ガイドOKF。`data/okf` |
 | `--source-pdf-root` | 原本PDF。`data/source_manuals` |
 | `--reference-root` | リファレンスJSON・HTML。`data/command_references` |
+| `--selection-metadata-root` | 章選定メタデータ。`data/selection_metadata` |
 | `--limit` | 要件項目×選定章ごとの検索件数。20 |
 | `--generation-rounds` | 生成・補足・意味審査それぞれの最大ラウンド数。3 |
 | `--resume` | 同じ条件の実行を最初の未完了段階から再開 |
 
 詳細は`uv run python -m configbrain.pipeline --help`で確認できます。
 複数の生成・索引登録プロセスで同じローカルDBを同時に使用しないでください。
+
+章の候補発見を補助するLLMメタデータは、検証済みの全ガイドに対して
+`uv run python -m configbrain.generate_selection_metadata --all-guides`
+で一括生成できます。鮮度検証済みの文書をスキップし、文書内の完了済み章もチェックポイントから再開します。
+1冊だけの場合は`--document-id DOCUMENT_ID`を指定します。
+未生成または古い文書はタイトル中心の選定へフォールバックし、
+警告が`selection.json`と`pipeline-state.json`に記録されます。
+生成時はマニュアル本文の抽出範囲を設定済みの外部LLM APIへ送信するため、
+組織のデータ取り扱い方針を確認してください。各API応答後にクォータ関連ヘッダーを画面へ表示します。
+メタデータは設定根拠ではなく、適用条件やCLIの確認には原文を使います。
 
 ## 失敗した場合と再開
 
